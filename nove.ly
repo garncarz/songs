@@ -120,13 +120,13 @@ basa = \relative es, {
 	% bes16 f f8 bes16 f8 r16 bes f f8 bes16 f f8
 	% g'16 es es8 g16 es8 r16 g es es8 g16 es es8
 	
-	fis16 es es8 fis16 es8 r16 fis es es8 fis16 es es8
-	b16 as as8 b16 as8 r16 b as as8 b16 as as8
+	f16 es es8 f16 es8 r16 f es es8 f16 es es8
+	bes16 as as8 bes16 as8 r16 bes as as8 bes16 as as8
 	g16 bes bes8 g16 bes8 r16 g bes bes8 g16 bes bes8
 	g'16 es es8 g16 es8 r16 g es es8 g16 es es8
 	
-	fis16 es es8 fis16 es8 r16 fis es es8 fis16 es es8
-	b16 as as8 b16 as8 r16 b as as8 b16 as as8
+	f16 es es8 f16 es8 r16 f es es8 f16 es es8
+	bes16 as as8 bes16 as8 r16 bes as as8 bes16 as as8
 	g16 bes bes8 g16 bes8 r16 g bes bes8 g16 bes bes8
 	g'16 es es8 g16 es8 r16 g es es8 g16 es es8
 	
