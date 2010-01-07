@@ -56,7 +56,7 @@ harmonieDole = <<
 >>
 
 
-piano = \relative es' {
+piano = \relative es {
 	\clef treble
 	\key es \major
 	\time 4/4
@@ -68,11 +68,14 @@ piano = \relative es' {
 	<< es'1 \\ { <g, bes>4 <f as> <g bes> <f as> } >>
 	
 	% <es g bes>1
-	<es g>8 <es bes> <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
+	<es g>16 <es bes> <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
+	<es g>16 <es bes> <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
 	% <es as c>1
-	<es as>8 <es c> <as c> <es es'> <es es'> <as c> <es c> <es as>
+	<es as>16 <es c> <as c> <es es'> <es es'> <as c> <es c> <es as>
+	<es as>16 <es c> <as c> <es es'> <es es'> <as c> <es c> <es as>
 	% <d f bes>1
-	<< <d f>1 \\ { bes'16 c bes c bes c bes c bes c bes c bes c bes c } >>
+	<< <d f>1 \\ { bes'32 c bes c bes c bes c bes c bes c bes c bes c
+		bes c bes c bes c bes c bes c bes c bes c bes c } >>
 	<es, bes' es>1
 	
 	<es g bes>1
@@ -189,6 +192,7 @@ bici = \drummode {
 	<<
 		\new Staff {
 			\set Staff.midiInstrument = #"acoustic grand"
+			\set Staff.midiInstrument = #"overdriven guitar"
 			\piano
 		}
 		
