@@ -117,7 +117,12 @@ basa = \relative es, {
 	es4 \grace { g16 } es4 es \grace { g16 } es4
 	f,4 \grace { as16[ c] } f,4 f \grace { as16 } f4
 	bes4 \grace { f'16 } bes,4 bes \grace { f'16 } bes,4
-	<< g1 \\ { r2 \grace { bes16[ es ] } g2 } >>
+	<< g1 \\ { r2 \grace { bes16[ es] } g2 } >>
+	
+	<< es1 \\ { r16 g[ bes g bes g bes g bes] r bes r bes r bes r } >>
+	<< as,1 \\ { r16 c[ es c es c es c es] r es r es r es r } >>
+	<< bes1 \\ { r16 f' r f r f r f r f r f r f r f } >>
+	es,1
 	
 	r1
 }
