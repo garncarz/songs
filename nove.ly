@@ -61,7 +61,24 @@ piano = \relative es' {
 	\key es \major
 	\time 4/4
 	
-	r1
+	<es g bes>4 <es g bes> \grace { f16 } <es g bes>4 <es g bes>
+	<es as c>4 <es as c> \grace { bes16 } <es as c>4 <es as c>
+	<f bes d>4 <f bes d>8 <f bes d> <f bes d>4 <f bes d>8 <f bes d>
+	% <g bes es>1
+	<< es'1 \\ { <g, bes>4 <f as> <g bes> <f as> } >>
+	
+	% <es g bes>1
+	<es g>8 <es bes> <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
+	% <es as c>1
+	<es as>8 <es c> <as c> <es es'> <es es'> <as c> <es c> <es as>
+	% <d f bes>1
+	<< <d f>1 \\ { bes'16 c bes c bes c bes c bes c bes c bes c bes c } >>
+	<es, bes' es>1
+	
+	<es g bes>1
+	<es as c>1
+	<c d as'>1
+	<bes es g>1
 }
 
 
@@ -137,7 +154,6 @@ bici = \drummode {
 		\new Staff {
 			\set Staff.instrumentName = "Piano "
 			\set Staff.shortInstrumentName = "P. "
-			\set Staff.midiInstrument = #"acoustic grand"
 			\piano
 		}
 		
@@ -153,7 +169,6 @@ bici = \drummode {
 		\new Staff {
 			\set Staff.instrumentName = "Basa "
 			\set Staff.shortInstrumentName = "B. "
-			\set Staff.midiInstrument = #"acoustic bass"
 			\basa
 		}
 		
@@ -167,11 +182,9 @@ bici = \drummode {
 	>>
 	
 	\layout { }
-	\midi { }
 }
 
 
-%{
 \score {
 	<<
 		\new Staff {
@@ -181,7 +194,7 @@ bici = \drummode {
 		
 		\new Staff {
 			\set Staff.midiInstrument = #"overdriven guitar"
-			\kytara
+			% \kytara
 		}
 		
 		\new Staff {
@@ -196,5 +209,4 @@ bici = \drummode {
 	
 	\midi { }
 }
-%}
 
