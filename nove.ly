@@ -17,6 +17,11 @@ harmonieNahore = \relative es' {
 	
 	<es g bes>
 	<es as c>
+	<f bes d>
+	<g bes es>
+	
+	<es g bes>
+	<es as c>
 	<d f bes>
 	<es bes' es>
 	
@@ -39,6 +44,11 @@ harmonieDole = <<
 	g'
 	
 	es
+	as
+	bes,
+	g'
+	
+	es
 	f,
 	bes
 	g
@@ -49,6 +59,7 @@ harmonieDole = <<
 	es
 }
 \addlyrics {
+	T S D "T6"
 	T S D "T6"
 	T "II7" D "T6"
 	T S "D9/7" T
@@ -61,7 +72,12 @@ piano = \relative es' {
 	\key es \major
 	\time 4/4
 	
-	r1
+	R1*4
+	
+	<es g bes>1
+	<es as c>
+	<f bes d>
+	<g bes es>
 }
 
 
@@ -71,12 +87,26 @@ kytara = \relative es {
 	\time 4/4
 	
 	r1
-	<es as c>16 <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
-	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
-	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8 <g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
+	
+	<es as c>16 <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
+	<es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
+	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
+	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
+	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
+	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
+	
+	<es g bes>16 <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es>
+	<es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es>
+	<es as c>16 <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
+	<es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
+	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
+	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
+	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
+	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
 }
 kytaraCh = \chordmode {
 	r1 as bes g:9
+	es as bes g:9
 }
 
 
@@ -85,9 +115,19 @@ basa = \relative es, {
 	\key es \major
 	\time 4/4
 	
-	es16 es es8 es16 es8 r16 es es es8 es16 es es8
-	as,16 c c8 as16 c8 r16 as c c8 as16 c c8
-	bes16 f f8 bes16 f8 r16 bes f f8 bes16 f f8
+	% es16 es es8 es16 es8 r16 es es es8 es16 es es8
+	% as,16 c c8 as16 c8 r16 as c c8 as16 c c8
+	% bes16 f f8 bes16 f8 r16 bes f f8 bes16 f f8
+	% g'16 es es8 g16 es8 r16 g es es8 g16 es es8
+	
+	fis16 es es8 fis16 es8 r16 fis es es8 fis16 es es8
+	b16 as as8 b16 as8 r16 b as as8 b16 as as8
+	g16 bes bes8 g16 bes8 r16 g bes bes8 g16 bes bes8
+	g'16 es es8 g16 es8 r16 g es es8 g16 es es8
+	
+	fis16 es es8 fis16 es8 r16 fis es es8 fis16 es es8
+	b16 as as8 b16 as8 r16 b as as8 b16 as as8
+	g16 bes bes8 g16 bes8 r16 g bes bes8 g16 bes bes8
 	g'16 es es8 g16 es8 r16 g es es8 g16 es es8
 	
 	r1
@@ -144,7 +184,7 @@ bici = \drummode {
 	<<
 		\new Staff {
 			\set Staff.midiInstrument = #"acoustic grand"
-			% \piano
+			\piano
 		}
 		
 		\new Staff {
