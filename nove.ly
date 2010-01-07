@@ -61,17 +61,7 @@ piano = \relative es' {
 	\key es \major
 	\time 4/4
 	
-	R1*4
-	
-	<es g bes>1
-	<es as c>
-	<f bes d>
-	<g bes es>
-	
-	<es g bes>1
-	<es as c>
-	<d f bes>
-	<es bes' es>
+	r1
 }
 
 
@@ -144,13 +134,14 @@ bici = \drummode {
 			\new Staff \harmonieDole
 		>>
 		
-		%{
 		\new Staff {
 			\set Staff.instrumentName = "Piano "
 			\set Staff.shortInstrumentName = "P. "
+			\set Staff.midiInstrument = #"acoustic grand"
 			\piano
 		}
 		
+		%{
 		\new ChordNames \kytaraCh
 		\new Staff {
 			\set Staff.instrumentName = "Kytara "
