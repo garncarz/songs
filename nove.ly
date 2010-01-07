@@ -17,11 +17,6 @@ harmonieNahore = \relative es' {
 	
 	<es g bes>
 	<es as c>
-	<f bes d>
-	<g bes es>
-	
-	<es g bes>
-	<es as c>
 	<d f bes>
 	<es bes' es>
 	
@@ -44,11 +39,6 @@ harmonieDole = <<
 	g'
 	
 	es
-	as
-	bes,
-	g'
-	
-	es
 	f,
 	bes
 	g
@@ -59,7 +49,6 @@ harmonieDole = <<
 	es
 }
 \addlyrics {
-	T S D "T6"
 	T S D "T6"
 	T "II7" D "T6"
 	T S "D9/7" T
@@ -78,6 +67,11 @@ piano = \relative es' {
 	<es as c>
 	<f bes d>
 	<g bes es>
+	
+	<es g bes>1
+	<es as c>
+	<d f bes>
+	<es bes' es>
 }
 
 
@@ -115,20 +109,15 @@ basa = \relative es, {
 	\key es \major
 	\time 4/4
 	
-	% es16 es es8 es16 es8 r16 es es es8 es16 es es8
-	% as,16 c c8 as16 c8 r16 as c c8 as16 c c8
-	% bes16 f f8 bes16 f8 r16 bes f f8 bes16 f f8
-	% g'16 es es8 g16 es8 r16 g es es8 g16 es es8
-	
 	f16 es es8 f16 es8 r16 f es es8 f16 es es8
 	bes16 as as8 bes16 as8 r16 bes as as8 bes16 as as8
 	g16 bes bes8 g16 bes8 r16 g bes bes8 g16 bes bes8
 	g'16 es es8 g16 es8 r16 g es es8 g16 es es8
 	
-	f16 es es8 f16 es8 r16 f es es8 f16 es es8
-	bes16 as as8 bes16 as8 r16 bes as as8 bes16 as as8
-	g16 bes bes8 g16 bes8 r16 g bes bes8 g16 bes bes8
-	g'16 es es8 g16 es8 r16 g es es8 g16 es es8
+	es4 \grace { g16 } es4 es \grace { g16 } es4
+	f,4 \grace { as16[ c] } f,4 f \grace { as16 } f4
+	bes4 \grace { f'16 } bes,4 bes \grace { f'16 } bes,4
+	<< g1 \\ { r2 \grace { bes16[ es ] } g2 } >>
 	
 	r1
 }
@@ -150,6 +139,7 @@ bici = \drummode {
 			\new Staff \harmonieDole
 		>>
 		
+		%{
 		\new Staff {
 			\set Staff.instrumentName = "Piano "
 			\set Staff.shortInstrumentName = "P. "
@@ -162,24 +152,30 @@ bici = \drummode {
 			\set Staff.shortInstrumentName = "K. "
 			\kytara
 		}
+		%}
 		
 		\new Staff {
 			\set Staff.instrumentName = "Basa "
 			\set Staff.shortInstrumentName = "B. "
+			\set Staff.midiInstrument = #"acoustic bass"
 			\basa
 		}
 		
+		%{
 		\new DrumStaff {
 			\set Staff.instrumentName = "Perkuse "
 			\set Staff.shortInstrumentName = "Pk. "
 			\bici
 		}
+		%}
 	>>
 	
 	\layout { }
+	\midi { }
 }
 
 
+%{
 \score {
 	<<
 		\new Staff {
@@ -204,5 +200,5 @@ bici = \drummode {
 	
 	\midi { }
 }
-
+%}
 
