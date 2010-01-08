@@ -56,31 +56,27 @@ harmonieDole = <<
 >>
 
 
-piano = \relative es {
+piano = \relative es' {
 	\clef treble
 	\key es \major
 	\time 4/4
 	
 	<es g bes>4 <es g bes> \grace { f16 } <es g bes>4 <es g bes>
-	<es as c>4 <es as c> \grace { bes16 } <es as c>4 <es as c>
+	<es as c>4 <es as c> \grace { bes'16 } <es, as c>4 <es as c>
 	<f bes d>4 <f bes d>8 <f bes d> <f bes d>4 <f bes d>8 <f bes d>
-	% <g bes es>1
-	<< es'1 \\ { <g, bes>4 <f as> <g bes> <f as> } >>
+	<< { es'2 es, } \\ { <g bes>4 <f as> <g bes> <f as> } >>
 	
-	% <es g bes>1
 	<es g>16 <es bes> <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
-	<es g>16 <es bes> <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
-	% <es as c>1
+	<es g>16 <bes bes'> <g' es'> <es bes'> <es bes'> <g es'> <bes, bes'> <es g>
 	<es as>16 <es c> <as c> <es es'> <es es'> <as c> <es c> <es as>
-	<es as>16 <es c> <as c> <es es'> <es es'> <as c> <es c> <es as>
-	% <d f bes>1
-	<< <d f>1 \\ { bes'32 c bes c bes c bes c bes c bes c bes c bes c
-		bes c bes c bes c bes c bes c bes c bes c bes c } >>
+	<es as>16 <c c'> <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
+	<< <d f>1 \\ { bes'32 c bes c bes c bes c bes c bes c bes8
+		~bes32 c bes c bes c bes c bes c bes c bes c bes c } >>
 	<es, bes' es>1
 	
-	<es g bes>1
-	<es as c>1
-	<c d as'>1
+	<es g bes>2 <es g bes>8 <es g bes> <es g bes>4
+	<es as c>2 <es as c>8 <es as c> <es as c>4
+	<< <c as' bes>1 \\ { r2 d } >>
 	<bes es g>1
 }
 
@@ -89,28 +85,43 @@ kytara = \relative es {
 	\clef "treble_8"
 	\key es \major
 	\time 4/4
+		
+	<es g bes>16 <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es>
+	<es as c>16 <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
+	<f bes d>16 <bes d f> <f bes d> <bes d f> <f bes d>4 <f bes d>16 <bes d f> <f bes d> <bes d f> <f bes d>4
+	<g bes es>8 <g bes es> <f as es'> <f as es'> <es g bes> <es g bes> <es f as> <es f as>
+		
+	<es g>16 <es bes> <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
+	<es g>16 <bes bes'> <g' es'> <es bes'> <es bes'> <g es'> <bes, bes'> <es g>
+	<es as>16 <es c> <as c> <es es'> <es es'> <as c> <es c> <es as>
+	<es as>16 <c c'> <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
+	<< <d f>1 \\ { bes'32 c bes c bes c bes c bes c bes c bes8
+		~bes32 c bes c bes c bes c bes c bes c bes c bes c } >>
+	<es, bes' es>1
 	
-	r1
-	
-	<es as c>16 <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
-	<es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
-	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
-	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
-	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
-	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
-	
-	<es g bes>16 <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es>
-	<es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es>
-	<es as c>16 <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
-	<es as c> <as c es> <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
-	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
-	<f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f> <f bes d> <bes d f>
-	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
-	<g bes es>16 <es g bes> <g bes es>8 <g bes es>16 <es g bes> <es g bes>8
+	<< bes'8 \\ { es,16 f } >>
+		<< <es g>8 \\ { bes'16 es } >>
+		<< es,8 \\ { bes'16 bes } >>
+		<< <bes es>8 \\ { es,16 g } >>
+		<< bes8 \\ { es,16 f } >>
+		<< <es g>8 \\ { bes'16 es } >>
+		<< es,8 \\ { bes'16 bes } >>
+		<< <bes es>8 \\ { es,16 g } >>
+	<< c8 \\ { es,16 f } >>
+		<< <es as>8 \\ { c'16 es } >>
+		<< es,8 \\ { c'16 c } >>
+		<< <c es>8 \\ { es,16 as } >>
+		<< c8 \\ { es,16 f } >>
+		<< <es as>8 \\ { c'16 es } >>
+		<< es,8 \\ { c'16 c } >>
+		<< <c es>8 \\ { es,16 as } >>
+	% <c, d as'>1
+	<bes, d bes'>8 <c d as'> <bes d bes'> <c d as'> <bes d bes'> <c d as'> <bes d bes'> <c d as'>
+	<bes es g>1
 }
 kytaraCh = \chordmode {
-	r1 as bes g:9
-	es as bes g:9
+	% r1 as bes g:9
+	% es as bes g:9
 }
 
 
@@ -160,14 +171,12 @@ bici = \drummode {
 			\piano
 		}
 		
-		%{
 		\new ChordNames \kytaraCh
 		\new Staff {
 			\set Staff.instrumentName = "Kytara "
 			\set Staff.shortInstrumentName = "K. "
 			\kytara
 		}
-		%}
 		
 		\new Staff {
 			\set Staff.instrumentName = "Basa "
@@ -192,13 +201,12 @@ bici = \drummode {
 	<<
 		\new Staff {
 			\set Staff.midiInstrument = #"acoustic grand"
-			\set Staff.midiInstrument = #"overdriven guitar"
 			\piano
 		}
 		
 		\new Staff {
 			\set Staff.midiInstrument = #"overdriven guitar"
-			% \kytara
+			\kytara
 		}
 		
 		\new Staff {
