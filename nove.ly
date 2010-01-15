@@ -22,8 +22,8 @@ harmonieNahore = \relative es' {
 	
 	<es g bes>
 	<es as c>
-	<c d as'>
-	<bes es g>
+	<d as' c>
+	<es g bes>
 }
 
 
@@ -76,8 +76,8 @@ piano = \relative es' {
 	
 	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
 	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
-	<< <c as' bes>1\mf \\ { r2 d\f } >>
-	<bes es g>1\mf
+	<< <as c>1\mf \\ { d,2 d\f } >>
+	<es g bes>1\mf
 }
 
 
@@ -119,8 +119,8 @@ kytara = \relative es {
 		<< <es as>8 \\ { c'16 es } >>
 		<< es,8 \\ { c'16 c } >>
 		<< <c es>8 \\ { es,16 as } >>
-	<bes, d bes'>8\mp <c d as'>\p <bes d bes'>\mp <c d as'>\p
-		<bes d bes'>\mp <c d as'>\p <bes d bes'>\mp <c d as'>\p
+	<d, as' c>8\mp <d f as>\p <d as' c>8\mp <d f as>\p
+		<d as' c>\mp <d f as>\p <d as' c>8\mp <d f as>\p
 	<bes es g>1\mp
 }
 kytaraCh = \chordmode {
@@ -147,7 +147,7 @@ basa = \relative es, {
 	<< es1\mp \\ { r16 g\p[ bes g bes\mp g\p bes g bes\mp] r bes\p r bes\mp r bes\p r } >>
 	<< as,1\mp \\ { r16 c\p[ es c es\mp c\p es c es\mp] r es\p r es\mp r es\p r } >>
 	<< bes1\mp \\ { f'16\mp r f\p r f\mp r f\p r f\mp r f\p r f\mp r f\p r } >>
-	es,1\mp
+	es1\mp
 	
 	r1
 }
