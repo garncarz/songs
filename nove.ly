@@ -153,10 +153,43 @@ basa = \relative es, {
 }
 
 
-bici = \drummode {
+kopak = \drummode {
 	\time 4/4
 	
-	r1
+	bda2 bda16 bda8. r4 
+	bda2 bda16 bda8. r4
+	bda2 bda16 bda8. r4
+	bda2 bda16 bda8. r4
+	
+	bda2 bda16 bda8. r4 
+	bda2 bda16 bda8. r4
+	bda2 bda16 bda8. r4
+	bda2 bda16 bda8. r4
+
+	bda4 bda4 bda4 bda4
+	bda8 bda8 bda4 bda4 bda4
+	bda8 bda8 bda4 bda4 bda4
+	bda1
+}
+
+
+bubny = \drummode {
+	\time 4/4
+	
+	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	bolo8. bolo32 bolo bolo16 bolo bolo bolo bolo8. bolo32 bolo bolo16 bolo bolo bolo
+	ssl4 ssl16 ssl ssl ssl ssl4 ssl16 ssl ssl ssl
+	
+	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
+	ssl1
+	
+	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	timl8. timl32 timl timl16 timl timl timl timl8. timl32 timl timl16 timl timl timl
+	ssl1
 }
 
 
@@ -188,13 +221,12 @@ bici = \drummode {
 			\basa
 		}
 		
-		%{
-		\new DrumStaff {
+		\new DrumStaff <<
 			\set Staff.instrumentName = "Perkuse "
 			\set Staff.shortInstrumentName = "Pk. "
-			\bici
-		}
-		%}
+			\new DrumVoice { \voiceOne \bubny }
+			\new DrumVoice { \voiceTwo \kopak }
+		>>
 	>>
 	
 	\layout { }
@@ -205,7 +237,6 @@ bici = \drummode {
 	<<
 		\new Staff {
 			\set Staff.midiInstrument = #"acoustic grand"
-			% \set Staff.midiInstrument = #"percussive organ"
 			\piano
 		}
 		
@@ -219,9 +250,10 @@ bici = \drummode {
 			\basa
 		}
 		
-		\new DrumStaff {
-			% \bici
-		}
+		\new DrumStaff <<
+			\bubny
+			\kopak
+		>>
 	>>
 	
 	\midi { }
