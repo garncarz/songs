@@ -61,22 +61,22 @@ piano = \relative es' {
 	\key es \major
 	\time 4/4
 	
-	<es g bes>4\mf <es g bes>\p \grace { f16 } <es g bes>4 <es g bes>
-	<es as c>4\mf <es as c>\p \grace { bes'16 } <es, as c>4 <es as c>
-	<f bes d>4\mf <f bes d>8\p <f bes d> <f bes d>4 <f bes d>8 <f bes d>
+	<es g bes>4\mf <es g bes>\p \grace { g16 } <es g bes>4 <es g bes>
+	<es as c>4\mf <es as c>\p \grace { as16 } <es as c>4 <es as c>
+	<f bes f'>4\mf <f bes f'>8\p <f bes f'> <f bes f'>4 <f bes f'>8 <f bes f'>
 	<< { es'2\mf es, } \\ { <g bes>4\mf <f as>\p <g bes>\mf <f as>\p } >>
 	
 	<es g>16\mf <es bes>\p <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
-	<es g>16\mf <bes bes'>\p <g' es'> <es bes'> <es bes'> <g es'> <bes, bes'> <es g>
+		<es g>16\mf <bes bes'>\p <g' es'> <es bes'> <es bes'> <g es'> <bes, bes'> <es g>
 	<es as>16\mf <es c>\p <as c> <es es'> <es es'> <as c> <es c> <es as>
-	<es as>16\mf <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
-	<< <d f>1\mf \\ { bes'32\mf c\p bes c bes c bes c bes c bes c bes8
+		<es as>16\mf <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
+	<< <f f'>1\mf \\ { bes32\mf c\p bes c bes c bes c bes c bes c bes8
 		bes32\mf c\p bes c bes c bes c bes c bes c bes c bes c } >>
 	<es, bes' es>1\mf
 	
 	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
 	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
-	<< <as c>1\mf \\ { d,2 d\f } >>
+	<< <as c>1\mf \\ { bes,2 bes\f } >>
 	<es g bes>1\mf
 }
 
@@ -205,6 +205,7 @@ bici = \drummode {
 	<<
 		\new Staff {
 			\set Staff.midiInstrument = #"acoustic grand"
+			% \set Staff.midiInstrument = #"percussive organ"
 			\piano
 		}
 		
