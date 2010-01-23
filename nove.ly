@@ -124,7 +124,9 @@ kytara = \relative es {
 	<bes es g>1\mp
 }
 kytaraCh = \chordmode {
-	% r1 as bes g:9
+	es as bes es
+	es f:m7 bes es
+	es as bes:9 es
 	% es as bes g:9
 }
 
@@ -176,17 +178,17 @@ kopak = \drummode {
 bubny = \drummode {
 	\time 4/4
 	
-	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
-	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	sne8. sne32 sne sne16 sne sne sne sne8. sne32 sne sne16 sne sne sne
+	toml8. toml32 toml toml16 toml toml toml toml8. toml32 toml toml16 toml toml toml
 	bolo8. bolo32 bolo bolo16 bolo bolo bolo bolo8. bolo32 bolo bolo16 bolo bolo bolo
 	ssl4 ssl16 ssl ssl ssl ssl4 ssl16 ssl ssl ssl
 	
-	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
-	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	sn8. sn32 sn sn16 sn sn sn sn8. sn32 sn sn16 sn sn sn
+	sna8. sna32 sna sna16 sna sna sna sna8. sna32 sna sna16 sna sna sna
 	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
 	ssl1
 	
-	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
+	ss8. ss32 ss ss16 ss ss ss ss8. ss32 ss ss16 ss ss ss
 	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
 	timl8. timl32 timl timl16 timl timl timl timl8. timl32 timl timl16 timl timl timl
 	ssl1
