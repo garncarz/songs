@@ -127,7 +127,6 @@ kytaraCh = \chordmode {
 	es as bes es
 	es f:m7 bes es
 	es as bes:9 es
-	% es as bes g:9
 }
 
 
@@ -158,14 +157,14 @@ basa = \relative es, {
 kopak = \drummode {
 	\time 4/4
 	
-	bda2 bda16 bda8. r4 
-	bda2 bda16 bda8. r4
-	bda2 bda16 bda8. r4
-	bda2 bda16 bda8. r4
+	bda4 bda bda16 bda8. bda4
+	bda4 bda bda16 bda8. bda4
+	bda4 bda bda16 bda8. bda4
+	bda4 bda bda16 bda8. bda4
 	
-	bda2 bda16 bda8. r4 
-	bda2 bda16 bda8. r4
-	bda2 bda16 bda8. r4
+	bda4 bda bda16 bda8. bda4
+	bda4 bda bda16 bda8. bda4
+	bda4 bda bda16 bda8. bda4
 	bda2 bda16 bda8. r4
 
 	bda4 bda4 bda4 bda4
@@ -178,19 +177,39 @@ kopak = \drummode {
 bubny = \drummode {
 	\time 4/4
 	
-	sne8. sne32 sne sne16 sne sne sne sne8. sne32 sne sne16 sne sne sne
-	toml8. toml32 toml toml16 toml toml toml toml8. toml32 toml toml16 toml toml toml
-	bolo8. bolo32 bolo bolo16 bolo bolo bolo bolo8. bolo32 bolo bolo16 bolo bolo bolo
-	ssl4 ssl16 ssl ssl ssl ssl4 ssl16 ssl ssl ssl
+	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
+	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
+	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
+	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
 	
-	sn8. sn32 sn sn16 sn sn sn sn8. sn32 sn sn16 sn sn sn
-	sna8. sna32 sna sna16 sna sna sna sna8. sna32 sna sna16 sna sna sna
-	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
+	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl timl32 timl timl16 timl32 timl timl timl
+	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl timl32 timl timl16 timl32 timl timl timl
+	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl timl32 timl timl16 timl32 timl timl timl
+	timl1
+	
+	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
+	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
+	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
+	timl1
+}
+
+
+cinely = \drummode {
+	\time 4/4
+	
+	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
+	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
+	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
+	hh4 hh16 hh hh hh hh4 hh16 hh hh hh
+	
+	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
+	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
+	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	ssl1
 	
-	ss8. ss32 ss ss16 ss ss ss ss8. ss32 ss ss16 ss ss ss
-	ssl8. ssl32 ssl ssl16 ssl ssl ssl ssl8. ssl32 ssl ssl16 ssl ssl ssl
-	timl8. timl32 timl timl16 timl timl timl timl8. timl32 timl timl16 timl timl timl
+	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
+	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
+	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
 	ssl1
 }
 
@@ -226,8 +245,9 @@ bubny = \drummode {
 		\new DrumStaff <<
 			\set Staff.instrumentName = "Perkuse "
 			\set Staff.shortInstrumentName = "Pk. "
-			\new DrumVoice { \voiceOne \bubny }
-			\new DrumVoice { \voiceTwo \kopak }
+			\new DrumVoice { \voiceOne \cinely }
+			\new DrumVoice { \voiceTwo \bubny }
+			\new DrumVoice { \voiceThree \kopak }
 		>>
 	>>
 	
@@ -253,6 +273,7 @@ bubny = \drummode {
 		}
 		
 		\new DrumStaff <<
+			\cinely
 			\bubny
 			\kopak
 		>>
