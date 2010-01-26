@@ -167,9 +167,9 @@ kopak = \drummode {
 	bda4 bda bda16 bda8. bda4
 	bda2 bda16 bda8. r4
 
-	bda4 bda4 bda4 bda4
-	bda8 bda8 bda4 bda4 bda4
-	bda8 bda8 bda4 bda4 bda4
+	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
+	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
+	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	bda1
 }
 
@@ -182,15 +182,18 @@ bubny = \drummode {
 	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
 	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
 	
-	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl timl32 timl timl16 timl32 timl timl timl
-	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl timl32 timl timl16 timl32 timl timl timl
-	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl timl32 timl timl16 timl32 timl timl timl
-	timl1
+	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
+		timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
+	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
+		timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
+	timh16 timh timh timh timh timh timh32 timh timh timh
+		timh16 timh timh timh timh timh timh32 timh timh timh
+	ssl1
 	
-	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
-	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
-	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
-	timl1
+	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
+	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
+	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
+	ssl1
 }
 
 
@@ -205,12 +208,12 @@ cinely = \drummode {
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	ssl1
+	r1
 	
-	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
-	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
+	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
+	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
-	ssl1
+	cymc1
 }
 
 
