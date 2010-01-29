@@ -56,7 +56,9 @@ piano = \relative es' {
 		<es as>16\mf <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
 	<< <f f'>1\mf \\ { bes32\mf c\p bes c bes c bes c bes c bes c bes8
 		bes32\mf c\p bes c bes c bes c bes c bes c bes c bes c } >>
-	<es, bes' es>1\mf
+	% <es, bes' es>1\mf
+	% <es, bes' es>8\mf <es g bes>\p bes\mf bes'\p <es, bes' es>8\mf <bes g' bes>\p es\mf bes'\p
+	<es, bes' es>8\mf <es g bes>16\p <es g bes> <es bes' es>8.\mf <es g bes>16\p <es bes' es>8\mf <es g bes>16\p <es g bes> <es bes' es>8.\mf <es g bes>16\p
 	
 	<es g>16\mf <es bes>\p <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
 		<es g>16\mf <bes bes'>\p <g' es'> <es bes'> <es bes'> <g es'> <bes, bes'> <es g>
@@ -79,7 +81,8 @@ kytara = \relative es {
 		<es as>16\mp <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
 	<< <d f>1\mp \\ { bes'32\mp c\p bes c bes c bes c bes c bes c bes8
 		bes32\mp c\p bes c bes c bes c bes c bes c bes c bes c } >>
-	<es, bes' es>1\mp
+	% <es, bes' es>1\mp
+	es,32\mf f es f <bes es>8\mp bes32\mf c bes c <es, es'>8\mp es32\mf f es f <bes es>8\mp bes32\mf c bes c <es, es'>8\mp
 	
 	<es g>16\mp <es bes>\p <g bes> <es es'> <es es'> <g bes> <es bes> <es g>
 		<es g>16\mp <bes bes'>\p <g' es'> <es bes'> <es bes'> <g es'> <bes, bes'> <es g>
@@ -120,7 +123,7 @@ kopak = \drummode {
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
-	bda2 bda16 bda8. r4
+	bda4 bda bda16 bda8. bda4
 	
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
@@ -138,7 +141,7 @@ bubny = \drummode {
 		timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
 	timh16 timh timh timh timh timh timh32 timh timh timh
 		timh16 timh timh timh timh timh timh32 timh timh timh
-	ssl1
+	timl16 timl ssl ssl ssl32 ssl r16 timl16 timl timl16 timl ssl ssl ssl32 ssl r16 timl16 timl
 	
 	timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
 		timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
@@ -156,7 +159,7 @@ cinely = \drummode {
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	r1
+	cymc4 cymr32 cymr cymr cymr cymc8 cymc4 cymr32 cymr cymr cymr cymc8
 	
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
