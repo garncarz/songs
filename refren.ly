@@ -53,7 +53,8 @@ piano = \relative es' {
 	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
 	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
 	<< <as c>1\mf \\ { bes,2 bes\f } >>
-	<es g bes>1\mf
+	% <es g bes>1\mf
+	<es g bes>4\mf <bes g' es'>\p <es g bes>4\mf <bes g' es'>\p
 	
 	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
 	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
@@ -85,7 +86,15 @@ kytara = \relative es {
 		<< <c es>8 \\ { es,16 as } >>
 	<d, as' c>8\mp <d f as>\p <d as' c>8\mp <d f as>\p
 		<d as' c>\mp <d f as>\p <d as' c>8\mp <d f as>\p
-	<bes es g>1\mp
+	% <bes es g>1\mp
+	<< es'8\mp \\ { <bes, es g>16 <bes es g>\p } >>
+		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
+		<< es'8\mp \\ { <bes, es g>16 <bes es g>\p } >>
+		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
+		<< es'8\mp \\ { <bes, es g>16 <bes es>\p } >>
+		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
+		<< es'8\mp \\ { <bes, es g>16 <bes es g>\p } >>
+		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
 	
 	<< bes'8\mp \\ { es,16\mp f\p } >>
 		<< <es g>8\p \\ { bes'16 es } >>
@@ -121,7 +130,8 @@ basa = \relative es, {
 	<< es1\mp \\ { r16 g\p[ bes g bes\mp g\p bes g bes\mp] r bes\p r bes\mp r bes\p r } >>
 	<< as,1\mp \\ { r16 c\p[ es c es\mp c\p es c es\mp] r es\p r es\mp r es\p r } >>
 	<< bes1\mp \\ { f'16\mp r f\p r f\mp r f\p r f\mp r f\p r f\mp r f\p r } >>
-	es1\mp
+	% es1\mp
+	<< { es4\mp es,\p es'\mp es,\p } \\ { r8 g'16 bes r8 g,16 bes r8 g'16 bes r8 g,16 bes } >>
 	
 	<< es1\mp \\ { r16 g\p[ bes g bes\mp g\p bes g bes\mp] r bes\p r bes\mp r bes\p r } >>
 	<< as,1\mp \\ { r16 c\p[ es c es\mp c\p es c es\mp] r es\p r es\mp r es\p r } >>
@@ -138,7 +148,8 @@ kopak = \drummode {
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
-	bda1
+	% bda1
+	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
@@ -153,7 +164,9 @@ bubny = \drummode {
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
-	ssl1
+	% ssl1
+	toml16 tamb toml tamb toml tamb toml32 toml toml toml
+		toml16 tamb toml tamb toml tamb toml32 toml toml toml
 	
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
@@ -168,7 +181,8 @@ cinely = \drummode {
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
-	cymc1
+	% cymc1
+	cymc8. hho32 hho cymc8. hho32 hho cymc8. hho32 hho cymc4
 	
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
