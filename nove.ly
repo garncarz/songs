@@ -177,6 +177,27 @@ harmonieDole = <<
 >>
 
 
+zpev = \relative es' {
+	\clef treble
+	\key es \major
+	\time 4/4
+	
+	\skip 1*8
+	
+	f16\mp es\p es8 f16\mp es8\p r16 f\mp es\p es8 f16\mp es\p es8
+	bes16\mp as\p as8 bes16\mp as8\p r16 bes\mp as\p as8\mp bes16\p as as8
+	bes'16\mp g\p g8 bes32\mp bes\p g16 g8 bes16\mp g\p g8 bes16\mp g8.\p
+	g16\mp es\p es8 r4 es16\mp es g\mf es4\f ~es16
+	
+	\skip 1*12
+	
+	f16\mp es\p es8 f16\mp es8\p r16 f\mp es\p es8 f16\mp es\p es8
+	bes16\mp as\p as8 bes16\mp as8\p r16 bes\mp as\p as8\mp bes16\p as as8
+	bes'16\mp g\p g8 bes32\mp bes\p g16 g8 bes16\mp g\p g8 bes16\mp g8.\p
+	g16\mp es\p es8 r4 es16\mp es g\mf es4\f ~es16
+}
+
+
 piano = \relative es' {
 	\clef treble
 	\key es \major
@@ -201,7 +222,7 @@ piano = \relative es' {
 		<es as>16\mf <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
 	<< <f f'>1\mf \\ { bes32\mf c\p bes c bes c bes c bes c bes c bes8
 		bes32\mf c\p bes c bes c bes c bes c bes c bes c bes c } >>
-	<es, bes' es>1\mf
+	<es, bes' es>4\mf <es bes' es>4\pp es16\mf bes' es <es, bes' es>4\f ~<es bes' es>16
 	
 	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
 	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
@@ -227,7 +248,7 @@ piano = \relative es' {
 		<es as>16\mf <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
 	<< <f f'>1\mf \\ { bes32\mf c\p bes c bes c bes c bes c bes c bes8
 		bes32\mf c\p bes c bes c bes c bes c bes c bes c bes c } >>
-	<es, bes' es>1\mf
+	<es, bes' es>4\mf <es bes' es>4\pp es16\mf bes' es <es, bes' es>4\f ~<es bes' es>16
 	
 	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
 	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
@@ -294,7 +315,8 @@ kytara = \relative es {
 		<es as>16\mp <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
 	<< <d f>1\mp \\ { bes'32\mp c\p bes c bes c bes c bes c bes c bes8
 		bes32\mp c\p bes c bes c bes c bes c bes c bes c bes c } >>
-	<es, bes' es>1\mp
+	<es, bes' es>4\mp <es bes' es>4\pp <es bes' es>16\mp
+		<es bes' es> <es bes' es>\mf <es bes' es>4\f ~<es bes' es>16
 	
 	<< bes'8\mp \\ { es,16\mp f\p } >>
 		<< <es g>8\p \\ { bes'16 es } >>
@@ -364,7 +386,8 @@ kytara = \relative es {
 		<es as>16\mp <c c'>\p <as' es'> <es c'> <es c'> <as es'> <c, c'> <es as>
 	<< <d f>1\mp \\ { bes'32\mp c\p bes c bes c bes c bes c bes c bes8
 		bes32\mp c\p bes c bes c bes c bes c bes c bes c bes c } >>
-	<es, bes' es>1\mp
+	<es, bes' es>4\mp <es bes' es>4\pp <es bes' es>16\mp
+		<es bes' es> <es bes' es>\mf <es bes' es>4\f ~<es bes' es>16
 	
 	<< bes'8\mp \\ { es,16\mp f\p } >>
 		<< <es g>8\p \\ { bes'16 es } >>
@@ -548,7 +571,7 @@ basa = \relative es, {
 	es4\mp \grace { g16 } es4 es \grace { g16 } es4
 	f,4\mp \grace { as16[ c] } f,4 f \grace { as16 } f4
 	bes4\mp \grace { f'16 } bes,4 bes \grace { f'16 } bes,4
-	<< g1\mp \\ { r2 \grace { bes16\p[ es] } g2\mf } >>
+	<< { g4\mp g2.\pp } \\ { r2 \grace { bes16\mf[ es] } g4 g } >>
 	
 	<< es1\mp \\ { r16 g\p[ bes g bes\mp g\p bes g bes\mp] r bes\p r bes\mp r bes\p r } >>
 	<< as,1\mp \\ { r16 c\p[ es c es\mp c\p es c es\mp] r es\p r es\mp r es\p r } >>
@@ -568,7 +591,7 @@ basa = \relative es, {
 	es4\mp \grace { g16 } es4 es \grace { g16 } es4
 	f,4\mp \grace { as16[ c] } f,4 f \grace { as16 } f4
 	bes4\mp \grace { f'16 } bes,4 bes \grace { f'16 } bes,4
-	<< g1\mp \\ { r2 \grace { bes16\p[ es] } g2\mf } >>
+	<< { g4\mp g2.\pp } \\ { r2 \grace { bes16\mf[ es] } g4 g } >>
 	
 	<< es1\mp \\ { r16 g\p[ bes g bes\mp g\p bes g bes\mp] r bes\p r bes\mp r bes\p r } >>
 	<< as,1\mp \\ { r16 c\p[ es c es\mp c\p es c es\mp] r es\p r es\mp r es\p r } >>
@@ -625,7 +648,7 @@ kopak = \drummode {
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
-	bda2 bda16 bda8. r4
+	bda4 bda bda16 bda8. bda4
 
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
@@ -645,7 +668,7 @@ kopak = \drummode {
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
-	bda2 bda16 bda8. r4
+	bda4 bda bda16 bda8. bda4
 
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
@@ -706,7 +729,7 @@ bubny = \drummode {
 		timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
 	timh16 timh timh timh timh timh timh32 timh timh timh
 		timh16 timh timh timh timh timh timh32 timh timh timh
-	ssl1
+	ssl4 ssl toml16 toml toml toml4 ~toml16
 	
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
@@ -734,7 +757,7 @@ bubny = \drummode {
 		timl32 timl timl16 timl32 timl timl16 timl32 timl timl timl timl16 timl
 	timh16 timh timh timh timh timh timh32 timh timh timh
 		timh16 timh timh timh timh timh timh32 timh timh timh
-	ssl1
+	ssl4 ssl toml16 toml toml toml4 ~toml16
 	
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
@@ -788,32 +811,32 @@ cinely = \drummode {
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	cymc4 cymr32 cymr cymr cymr cymc8 cymc4 cymr32 cymr cymr cymr cymc8
+	cymc4 cymr32 cymr cymr cymr hh8 cymc4 cymr32 cymr cymr cymr cymc8
 	
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	r1
-	
-	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
-	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
-	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
-	cymc8. hho32 hho cymc8. hho32 hho cymc8. hho32 hho cymc4
+	hh4 hh cymc16 cymc cymc cymc4 ~cymc16
 	
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
 	cymc8. hho32 hho cymc8. hho32 hho cymc8. hho32 hho cymc4
 	
-	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	cymc4 cymr32 cymr cymr cymr cymc8 cymc4 cymr32 cymr cymr cymr cymc8
+	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
+	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
+	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
+	cymc8. hho32 hho cymc8. hho32 hho cymc8. hho32 hho cymc4
 	
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
 	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
-	r1
+	cymc4 cymr32 cymr cymr cymr hh8 cymc4 cymr32 cymr cymr cymr cymc8
+	
+	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
+	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
+	hh16 cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr hh cymr
+	hh4 hh cymc16 cymc cymc cymc4 ~cymc16
 	
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
@@ -862,6 +885,12 @@ cinely = \drummode {
 		>>
 		
 		\new Staff {
+			\set Staff.instrumentName = "Zpěv "
+			\set Staff.shortInstrumentName = "Z. "
+			\zpev
+		}
+		
+		\new Staff {
 			\set Staff.instrumentName = "Piano "
 			\set Staff.shortInstrumentName = "P. "
 			\piano
@@ -895,6 +924,13 @@ cinely = \drummode {
 
 \score {
 	<<
+		\new Staff {
+			\set Staff.midiInstrument = #"banjo"
+			\set Staff.midiMinimumVolume = #0.5
+			\set Staff.midiMaximumVolume = #0.7
+			\zpev
+		}
+		
 		\new Staff {
 			\set Staff.midiInstrument = #"acoustic grand"
 			\piano
