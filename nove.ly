@@ -198,6 +198,53 @@ zpev = \relative es' {
 }
 
 
+idiof = \relative es' {
+	\clef treble
+	\key es \major
+	\time 4/4
+	
+	\skip 1*11
+	
+	r2 r4 <g bes>16 <es bes'> <es g> <es bes'>
+	
+	es8 f16 g es4 g8 as16 bes g4
+	as8 bes16 c as4 c8 bes16 as c4
+	r1
+	r
+	
+	es,8 << es'4. \\ { f,16 g es4 } >> g8 << es'4. \\ { as,16 bes g4 } >>
+	as8 << as'4. \\ { bes,16 c as4 } >> c8 << as'4. \\ { bes,16 as c4 } >>
+	f,4 ~f16 c' bes c r4 r16 c bes c
+	c,128 d e f g a b c r16 r8 c,128 d e f g a b c r16 r8 c,128 d e f g a b c r16 r8
+		c,128 d e f g a b c c,128 d e f g a b c c,128 d e f g a b c c,128 d e f g a b c
+	
+	\skip 1*7
+	
+	r2 r4 <g bes>16 <es bes'> <es g> <es bes'>
+	
+	es2 g16 as bes r es4
+	as2 f16 es c r as4
+	bes,8 bes' bes, bes' f bes bes, bes'
+	<es, g>4 es' <es, g> es'
+	
+	es,4. f8 <g g'>16 <as as'> <bes bes'> r es4
+	as4. g8 <f f,>16 <es es,> <c c,> r as4
+	bes,16 es32 f es f bes16 bes,16 es32 f es f bes16 bes,16 f' f bes16 bes,16 es32 f es f bes16
+	es,8 es es es es es es es
+	
+	\skip 1*12
+	
+	es4 g bes es,
+	c' as es as
+	c,8 f16 f as8 bes c bes16 bes as8 f8
+	es4 bes' g bes
+	
+	<es, bes'>4 g <g bes> es
+	<es c'> as <es c'> as
+	c, bes'32 c bes c bes c bes c bes'32 c bes c bes c bes c bes'32 c bes c bes c bes c
+}
+
+
 piano = \relative es' {
 	\clef treble
 	\key es \major
@@ -891,6 +938,12 @@ cinely = \drummode {
 		}
 		
 		\new Staff {
+			\set Staff.instrumentName = "Idiofon "
+			\set Staff.shortInstrumentName = "I. "
+			\idiof
+		}
+		
+		\new Staff {
 			\set Staff.instrumentName = "Piano "
 			\set Staff.shortInstrumentName = "P. "
 			\piano
@@ -929,6 +982,13 @@ cinely = \drummode {
 			\set Staff.midiMinimumVolume = #0.5
 			\set Staff.midiMaximumVolume = #0.7
 			\zpev
+		}
+		
+		\new Staff {
+			\set Staff.midiInstrument = #"glockenspiel"
+			\set Staff.midiMinimumVolume = #0.7
+			\set Staff.midiMaximumVolume = #0.8
+			\idiof
 		}
 		
 		\new Staff {
