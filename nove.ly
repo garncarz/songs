@@ -62,16 +62,6 @@ harmonieNahore = \relative es' {
 	
 	<es g bes>
 	<es as c>
-	<f bes d>
-	<g bes es>
-	
-	<es g bes>
-	<es as c>
-	<d as' c>
-	<es g bes>
-	
-	<es g bes>
-	<es as c>
 	<d as' c>
 	<es g bes>
 	
@@ -139,16 +129,6 @@ harmonieDole = <<
 	g'
 	
 	es
-	as
-	bes,
-	g'
-	
-	es
-	as,
-	bes
-	es
-	
-	es
 	as,
 	bes
 	es
@@ -169,8 +149,6 @@ harmonieDole = <<
 	T S "D9/7" T
 	T S "D9/7" T
 	T S D "T6"
-	T S D "T6"
-	T S "D9/7" T
 	T S "D9/7" T
 	T S "D9/7" T
 }
@@ -232,7 +210,7 @@ idiof = \relative es' {
 	bes,16 es32 f es f bes16 bes,16 es32 f es f bes16 bes,16 f' f bes16 bes,16 es32 f es f bes16
 	es,8 es es es es es es es
 	
-	\skip 1*12
+	\skip 1*4
 	
 	es4 g bes es,
 	c' as es as
@@ -311,16 +289,6 @@ piano = \relative es' {
 	<es as c>4\mf <es as c>\p \grace { as16 } <es as c>4 <es as c>
 	<f bes f'>4\mf <f bes f'>8\p <f bes f'> <f bes f'>4 <f bes f'>8 <f bes f'>
 	<< { es'2\mf es, } \\ { <g bes>4\mf <f as>\p <g bes>\mf <f as>\p } >>
-	
-	<es g bes>4\mf <es g bes>\p \grace { g16 } <es g bes>4 <es g bes>
-	<es as c>4\mf <es as c>\p \grace { as16 } <es as c>4 <es as c>
-	<f bes f'>4\mf <f bes f'>8\p <f bes f'> <f bes f'>4 <f bes f'>8 <f bes f'>
-	<< { es'2\mf es, } \\ { <g bes>4\mf <f as>\p <g bes>\mf <f as>\p } >>
-	
-	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
-	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
-	<< <as c>1\mf \\ { bes,2 bes\f } >>
-	<es g bes>4\mf <bes g' es'>\p <es g bes>4\mf <bes g' es'>\p
 	
 	<es g bes>2\mf <es g bes>8\p <es g bes>\mf <es g bes>4\f
 	<es as c>2\mf <es as c>8\p <es as c>\mf <es as c>4\f
@@ -499,42 +467,6 @@ kytara = \relative es {
 	<g bes es>8\mp <g bes es>\p <f as es'>\mp <f as es'>\p
 		<es g bes>\mp <es g bes>\p <es f as>\mp <es f as>\p
 	
-	<es g bes>16\mp <g bes es>\p <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es>
-		<es g bes>\mp <g bes es>\p <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> <g bes es>
-	<es as c>16\mp <as c es>\p <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
-		<es as c>\mp <as c es>\p <es as c> <as c es> <es as c> <as c es> <es as c> <as c es>
-	<f bes d>16\mp <bes d f>\p <f bes d> <bes d f> <f bes d>4
-		<f bes d>16\mp <bes d f>\p <f bes d> <bes d f> <f bes d>4
-	<g bes es>8\mp <g bes es>\p <f as es'>\mp <f as es'>\p
-		<es g bes>\mp <es g bes>\p <es f as>\mp <es f as>\p
-	
-	<< bes'8\mp \\ { es,16\mp f\p } >>
-		<< <es g>8\p \\ { bes'16 es } >>
-		<< es,8 \\ { bes'16 bes } >>
-		<< <bes es>8 \\ { es,16 g } >>
-		<< bes8 \\ { es,16 f } >>
-		<< <es g>8 \\ { bes'16 es } >>
-		<< es,8 \\ { bes'16 bes } >>
-		<< <bes es>8 \\ { es,16 g } >>
-	<< c8\mp \\ { es,16\mp f\p } >>
-		<< <es as>8\p \\ { c'16 es } >>
-		<< es,8 \\ { c'16 c } >>
-		<< <c es>8 \\ { es,16 as } >>
-		<< c8 \\ { es,16 f } >>
-		<< <es as>8 \\ { c'16 es } >>
-		<< es,8 \\ { c'16 c } >>
-		<< <c es>8 \\ { es,16 as } >>
-	<d, as' c>8\mp <d f as>\p <d as' c>8\mp <d f as>\p
-		<d as' c>\mp <d f as>\p <d as' c>8\mp <d f as>\p
-	<< es'8\mp \\ { <bes, es g>16 <bes es g>\p } >>
-		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
-		<< es'8\mp \\ { <bes, es g>16 <bes es g>\p } >>
-		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
-		<< es'8\mp \\ { <bes, es g>16 <bes es>\p } >>
-		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
-		<< es'8\mp \\ { <bes, es g>16 <bes es g>\p } >>
-		<< g''8\mp \\ { <bes,, es g>16 <bes es g>\p } >>
-	
 	<< bes'8\mp \\ { es,16\mp f\p } >>
 		<< <es g>8\p \\ { bes'16 es } >>
 		<< es,8 \\ { bes'16 bes } >>
@@ -593,8 +525,6 @@ kytaraCh = \chordmode {
 	es as bes:9 es
 	es as bes:9 es
 	es as bes es
-	es as bes es
-	es as bes:9 es
 	es as bes:9 es
 	es as bes:9 es
 }
@@ -654,16 +584,6 @@ basa = \relative es, {
 	bes16\mp as\p as8 bes16\mp as8\p r16 bes\mp as\p as8\mp bes16\p as as8
 	g16\mp bes\p bes8 g16\mp bes8\p r16 g\mp bes\p bes8 g16\mp bes\p bes8
 	g'16\mp es\p es8 g16\mp es8\p r16 g\mp es\p es8 g16\mp es\p es8
-	
-	f16\mp es\p es8 f16\mp es8\p r16 f\mp es\p es8 f16\mp es\p es8
-	bes16\mp as\p as8 bes16\mp as8\p r16 bes\mp as\p as8\mp bes16\p as as8
-	g16\mp bes\p bes8 g16\mp bes8\p r16 g\mp bes\p bes8 g16\mp bes\p bes8
-	g'16\mp es\p es8 g16\mp es8\p r16 g\mp es\p es8 g16\mp es\p es8
-	
-	<< es1\mp \\ { r16 g\p[ bes g bes\mp g\p bes g bes\mp] r bes\p r bes\mp r bes\p r } >>
-	<< as,1\mp \\ { r16 c\p[ es c es\mp c\p es c es\mp] r es\p r es\mp r es\p r } >>
-	<< bes1\mp \\ { f'16\mp r f\p r f\mp r f\p r f\mp r f\p r f\mp r f\p r } >>
-	<< { es4\mp es,\p es'\mp es,\p } \\ { r8 g'16 bes r8 g,16 bes r8 g'16 bes r8 g,16 bes } >>
 	
 	<< es1\mp \\ { r16 g\p[ bes g bes\mp g\p bes g bes\mp] r bes\p r bes\mp r bes\p r } >>
 	<< as,1\mp \\ { r16 c\p[ es c es\mp c\p es c es\mp] r es\p r es\mp r es\p r } >>
@@ -731,16 +651,6 @@ kopak = \drummode {
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
 	bda4 bda bda16 bda8. bda4
-	
-	bda4 bda bda16 bda8. bda4
-	bda4 bda bda16 bda8. bda4
-	bda4 bda bda16 bda8. bda4
-	bda4 bda bda16 bda8. bda4
-	
-	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
-	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
-	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
-	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
 	bda32 bda16. r8 bda32 bda16. r8 bda4 bda32 bda16. r8
@@ -823,17 +733,6 @@ bubny = \drummode {
 	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
 	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
 	
-	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
-	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
-	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
-	timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl timl8 timl16 timl
-	
-	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
-	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
-	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
-	toml16 tamb toml tamb toml tamb toml32 toml toml toml
-		toml16 tamb toml tamb toml tamb toml32 toml toml toml
-	
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
 	tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml tomml8 toml16 toml
@@ -899,16 +798,6 @@ cinely = \drummode {
 	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
 	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
 	hh4 hh16 hh hh hh hh4 hh16 hh hh hh
-	
-	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
-	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
-	hh8. hh32 hh hh16 hh hh hh hh8. hh32 hh hh16 hh hh hh
-	hh4 hh16 hh hh hh hh4 hh16 hh hh hh
-	
-	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
-	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
-	tamb8. tamb32 tamb tamb16 tamb tamb tamb tamb8. tamb32 tamb tamb16 tamb tamb tamb
-	cymc8. hho32 hho cymc8. hho32 hho cymc8. hho32 hho cymc4
 	
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
 	cymc8. hho32 hho hho16 hho hho hho cymc8. hho32 hho hho16 hho hho hho
