@@ -173,6 +173,13 @@ zpev = \relative es' {
 	bes16\mp as\p as8 bes16\mp as8\p r16 bes\mp as\p as8\mp bes16\p as as8
 	bes'16\mp g\p g8 bes32\mp bes\p g16 g8 bes16\mp g\p g8 bes16\mp g8.\p
 	g16\mp es\p es8 r4 es16\mp es g\mf es4\f ~es16
+	
+	\skip 1*8
+	
+	r1
+	as8\mp c16\p r bes\mp r as\p r16 r4 as16\mp r8.
+	bes8\mp bes\p r4 bes8\mp bes\p r8 r16 g
+	bes16\mp r es\p r bes,\mp r r8 bes16 r es'\p r bes\mp r g\p es
 }
 
 
