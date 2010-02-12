@@ -1,5 +1,10 @@
 \version "2.10.33"
 
+\header {
+	title = "Rock Es-dur"
+	composer = "Ondřej Garncarz"
+}
+
 
 % Es-Dur:
 % es - f - g ^ as - b - c - d ^ es
@@ -194,8 +199,8 @@ idiof = \relative es' {
 	
 	es8 f16 g es4 g8 as16 bes g4
 	as8 bes16 c as4 c8 bes16 as c4
+	as4. bes16 c as4. bes16 c
 	r1
-	r
 	
 	es,8 << es'4. \\ { f,16 g es4 } >> g8 << es'4. \\ { as,16 bes g4 } >>
 	as8 << as'4. \\ { bes,16 c as4 } >> c8 << as'4. \\ { bes,16 as c4 } >>
@@ -224,9 +229,9 @@ idiof = \relative es' {
 	c,8 f16 f as8 bes c bes16 bes as8 f8
 	es4 bes' g bes
 	
-	<es, bes'>4 g <g bes> es
-	<es c'> as <es c'> as
-	c, bes'32 c bes c bes c bes c bes'32 c bes c bes c bes c bes'32 c bes c bes c bes c
+	<es, bes'>8 <es bes'> g4 <g bes> es8 es
+	<es c'>8 <es c'> as4 <es c'> as8 as
+	c,4 bes'32 c bes c bes c bes c bes'32 c bes c bes c bes c bes'32 c bes c bes c bes c
 }
 
 
