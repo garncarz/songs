@@ -222,9 +222,7 @@ idiof = \relative es' {
 	bes,16 es32 f es f bes16 bes,16 es32 f es f bes16 bes,16 f' f bes16 bes,16 es32 f es f bes16
 	es,8 es es es es es es es
 	
-	\skip 1*3
-	
-	r2 r4 <g bes>16 <es bes'> <es g> <es bes'>
+	\skip 1*4
 	
 	es4 g bes es,
 	c' as es as
