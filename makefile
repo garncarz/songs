@@ -6,7 +6,7 @@ out:
 
 %: %.ly out
 	cp -l $< out/
-	cd out && lilypond $<
+	cd out && lilypond --ps $< && ps2pdf $@.ps
 	cd out && timidity $@.mid* -Ow
 
 clean:
