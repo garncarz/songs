@@ -1,4 +1,4 @@
-\version "2.10.33"
+\version "2.12.3"
 
 \header {
 	title = "Дятел"
@@ -6,16 +6,18 @@
 }
 
 % inspirováno http://en.wikipedia.org/wiki/Russian_Woodpecker
+% audio na konci: http://en.wikipedia.org/wiki/File:Woodpecker.ogg
 
 % Des-dur:
 % des - es - f ^ ges - as - b - c ^ des
 
-head = {
+заголовок = {
 	\clef treble
 	\key des \major
 	\time 6/8
 }
 
+постукиватьC = { c8 c c c c c }
 постукиватьCD = { c8 d c d c d }
 постукиватьDes = { des8 des des des des des }
 постукиватьD = { d8 d d d d d }
@@ -26,12 +28,11 @@ head = {
 постукиватьAs = { as8 as as as as as }
 постукиватьAsBes = { as8 bes as bes as bes }
 постукиватьA = { a8 a a a a a }
-постукиватьC = { c8 c c c c c }
 
 дятелwoodblock = \relative des' {
-	\head
+	\заголовок
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 5 \постукиватьDes
 	r2.
@@ -51,7 +52,7 @@ head = {
 	r2.
 	\repeat unfold 14 \постукиватьDes
 	
-	% 16 Hz
+	% 16 Гц
 	
 	\repeat unfold 5 \постукиватьA
 	r2.
@@ -59,7 +60,7 @@ head = {
 	
 	\repeat unfold 20 \постукиватьA
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 5 \постукиватьDes
 	r2.
@@ -79,10 +80,9 @@ head = {
 	r2.
 	\repeat unfold 14 \постукиватьDes
 	
-	% 20 Hz
+	% 20 Гц
 	
-	des'8 des des des des des
-	\repeat unfold 4 \постукиватьDes
+	\repeat unfold 5 \постукиватьDes
 	r2.
 	\repeat unfold 14 \постукиватьDes
 	
@@ -92,9 +92,9 @@ head = {
 }
 
 дятелseashore = \relative des' {
-	\head
+	\заголовок
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 10 \постукиватьDes
 	\repeat unfold 10 \постукиватьF
@@ -109,13 +109,13 @@ head = {
 	\repeat unfold 10 \постукиватьDes
 	\repeat unfold 10 \постукиватьF
 	
-	% 16 Hz
+	% 16 Гц
 	
 	\repeat unfold 20 \постукиватьAsBes
 	
 	\repeat unfold 20 \постукиватьE
 	
-	% 10 Hz
+	% 10 Гц
 	
 	des,8 des des des des des
 	\repeat unfold 9 \постукиватьDes
@@ -131,7 +131,7 @@ head = {
 	\repeat unfold 10 \постукиватьDes
 	\repeat unfold 10 \постукиватьF
 	
-	% 20 Hz
+	% 20 Гц
 	
 	\repeat unfold 20 \постукиватьCD
 	
@@ -141,17 +141,17 @@ head = {
 }
 
 дятелfret = \relative des' {
-	\head
+	\заголовок
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 9 \постукиватьDes
 	\repeat unfold 6 \постукиватьE
-	\repeat unfold 4 \постукиватьDes
+	\repeat unfold 5 \постукиватьDes
 	
 	\repeat unfold 9 \постукиватьDes
 	\repeat unfold 6 \постукиватьD
-	\repeat unfold 4 \постукиватьDes
+	\repeat unfold 5 \постукиватьDes
 	
 	\repeat unfold 5 \постукиватьDes
 	\repeat unfold 10 \постукиватьE
@@ -161,7 +161,7 @@ head = {
 	\repeat unfold 10 \постукиватьD
 	\repeat unfold 5 \постукиватьDes
 	
-	% 16 Hz
+	% 16 Гц
 	
 	\repeat unfold 4 {
 		\repeat unfold 3 \постукиватьA
@@ -170,15 +170,15 @@ head = {
 	\repeat unfold 3 \постукиватьA
 	\постукиватьC
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 9 \постукиватьDes
 	\repeat unfold 6 \постукиватьE
-	\repeat unfold 4 \постукиватьDes
+	\repeat unfold 5 \постукиватьDes
 	
 	\repeat unfold 9 \постукиватьDes
 	\repeat unfold 6 \постукиватьD
-	\repeat unfold 4 \постукиватьDes
+	\repeat unfold 5 \постукиватьDes
 	
 	\repeat unfold 5 \постукиватьDes
 	\repeat unfold 10 \постукиватьE
@@ -188,9 +188,13 @@ head = {
 	\repeat unfold 10 \постукиватьD
 	\repeat unfold 5 \постукиватьDes
 	
-	% 20 Hz
+	% 20 Гц
 	
-	\repeat unfold 6 {
+	des,8 des des des des des
+	\repeat unfold 2 \постукиватьDes
+	\repeat unfold 3 \постукиватьF
+	\repeat unfold 3 \постукиватьAs
+	\repeat unfold 5 {
 		\repeat unfold 3 \постукиватьDes
 		\repeat unfold 3 \постукиватьF
 		\repeat unfold 3 \постукиватьAs }
@@ -199,9 +203,9 @@ head = {
 }
 
 дятелmetallic = \relative des' {
-	\head
+	\заголовок
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 14 \постукиватьDes
 	r2.
@@ -221,7 +225,7 @@ head = {
 	\постукиватьE
 	\repeat unfold 7 \постукиватьDes
 	
-	% 16 Hz
+	% 16 Гц
 	
 	\постукиватьA
 	\repeat unfold 3 \постукиватьC
@@ -230,7 +234,7 @@ head = {
 		\repeat unfold 3 \постукиватьA
 		\repeat unfold 3 \постукиватьC }
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 14 \постукиватьDes
 	r2.
@@ -250,9 +254,9 @@ head = {
 	\постукиватьE
 	\repeat unfold 7 \постукиватьDes
 	
-	% 20 Hz
+	% 20 Гц
 	
-	\постукиватьDes
+	des,8 des des des des des
 	\repeat unfold 3 \постукиватьF
 	\repeat unfold 6 {
 		\repeat unfold 3 \постукиватьAs
@@ -262,9 +266,9 @@ head = {
 }
 
 дятелcalliope = \relative des' {
-	\head
+	\заголовок
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 19 \постукиватьDes
 	r2.
@@ -285,7 +289,7 @@ head = {
 	\repeat unfold 3 \постукиватьDes
 	r2.
 	
-	% 16 Hz
+	% 16 Гц
 	
 	\repeat unfold 5 {
 		\постукиватьE \постукиватьE
@@ -297,7 +301,7 @@ head = {
 	\repeat unfold 4 {
 		\постукиватьA \постукиватьC }
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\repeat unfold 19 \постукиватьDes
 	r2.
@@ -318,7 +322,7 @@ head = {
 	\repeat unfold 3 \постукиватьDes
 	r2.
 	
-	% 20 Hz
+	% 20 Гц
 	
 	\repeat unfold 5 {
 		\постукиватьAs \постукиватьAs
@@ -338,9 +342,9 @@ head = {
 
 
 пищать = \relative des' {
-	\head
+	\заголовок
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\tempo 8=600
 	
@@ -363,11 +367,11 @@ head = {
 	s2.*14
 	
 	as8*9 r8*3
-	as8*3 a'8*3 as'8*3 r8*3
+	as8*3 as'8*3 as'8*3 r8*3
 	as,,8*9 r8*3
 	s2.*14
 	
-	% 16 Hz
+	% 16 Гц
 	
 	\tempo 8=960
 	
@@ -381,7 +385,7 @@ head = {
 	<a c e a c>8*9 r8*3
 	s2.*14
 	
-	% 10 Hz
+	% 10 Гц
 	
 	\tempo 8=600
 	
@@ -404,38 +408,47 @@ head = {
 	s2.*14
 	
 	as8*9 r8*3
-	as8*3 a'8*3 as'8*3 r8*3
+	as8*3 as'8*3 as'8*3 r8*3
 	as,,8*9 r8*3
 	s2.*14
 	
-	% 20 Hz
+	% 20 Гц
 	
 	\tempo 8=1200
 	
+	as8*9\mp r8*3
+	<des, fes>4. ges es es
+	\repeat unfold 3 { <des fes>4. ges es es }
+	es2. d
+	\repeat unfold 3 { <des fes>4 r8 ges4 r8 es4 r8 es4 r8 }
+	es2. d
+	
 	<<
-		{ \repeat unfold 102 { des16 s } } \\
-		{ s2. \repeat unfold 48 { f16 s s8  } } \\
-		{ s2.*2 \repeat unfold 30 { as16 s s4 } } \\
-		{ s2.*4 f'2. r4 as bes des2.
-			r2. des2 des4 as2.
-			r2. as2 as4 f2.
-			r2. f2 f4 des2. ~des
-			des,2. r2. r2. }
+	{ \repeat unfold 54 { des16 s } } \\
+		{ \repeat unfold 27 { fes16 s s8  } } \\
+		{ \repeat unfold 18 { as16 s s4 } }
+	>>
+	es2. d
+	<<
+	{ \repeat unfold 54 { des16 s } } \\
+		{ \repeat unfold 27 { fes16 s s8  } } \\
+		{ \repeat unfold 18 { as16 s s4 } }
 	>>
 	
-	as'2. <f as des> <des f as des f>
-	<des f as des f>2 r4 <des f as des f>2 r4 <des f as des f>2 r4
-	<< { <des f as>2. ~<des f as> ~<des f as> ~<des f as> s2. } \\
-		{ s4 des'2 s4 c2 s4 des2 ~des2. ~des2. } >>
-	<< { <as, des f>2. ~<as des f> ~<as des f> ~<as des f> s2. } \\
-		{ s4 des'2 s4 c2 s4 as2 ~as2. ~ as2. } >>
-	bes2 r4
-	<des, f bes>2. ~<des f bes>2. <des f as des>2. ~<des f as des>2.
+	<des, fes>4 r8 ges4 r8 es4 r8 es4 r8
+	\repeat unfold 2 { <des fes>4 r8 ges4 r8 es4 r8 es4 r8 }
+	es2. d
+	<<
+	{ \repeat unfold 54 { des16 s } } \\
+		{ \repeat unfold 27 { fes16 s s8  } } \\
+		{ \repeat unfold 18 { as16 s s4 } }
+	>>
+	es2. d
 }
 
 
 бас = \relative des, {
-	% 10 Hz
+	% 10 Гц
 
 	des2.*20
 	
@@ -445,13 +458,13 @@ head = {
 	
 	des2.*20
 	
-	% 16 Hz
+	% 16 Гц
 	
 	a2.*20
 	
 	a2.*20
 	
-	% 10 Hz
+	% 10 Гц
 
 	des2.*20
 	
@@ -461,7 +474,7 @@ head = {
 	
 	des2.*20
 	
-	% 20 Hz
+	% 20 Гц
 	
 	des2.*20
 	
@@ -471,6 +484,7 @@ head = {
 }
 
 
+%{
 \score {
 	<<
 		\new Staff \with { printPartCombineTexts = ##f } {
@@ -491,6 +505,8 @@ head = {
 	
 	\layout { }
 }
+%}
+
 
 \score {
 	<<
