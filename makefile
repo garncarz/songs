@@ -5,7 +5,7 @@ out:
 	mkdir out
 
 %: %.ly out
-	cp -l $< out/
+	cp $< out/
 	cd out && lilypond $< 
 	# cd out && timidity $@.midi # -Ow
 
