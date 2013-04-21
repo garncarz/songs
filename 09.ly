@@ -107,10 +107,17 @@ bas = \relative a, {
 	~gis4 a2 r4 |
 	r1 |
 	
-	r4 b e8 fis ~fis e |
-	cis16 gis a fis \grace{gis8} a4 r \grace{gis8} a4 |
-	cis16 gis a fis d'16 a b gis a4 gis
-	~gis4 a2 r4 |
+	\clef "bass_8"
+	% T2 S->T2
+	a,4 a' \grace{d8} a4 a, |
+	% T4 II4 VI->T4 D4
+	a4 b8 d a'4 e8 b |
+	% T2 S->T2
+	a4 a' \grace{fis8} a4 a, |
+	% T4 II4 VI->T4 D4
+	\afterGrace a4 {a'8} b8 d, a'4 e8 b |
+	% D4 T2
+	e8 b a2 r4 |
 }
 
 
