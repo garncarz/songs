@@ -17,36 +17,36 @@ melodie = \relative a' {
 	\key a \major
 	\time 4/4
 	
-	\partial 2 a4 \mp d8 cis |
-	r4 b e8 fis ~fis e |
+	\partial 2 a4\mp d8-. cis |
+	r4 b e8-| fis ~fis e |
 	cis16 gis a fis \grace{gis8} a4 r \grace{gis8} a4 |
-	cis16 gis a fis d'16 a b gis a4 gis |
-	gis4 a2 r4 \bar "||"
+	cis16 gis a fis d'16 a b gis a4 gis\< |
+	gis4 a2\! r4 \bar "||"
 	
-	r2 a4 d8 cis |
-	r4 b e8 fis ~fis e |
+	r2 a4\mp d8-. cis |
+	r4 b e8-| fis ~fis e |
 	cis16 gis a fis \grace{gis8} a4 r \grace{gis8} a4 |
-	cis16 gis a fis d'16 a b gis a4 gis |
-	gis4 a2 r4 \bar "||"
+	cis16 gis a fis d'16 a b gis a4 gis\< |
+	gis4 a2\! r4 \bar "||"
 	
-	r2 a4 d8 cis |
-	r4 b e8 fis ~fis e |
+	r2 a4\mp d8-. cis |
+	r4 b e8-| fis ~fis e |
 	cis16 gis a fis \grace{gis8} a4 r \grace{gis8} a4 |
-	cis16 gis a fis d'16 a b gis a4 gis |
-	gis4 a2 r4 \bar "||"
+	cis16 gis a fis d'16 a b gis a4 gis\< |
+	gis4 a2\! r4 \bar "||"
 	
-	r2 a4 d8 cis |
-	r4 b e8 fis ~fis e |
+	r2 a4\mp d8-. cis |
+	r4 b e8-| fis ~fis e |
 	cis16 gis a fis \grace{gis8} a4 r \grace{gis8} a4 |
-	cis16 gis a fis d'16 a b gis a4 gis |
-	gis4 a2 r4 \bar "||"
+	cis16 gis a fis d'16 a b gis a4 gis\< |
+	gis4 a2\! r4 \bar "||"
 	
 	\clef "treble^8"
-	r2 a'4 \mf d8 cis |
-	r4 b e8 fis ~fis e |
+	r2 a'4\f d8-. cis |
+	r4 b e8-| fis ~fis e |
 	cis16 gis a fis \grace{gis8} a4 r \grace{gis8} a4 |
-	cis16 gis a fis d'16 a b gis a4 \afterGrace gis {a8} |
-	gis4 a2. \bar "|."
+	cis16 gis a fis d'16 a b gis a4 \afterGrace gis\<( {a8} |
+	gis4) a2.\! \bar "|."
 }
 
 harmonie = \relative a' {
@@ -237,8 +237,8 @@ trubky = \relative a' {
 	<<
 		\new Staff {
 			\set Staff.midiInstrument = #"celesta"
-			\set Staff.midiMinimumVolume = #0.5
-			\set Staff.midiMaximumVolume = #0.7
+			\set Staff.midiMinimumVolume = #0.45
+			\set Staff.midiMaximumVolume = #0.75
 			\melodie
 		}
 		
