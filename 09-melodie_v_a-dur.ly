@@ -251,8 +251,8 @@ trubky = \relative a' {
 		
 		\new Staff {
 			\set Staff.midiInstrument = #"contrabass"
-			\set Staff.midiMinimumVolume = #0.4
-			\set Staff.midiMaximumVolume = #0.6
+			\set Staff.midiMinimumVolume = #0.6
+			\set Staff.midiMaximumVolume = #0.8
 			\bas
 		}
 		
