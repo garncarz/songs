@@ -86,7 +86,7 @@ guitar = \relative e' {
     }
 
     \tuplet 6/8 { a16 gis a gis a gis } a4 e |
-    \tuplet 6/8 { b'16 cis b cis b cis } b,4 a' |
+    \tuplet 6/8 { b'16 cis b cis b cis } b4 a |
     \tuplet 6/8 { a16 gis a gis a gis } a4 e |
     cis'-. cis-. dis-. dis-. |
 
