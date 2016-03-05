@@ -31,7 +31,8 @@ def lilypond():
     for ly in files:
         info_file(ly)
         midi = out_file(ly, 'midi')
-        if is_newer(ly, midi):
+        mid = out_file(ly, 'mid')  # happens on Windows
+        if is_newer(ly, midi) and is_newer(ly, mid):
             run('cd %s && lilypond %s' % (OUT, os.path.abspath(ly)))
 
 def mscore():
