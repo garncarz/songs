@@ -32,7 +32,7 @@ def lilypond():
         info_file(ly)
         midi = out_file(ly, 'midi')
         if is_newer(ly, midi):
-            run('cd %s && lilypond ../%s' % (OUT, ly))
+            run('cd %s && lilypond %s' % (OUT, os.path.abspath(ly)))
 
 def mscore():
     files = filter(lambda f: f.endswith('.mscz'), os.listdir('.'))
@@ -73,4 +73,5 @@ def main():
     imagemagick()
 
 if __name__ == '__main__':
+    os.makedirs(OUT, exist_ok=True)
     main()
