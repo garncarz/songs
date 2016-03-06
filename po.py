@@ -4,6 +4,8 @@ from music21 import *
 
 
 def n(name, dur=1, **kwargs):
+    if name == 'r':
+        return r(dur)
     return note.Note(name, quarterLength=dur, **kwargs)
 
 def r(dur=1):
@@ -129,3 +131,66 @@ def violin_verse():
 violin_verse()
 violin.append(r(4*4))
 violin_verse()
+
+
+# chorus:
+
+bass.append(n('c3', 2))
+bass.append(n('des2', 2))
+
+def bass_desdes():
+    bass.append(n('des2'))
+    bass.append(n('des3'))
+
+for _ in range(6):
+    for _ in range(4):
+        bass_fc()
+    for _ in range(4):
+        bass_desdes()
+
+
+chords.append(c(['g4', 'c5', 'e5'], 2))
+chords.append(c(['f4', 'aes4', 'f5'], 2))
+
+def chords_fasc(dur=1):
+    chords.append(c(['f4', 'aes4', 'c5'], dur))
+def chords_egc(dur=1):
+    chords.append(c(['e4', 'g4', 'c5'], dur))
+def chords_asdesf(dur=1):
+    chords.append(c(['aes4', 'des5', 'f5'], dur))
+def chords_fbesdes(dur=1):
+    chords.append(c(['f4', 'bes4', 'des5'], dur))
+def chords_fasdes(dur=1):
+    chords.append(c(['f4', 'aes4', 'des5'], dur))
+def chords_besdesf(dur=1):
+    chords.append(c(['bes4', 'des5', 'f5'], dur))
+
+def chords_chorus(fbesdes=False, besdesf=False):
+    chords_fasc()
+    chords_egc(3)
+    chords_fasc(4)
+    chords_asdesf()
+    if fbesdes:
+        chords_fbesdes(3)
+    else:
+        assert besdesf
+        chords_besdesf(3)
+    chords_fasdes(4)
+
+chords_chorus(fbesdes=True)
+chords_chorus(besdesf=True)
+chords_chorus(fbesdes=True)
+chords_chorus(fbesdes=True)
+chords_chorus(besdesf=True)
+chords_chorus(fbesdes=True)
+
+
+violin.append(r(5*4))
+
+for _ in range(2):
+    violin.append(mel([
+       ('c5', 4), ('r', 4), 'aes4', 'des5', ('f5', 2), ('r', 4),
+       ('c5', 4), ('f4', 4), ('aes4', 2), 'bes4', 'f4', ('des5', 4),
+    ]))
+
+violin.append(r(4*4))
