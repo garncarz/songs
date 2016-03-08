@@ -194,3 +194,39 @@ for _ in range(2):
     ]))
 
 violin.append(r(4*4))
+
+
+# bridge:
+
+bass.append(mel([
+    ('g2', 2), ('c3', 2),
+    'g2', 'c3', 'g2', 'c3',
+    ('d3', 2), ('g2', 2),
+    'g2', 'd3', 'g2', 'd3',
+    ('c3', 2), ('f3', 2),
+]))
+
+
+def chords_besdg(dur=1):
+    chords.append(c(['bes4', 'd5', 'g5'], dur))
+def chords_gces(dur=1):
+    chords.append(c(['g4', 'c5', 'ees5'], dur))
+def chords_gbesd(dur=1):
+    chords.append(c(['g4', 'bes4', 'd5'], dur))
+
+chords_besdg(2)
+chords_gces(2)
+chords_besdg()
+chords_gces(3)
+
+chords_fad(2)
+chords_gbesd(2)
+chords_fad()
+chords_gbesd(3)
+
+chords_egc(2)
+chords_fac()
+chords_fbesd()
+
+
+violin.append(r(5*4))
