@@ -7,6 +7,8 @@ from music21 import *
 
 def n(name, dur=1, **kwargs):
     """note"""
+    if not isinstance(name, str):  # e.g. key
+        return name
     if name == 'r':
         return r(dur)
     return note.Note(name, quarterLength=dur, **kwargs)
@@ -28,6 +30,15 @@ def mel(notes):
             else n(note)
         )
     return melody
+
+
+#######################################################################
+# keys
+
+f_major = lambda: key.Key('F')
+f_minor = lambda: key.Key('f')
+c_minor = lambda: key.Key('c')
+g_minor = lambda: key.Key('g')
 
 
 #######################################################################
@@ -160,6 +171,10 @@ def violin_verse():
 # parts
 
 def intro():
+    bass.append(f_major())
+    chords.append(f_major())
+    violin.append(f_major())
+
     for _ in range(4):
         for _ in range(4):
             bass_fc()
@@ -206,10 +221,12 @@ def verse():
 
     for _ in range(2):
         violin.append(r(4*4))
+        violin.append(f_major())  # 2nd repetition
         violin_verse()
 
 
 def chorus():
+    bass.append(f_minor())  # should be changed in the middle of a bar
     bass.append(n('c3', 2))
     bass.append(n('des2', 2))
 
@@ -219,6 +236,7 @@ def chorus():
         for _ in range(4):
             bass_desdes()
 
+    chords.append(f_minor())  # should be changed in the middle of a bar
     chords.append(c(['g4', 'c5', 'e5'], 2))
     chords.append(c(['f4', 'aes4', 'f5'], 2))
 
@@ -231,6 +249,7 @@ def chorus():
 
     violin.append(r(5*4))
 
+    violin.append(f_minor())
     for _ in range(2):
         violin.append(mel([
            ('c5', 4), ('r', 4), 'aes4', 'des5', ('f5', 2), ('r', 4),
@@ -242,23 +261,29 @@ def chorus():
 
 def bridge():
     bass.append(mel([
+        c_minor(),
         ('g2', 2), ('c3', 2),
         'g2', 'c3', 'g2', 'c3',
+        g_minor(),
         ('d3', 2), ('g2', 2),
         'g2', 'd3', 'g2', 'd3',
+        f_major(),
         ('c3', 2), ('f3', 2),
     ]))
 
+    chords.append(c_minor())
     chords_besdg(2)
     chords_gces(2)
     chords_besdg()
     chords_gces(3)
 
+    chords.append(g_minor())
     chords_fad(2)
     chords_gbesd(2)
     chords_fad()
     chords_gbesd(3)
 
+    chords.append(f_major())
     chords_egc(2)
     chords_fac()
     chords_fbesd()
