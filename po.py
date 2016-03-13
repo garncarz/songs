@@ -1,17 +1,29 @@
 from music21 import *
 
-# TODO grace notes
+GRACE_LEN = 0.125
+
 
 #######################################################################
 # helpers
 
+dur_stolen = 0  # global for grace notes
+
 def n(name, dur=1, **kwargs):
     """note"""
+    global dur_stolen
     if not isinstance(name, str):  # e.g. key
         return name
     if name == 'r':
         return r(dur)
-    return note.Note(name, quarterLength=dur, **kwargs)
+    n = note.Note(name, quarterLength=dur-dur_stolen, **kwargs)
+    dur_stolen = 0
+    return n
+
+def gn(name, dur=GRACE_LEN):
+    """grace note"""
+    global dur_stolen
+    dur_stolen += dur
+    return note.Note(name, quarterLength=dur)
 
 def r(dur=1):
     """rest"""
@@ -19,7 +31,10 @@ def r(dur=1):
 
 def c(notes, dur=1, **kwargs):
     """chord"""
-    return chord.Chord(notes, quarterLength=dur, **kwargs)
+    global dur_stolen
+    c = chord.Chord(notes, quarterLength=dur-dur_stolen, **kwargs)
+    dur_stolen = 0
+    return c
 
 def mel(notes):
     """melody"""
@@ -137,9 +152,12 @@ def chords_verse(fbesd=False, besdf=False):
         chords_adf(4)
     chords_fad(4)
 
-def chords_chorus(fbesdes=False, besdesf=False):
+def chords_chorus(fbesdes=False, besdesf=False, graces=False):
     chords_fasc()
+    chords.append(gn('bes4'))
     chords_egc(3)
+    if graces:
+        chords.append([gn('f4'), gn('aes4'), gn('c5')])
     chords_fasc(4)
     chords_asdesf()
     if fbesdes:
@@ -147,6 +165,8 @@ def chords_chorus(fbesdes=False, besdesf=False):
     else:
         assert besdesf
         chords_besdesf(3)
+    if graces:
+        chords.append([gn('des5'), gn('aes4'), gn('f4')])
     chords_fasdes(4)
 
 
@@ -184,7 +204,9 @@ def intro():
     chords.append(r(4*4))
 
     chords_fac(4)
+    chords.append(gn('c4'))
     chords_acf(4)
+    chords.append(gn('d4'))
     chords_adf(4)
     chords_fad(4)
 
@@ -209,10 +231,12 @@ def verse():
     chords_fac()
     chords_ceg(2)
     chords_ceg()
+    chords.append(gn('f5'))
     chords_fac(4)
     chords_adf()
     chords_fbesd(2)
     chords_fbesd()
+    chords.append(gn('d4'))
     chords_fad(4)
 
     chords_verse(fbesd=True)
@@ -279,8 +303,10 @@ def bridge():
 
     chords.append(g_minor())
     chords_fad(2)
+    chords.append(gn('c5'))
     chords_gbesd(2)
     chords_fad()
+    chords.append(gn('c5'))
     chords_gbesd(3)
 
     chords.append(f_major())
@@ -308,10 +334,11 @@ def outro():
     for _ in range(4):
         bass_besbes()
 
-    chords_chorus(fbesdes=True)
+    chords_chorus(fbesdes=True, graces=True)
     chords_chorus(besdesf=True)
 
     chords_esgbes()
+    chords.append(gn('aes4'))
     chords_desfbes(3)
     chords_esgbes(4)
     chords_gces()
@@ -319,6 +346,7 @@ def outro():
     chords_esgc(4)
 
     chords_desfas()
+    chords.append(gn('g4'))
     chords_cesas(3)
     chords_desfas(4)
     chords_fbesdes()
