@@ -8,10 +8,35 @@ GRACE_LEN = 0.125
 
 dur_stolen = 0  # global for grace notes
 
+def rel(rn, o=None, dur=1, scale=None):
+    """note relative to a scale"""
+    global dur_stolen
+    if not scale:
+        global gl_scale
+        scale = gl_scale
+    pitch = scale.romanNumeral(rn).root()
+    if o:
+        pitch.octave = o
+    n = note.Note(pitch, quarterLength=dur-dur_stolen)
+    dur_stolen = 0
+    return n
+
+def rel_c(rn, inv=None, dur=1, scale=None):
+    """chord relative to a scale"""
+    global dur_stolen
+    if not scale:
+        global gl_scale
+        scale = gl_scale
+    c = chord.Chord(scale.romanNumeral(rn), quarterLength=dur-dur_stolen)
+    if inv:
+        c.inversion(inv)
+    dur_stolen = 0
+    return c
+
 def n(name, dur=1, **kwargs):
     """note"""
     global dur_stolen
-    if not isinstance(name, str):  # e.g. key
+    if isinstance(name, base.Music21Object):  # e.g. key
         return name
     if name == 'r':
         return r(dur)
@@ -60,11 +85,11 @@ g_minor = lambda: key.Key('g')
 # basic melody/chord structures
 
 def bass_fc():
-    bass.append(n('f2'))
-    bass.append(n('c3'))
+    bass.append(rel(1, o=2))
+    bass.append(rel(5, o=3))
 def bass_dd():
-    bass.append(n('d2'))
-    bass.append(n('d3'))
+    bass.append(rel(6, o=2))
+    bass.append(rel(6, o=3))
 
 def bass_desdes():
     bass.append(n('des2'))
@@ -85,9 +110,9 @@ def bass_besbes():
 
 
 def chords_fac(dur=1):
-    chords.append(c(['f4', 'a4', 'c5'], dur))
+    chords.append(rel_c(1, dur=dur))
 def chords_acf(dur=1):
-    chords.append(c(['a4', 'c5', 'f5'], dur))
+    chords.append(rel_c(1, inv=1, dur=dur))
 def chords_adf(dur=1):
     chords.append(c(['a4', 'd5', 'f5'], dur))
 def chords_fad(dur=1):
@@ -191,6 +216,9 @@ def violin_verse():
 # parts
 
 def intro():
+    global gl_scale
+    gl_scale = f_major()
+
     bass.append(f_major())
     chords.append(f_major())
     violin.append(f_major())
