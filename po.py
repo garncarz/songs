@@ -1,4 +1,7 @@
+from itertools import chain
+
 from music21 import *
+
 
 GRACE_LEN = 0.125
 
@@ -163,53 +166,73 @@ def chords_gbesdes(dur=1):
 #######################################################################
 # parts' structures
 
+def bassline():
+    for _ in range(4):
+        yield rel(1, o=2)
+        yield rel(5, o=3)
+    for _ in range(4):
+        yield rel(6, o=2)
+        yield rel(6, o=3)
+
+
 def chords_verse(fbesd=False, besdf=False):
-    chords_fac()
-    chords_ceg(3)
-    chords_fac(4)
-    if fbesd:
-        chords_adf()
-        chords_fbesd(3)
-    elif besdf:
-        chords_adf()
-        chords_besdf(3)
-    else:
-        chords_adf(4)
-    chords_fad(4)
+    def _yield():
+        yield rel_c(1, dur=1)
+        yield c(['c4', 'e4', 'g4'], dur=3)
+        yield rel_c(1, dur=4)
+
+        if fbesd:
+            yield c(['a4', 'd5', 'f5'], dur=1)
+            yield c(['f4', 'bes4', 'd5'], dur=3)
+        elif besdf:
+            yield c(['a4', 'd5', 'f5'], dur=1)
+            yield c(['bes4', 'd5', 'f5'], dur=3)
+        else:
+            yield c(['a4', 'd5', 'f5'], dur=4)
+        yield c(['f4', 'a4', 'd5'], dur=4)
+
+    chords.append(list(_yield()))
+
 
 def chords_chorus(fbesdes=False, besdesf=False, graces=False):
-    chords_fasc()
-    chords.append(gn('bes4'))
-    chords_egc(3)
-    if graces:
-        chords.append([gn('f4'), gn('aes4'), gn('c5')])
-    chords_fasc(4)
-    chords_asdesf()
-    if fbesdes:
-        chords_fbesdes(3)
-    else:
-        assert besdesf
-        chords_besdesf(3)
-    if graces:
-        chords.append([gn('des5'), gn('aes4'), gn('f4')])
-    chords_fasdes(4)
+    def _yield():
+        yield c(['f4', 'aes4', 'c5'], dur=1)
+        yield gn('bes4')
+        yield c(['e4', 'g4', 'c5'], dur=3)
+        if graces:
+            yield from [gn('f4'), gn('aes4'), gn('c5')]
+        yield c(['f4', 'aes4', 'c5'], dur=4)
+        yield c(['aes4', 'des5', 'f5'], dur=1)
+        if fbesdes:
+            yield c(['f4', 'bes4', 'des5'], dur=3)
+        else:
+            assert besdesf
+            yield c(['bes4', 'des5', 'f5'], dur=3)
+        if graces:
+            yield from [gn('des5'), gn('aes4'), gn('f4')]
+        yield c(['f4', 'aes4', 'des5'], dur=4)
+
+    chords.append(list(_yield()))
 
 
 def violin_verse():
-    for _ in range(2):
-        violin.append(mel([
-            'f4', 'g4', 'c5', 'g4',
-            'f4', 'a4', 'c5', 'a4',
-            ('d4', 2), ('bes4', 2),
-            'f4', 'd4', ('a4', 2),
-        ]))
+    def _yield():
+        for _ in range(2):
+            yield from mel([
+                'f4', 'g4', 'c5', 'g4',
+                'f4', 'a4', 'c5', 'a4',
+                ('d4', 2), ('bes4', 2),
+                'f4', 'd4', ('a4', 2),
+            ])
 
-    violin.append(mel([
-        ('c4', 2), ('e4', 2),
-        ('f4', 2), 'c5', 'c5',
-        ('d5', 2), 'bes4', 'bes4',
-        'f4', 'g4', 'c5', 'g4',
-    ]))
+        yield from mel([
+            ('c4', 2), ('e4', 2),
+            ('f4', 2), 'c5', 'c5',
+            ('d5', 2), 'bes4', 'bes4',
+            'f4', 'g4', 'c5', 'g4',
+        ])
+
+    violin.append(list(_yield()))
 
 
 #######################################################################
@@ -223,56 +246,52 @@ def intro():
     chords.append(f_major())
     violin.append(f_major())
 
-    for _ in range(4):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_dd()
+    bass.append(list(chain.from_iterable(bassline() for _ in range(4))))
 
-    chords.append(r(4*4))
+    chords.append([r(4) for _ in range(4)])
 
-    chords_fac(4)
-    chords.append(gn('c4'))
-    chords_acf(4)
-    chords.append(gn('d4'))
-    chords_adf(4)
-    chords_fad(4)
+    chords.append([
+        rel_c(1, dur=4),
+        gn('c4'),
+        rel_c(1, inv=1, dur=4),
+        gn('d4'),
+        c(['a4', 'd5', 'f5'], dur=4),
+        c(['f4', 'a4', 'd5'], dur=4),
+    ])
 
     chords_verse()
     chords_verse(fbesd=True)
 
-    violin.append(r(16*4))
+    violin.append([r(4) for _ in range(16)])
 
 
 def verse():
-    for _ in range(8):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_dd()
+    bass.append(list(chain.from_iterable(bassline() for _ in range(8))))
 
     chords_verse(besdf=True)
     chords_verse(fbesd=True)
     chords_verse(fbesd=True)
     chords_verse(besdf=True)
 
-    chords_fac()
-    chords_ceg(2)
-    chords_ceg()
-    chords.append(gn('f5'))
-    chords_fac(4)
-    chords_adf()
-    chords_fbesd(2)
-    chords_fbesd()
-    chords.append(gn('d4'))
-    chords_fad(4)
+    chords.append([
+        rel_c(1, dur=1),
+        c(['c4', 'e4', 'g4'], dur=2),
+        c(['c4', 'e4', 'g4'], dur=1),
+        gn('f5'),
+        rel_c(1, dur=4),
+        c(['a4', 'd5', 'f5'], dur=1),
+        c(['f4', 'bes4', 'd5'], dur=2),
+        c(['f4', 'bes4', 'd5'], dur=1),
+        gn('d4'),
+        c(['f4', 'a4', 'd5'], dur=4),
+    ])
 
     chords_verse(fbesd=True)
     chords_verse(fbesd=True)
     chords_verse(besdf=True)
 
     for _ in range(2):
-        violin.append(r(4*4))
+        violin.append([r(4) for _ in range(4)])
         violin.append(f_major())  # 2nd repetition
         violin_verse()
 
