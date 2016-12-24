@@ -175,6 +175,34 @@ def bassline():
         yield rel(6, o=3)
 
 
+def bassline_chorus():
+    for _ in range(4):
+        yield rel(1, o=2)
+        yield rel(5, o=3)
+    for _ in range(4):
+        yield n('des2')
+        yield n('des3')
+
+
+def bassline_outro():
+    for _ in range(2):
+        yield from bassline_chorus()
+
+    for _ in range(4):
+        yield n('ees2')
+        yield n('bes2')
+    for _ in range(4):
+        yield n('c2')
+        yield n('c3')
+
+    for _ in range(4):
+        yield n('des2')
+        yield n('aes2')
+    for _ in range(4):
+        yield n('bes1')
+        yield n('bes2')
+
+
 def chords_verse(fbesd=False, besdf=False):
     def _yield():
         yield rel_c(1, dur=1)
@@ -215,6 +243,24 @@ def chords_chorus(fbesdes=False, besdesf=False, graces=False):
     chords.append(list(_yield()))
 
 
+def chords_outro():
+    yield c(['ees4', 'g4', 'bes4'], dur=1)
+    yield gn('aes4')
+    yield c(['des4', 'f4', 'bes4'], dur=3)
+    yield c(['ees4', 'g4', 'bes4'], dur=4)
+    yield c(['g4', 'c5', 'ees5'], dur=1)
+    yield c(['aes4', 'c5', 'ees5'], dur=3)
+    yield c(['ees4', 'g4', 'c5'], dur=4)
+
+    yield c(['des4', 'f4', 'aes4'], dur=1)
+    yield gn('g4')
+    yield c(['c4', 'ees4', 'aes4'], dur=3)
+    yield c(['des4', 'f4', 'aes4'], dur=4)
+    yield c(['f4', 'bes4', 'des5'], dur=1)
+    yield c(['g4', 'bes4', 'des5'], dur=3)
+    yield c(['des4', 'f4', 'bes4'], dur=4)
+
+
 def violin_verse():
     def _yield():
         for _ in range(2):
@@ -233,6 +279,13 @@ def violin_verse():
         ])
 
     violin.append(list(_yield()))
+
+
+def violin_chorus():
+    yield from mel([
+       ('c5', 4), ('r', 4), 'aes4', 'des5', ('f5', 2), ('r', 4),
+       ('c5', 4), ('f4', 4), ('aes4', 2), 'bes4', 'f4', ('des5', 4),
+    ])
 
 
 #######################################################################
@@ -297,19 +350,19 @@ def verse():
 
 
 def chorus():
-    bass.append(f_minor())  # should be changed in the middle of a bar
-    bass.append(n('c3', 2))
-    bass.append(n('des2', 2))
+    bass.append([
+        f_minor(),  # should be changed in the middle of a bar
+        n('c3', 2),
+        n('des2', 2),
+    ])
 
-    for _ in range(6):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_desdes()
+    bass.append(list(chain.from_iterable(bassline_chorus() for _ in range(6))))
 
-    chords.append(f_minor())  # should be changed in the middle of a bar
-    chords.append(c(['g4', 'c5', 'e5'], 2))
-    chords.append(c(['f4', 'aes4', 'f5'], 2))
+    chords.append([
+        f_minor(),  # should be changed in the middle of a bar
+        c(['g4', 'c5', 'e5'], 2),
+        c(['f4', 'aes4', 'f5'], 2),
+    ])
 
     chords_chorus(fbesdes=True)
     chords_chorus(besdesf=True)
@@ -318,16 +371,12 @@ def chorus():
     chords_chorus(besdesf=True)
     chords_chorus(fbesdes=True)
 
-    violin.append(r(5*4))
+    violin.append([r(4) for _ in range(5)])
 
     violin.append(f_minor())
-    for _ in range(2):
-        violin.append(mel([
-           ('c5', 4), ('r', 4), 'aes4', 'des5', ('f5', 2), ('r', 4),
-           ('c5', 4), ('f4', 4), ('aes4', 2), 'bes4', 'f4', ('des5', 4),
-        ]))
+    violin.append(list(chain.from_iterable(violin_chorus() for _ in range(2))))
 
-    violin.append(r(4*4))
+    violin.append([r(4) for _ in range(4)])
 
 
 def bridge():
@@ -361,46 +410,18 @@ def bridge():
     chords_fac()
     chords_fbesd()
 
-    violin.append(r(5*4))
+    violin.append([r(4) for _ in range(5)])
 
 
 def outro():
-    for _ in range(2):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_desdes()
-
-    for _ in range(4):
-        bass_esbes()
-    for _ in range(4):
-        bass_cc()
-
-    for _ in range(4):
-        bass_desas()
-    for _ in range(4):
-        bass_besbes()
+    bass.append(list(bassline_outro()))
 
     chords_chorus(fbesdes=True, graces=True)
     chords_chorus(besdesf=True)
 
-    chords_esgbes()
-    chords.append(gn('aes4'))
-    chords_desfbes(3)
-    chords_esgbes(4)
-    chords_gces()
-    chords_asces(3)
-    chords_esgc(4)
+    chords.append(list(chords_outro()))
 
-    chords_desfas()
-    chords.append(gn('g4'))
-    chords_cesas(3)
-    chords_desfas(4)
-    chords_fbesdes()
-    chords_gbesdes(3)
-    chords_desfbes(4)
-
-    violin.append(r(16*4))
+    violin.append([r(4) for _ in range(16)])
 
 
 #######################################################################
