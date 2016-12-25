@@ -105,26 +105,18 @@ g_minor = lambda: key.Key('g')
 # parts' structures
 
 def bassline():
+    bn = lambda n: rel(n).transpose(-12 * 2)
     for _ in range(4):
-        yield rel(1, o=2)
-        yield rel(5, o=3)
+        yield bn(1)
+        yield bn(5)
     for _ in range(4):
-        yield rel(6, o=2)
-        yield rel(6, o=3)
-
-
-def bassline_chorus():
-    for _ in range(4):
-        yield rel(1, o=2)
-        yield rel(5, o=3)
-    for _ in range(4):
-        yield n('des2')
-        yield n('des3')
+        yield bn(6).transpose(-12)
+        yield bn(6)
 
 
 def bassline_outro():
     for _ in range(2):
-        yield from bassline_chorus()
+        yield from bassline()
 
     for _ in range(4):
         yield n('ees2')
@@ -141,20 +133,21 @@ def bassline_outro():
         yield n('bes2')
 
 
-def chords_verse(fbesd=False, besdf=False):
+def chords_verse(variation=0):
     yield rel_c(1, dur=1)
-    yield c(['c4', 'e4', 'g4'], dur=3)
+    yield rel_c(5, dur=3).transpose(-12)
     yield rel_c(1, dur=4)
 
-    if fbesd:
-        yield c(['a4', 'd5', 'f5'], dur=1)
-        yield c(['f4', 'bes4', 'd5'], dur=3)
-    elif besdf:
-        yield c(['a4', 'd5', 'f5'], dur=1)
-        yield c(['bes4', 'd5', 'f5'], dur=3)
-    else:
-        yield c(['a4', 'd5', 'f5'], dur=4)
-    yield c(['f4', 'a4', 'd5'], dur=4)
+    if variation == 0:
+        yield rel_c(6, inv=2, dur=4).transpose(-12)
+    elif variation == 1:
+        yield rel_c(6, inv=2, dur=1).transpose(-12)
+        yield rel_c(4, inv=2, dur=3).transpose(-12)
+    elif variation == 2:
+        yield rel_c(6, inv=2, dur=1).transpose(-12)
+        yield rel_c(4, dur=3)
+
+    yield rel_c(6, inv=1, dur=4).transpose(-12)
 
 
 def chords_chorus(fbesdes=False, besdesf=False, graces=False):
@@ -190,6 +183,8 @@ def chords_bridge():
     yield gn('c5')
     yield c(['g4', 'bes4', 'd5'], dur=3)
 
+    global gl_scale
+    gl_scale = f_major()
     yield f_major()
     yield c(['e4', 'g4', 'c5'], dur=2)
     yield rel_c(1, dur=1)
@@ -264,20 +259,23 @@ def intro():
 
     chords.append(chain(
         chords_verse(),
-        chords_verse(fbesd=True),
+        chords_verse(1),
     ))
 
     violin.append(repeat(lambda: r(4), 16))
 
 
 def verse():
+    global gl_scale
+    gl_scale = f_major()
+
     bass.append(repeat(bassline, 8))
 
     chords.append(chain(
-        chords_verse(besdf=True),
-        chords_verse(fbesd=True),
-        chords_verse(fbesd=True),
-        chords_verse(besdf=True),
+        chords_verse(2),
+        chords_verse(1),
+        chords_verse(1),
+        chords_verse(2),
     ))
 
     chords.append([
@@ -294,9 +292,9 @@ def verse():
     ])
 
     chords.append(chain(
-        chords_verse(fbesd=True),
-        chords_verse(fbesd=True),
-        chords_verse(besdf=True),
+        chords_verse(1),
+        chords_verse(1),
+        chords_verse(2),
     ))
 
     for _ in range(2):
@@ -306,13 +304,16 @@ def verse():
 
 
 def chorus():
+    global gl_scale
+    gl_scale = f_minor()
+
     bass.append([
         f_minor(),  # should be changed in the middle of a bar
         n('c3', 2),
         n('des2', 2),
     ])
 
-    bass.append(repeat(bassline_chorus, 6))
+    bass.append(repeat(bassline, 6))
 
     chords.append([
         f_minor(),  # should be changed in the middle of a bar
