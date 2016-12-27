@@ -151,21 +151,24 @@ def chords_verse(variation=0):
 
 
 def chords_chorus(fbesdes=False, besdesf=False, graces=False):
-    yield c(['f4', 'aes4', 'c5'], dur=1)
+    yield rel_c(1, dur=1)
     yield gn('bes4')
-    yield c(['e4', 'g4', 'c5'], dur=3)
+    yield rel_c(5, inv=1, dur=3).transpose(-12)
+
     if graces:
         yield from [gn('f4'), gn('aes4'), gn('c5')]
-    yield c(['f4', 'aes4', 'c5'], dur=4)
-    yield c(['aes4', 'des5', 'f5'], dur=1)
+    yield rel_c(1, dur=4)
+
+    yield rel_c(6, inv=2, dur=1).transpose(-12)
     if fbesdes:
-        yield c(['f4', 'bes4', 'des5'], dur=3)
+        yield rel_c(4, inv=2, dur=3).transpose(-12)
     else:
         assert besdesf
-        yield c(['bes4', 'des5', 'f5'], dur=3)
+        yield rel_c(4, dur=3)
+
     if graces:
         yield from [gn('des5'), gn('aes4'), gn('f4')]
-    yield c(['f4', 'aes4', 'des5'], dur=4)
+    yield rel_c(6, inv=1, dur=4).transpose(-12)
 
 
 def chords_bridge():
