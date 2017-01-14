@@ -172,26 +172,29 @@ def chords_chorus(fbesdes=False, besdesf=False, graces=False):
 
 
 def chords_bridge():
-    yield c_minor()
-    yield c(['bes4', 'd5', 'g5'], dur=2)
-    yield c(['g4', 'c5', 'ees5'], dur=2)
-    yield c(['bes4', 'd5', 'g5'], dur=1)
-    yield c(['g4', 'c5', 'ees5'], dur=3)
-
-    yield g_minor()
-    yield c(['f4', 'a4', 'd5'], dur=2)
-    yield gn('c5')
-    yield c(['g4', 'bes4', 'd5'], dur=2)
-    yield c(['f4', 'a4', 'd5'], dur=1)
-    yield gn('c5')
-    yield c(['g4', 'bes4', 'd5'], dur=3)
-
     global gl_scale
+
+    gl_scale = c_minor()
+    yield c_minor()
+    yield rel_c(5, inv=1, dur=2)
+    yield rel_c(1, inv=2, dur=2)
+    yield rel_c(5, inv=1, dur=1)
+    yield rel_c(1, inv=2, dur=3)
+
+    gl_scale = g_minor()
+    yield g_minor()
+    yield rel_c(5, inv=1, dur=2).transpose(-12)
+    yield gn('c5')
+    yield rel_c(1, dur=2)
+    yield rel_c(5, inv=1, dur=1).transpose(-12)
+    yield gn('c5')
+    yield rel_c(1, dur=3)
+
     gl_scale = f_major()
     yield f_major()
-    yield c(['e4', 'g4', 'c5'], dur=2)
+    yield rel_c(5, inv=1, dur=2).transpose(-12)
     yield rel_c(1, dur=1)
-    yield c(['f4', 'bes4', 'd5'], dur=1)
+    yield rel_c(4, inv=2, dur=1).transpose(-12)
 
 
 def chords_outro():
