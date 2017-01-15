@@ -217,26 +217,61 @@ def chords_outro():
 
 def violin_verse():
     for _ in range(2):
-        yield from mel([
-            'f4', 'g4', 'c5', 'g4',
-            'f4', 'a4', 'c5', 'a4',
-            ('d4', 2), ('bes4', 2),
-            'f4', 'd4', ('a4', 2),
-        ])
+        yield rel(1, dur=1)
+        yield rel(2, dur=1)
+        yield rel(5, dur=1)
+        yield rel(2, dur=1)
 
-    yield from mel([
-        ('c4', 2), ('e4', 2),
-        ('f4', 2), 'c5', 'c5',
-        ('d5', 2), 'bes4', 'bes4',
-        'f4', 'g4', 'c5', 'g4',
-    ])
+        yield rel(1, dur=1)
+        yield rel(3, dur=1)
+        yield rel(5, dur=1)
+        yield rel(3, dur=1)
+
+        yield rel(6, dur=2, o=4)
+            # TODO should be -1 or -2 when Music21 is removed
+        yield rel(4, dur=2)
+
+        yield rel(1, dur=1)
+        yield rel(6, dur=1, o=4)
+        yield rel(3, dur=2)
+
+    yield rel(5, dur=2, o=4)
+    yield rel(7, dur=2, o=4)
+
+    yield rel(1, dur=2)
+    yield rel(5, dur=1)
+    yield rel(5, dur=1)
+
+    yield rel(6, dur=2)
+    yield rel(4, dur=1)
+    yield rel(4, dur=1)
+
+    yield rel(1, dur=1)
+    yield rel(2, dur=1)
+    yield rel(5, dur=1)
+    yield rel(2, dur=1)
 
 
 def violin_chorus():
-    yield from mel([
-       ('c5', 4), ('r', 4), 'aes4', 'des5', ('f5', 2), ('r', 4),
-       ('c5', 4), ('f4', 4), ('aes4', 2), 'bes4', 'f4', ('des5', 4),
-    ])
+    yield rel(5, dur=4)
+
+    yield r(dur=4)
+
+    yield rel(3, dur=1)
+    yield rel(6, dur=1)
+    yield rel(1, dur=2, o=5)
+
+    yield r(dur=4)
+
+    yield rel(5, dur=4)
+
+    yield rel(1, dur=4)
+
+    yield rel(3, dur=2)
+    yield rel(4, dur=1)
+    yield rel(1, dur=1)
+
+    yield rel(6, dur=4)
 
 
 #######################################################################
