@@ -36,7 +36,8 @@ def lilypond():
             run('cd %s && lilypond %s' % (OUT, os.path.abspath(ly)))
 
 def mscore():
-    files = filter(lambda f: f.endswith('.mscz'), os.listdir('.'))
+    files = filter(lambda f: f.endswith('.mscz') or f.endswith('.mscx'),
+                   os.listdir('.'))
     for ms in files:
         info_file(ms)
         midi = out_file(ms, 'mid')  # MuseScore doesn't recognise .midi, cool
@@ -53,8 +54,9 @@ def timidity():
         info_file(midi)
         midi = out_file(midi)
         ogg = out_file(midi, 'ogg')
-        if is_newer(midi, ogg):
-            run('timidity %s -Ov -o %s' % (midi, ogg))
+        flac = out_file(midi, 'flac')
+        if is_newer(midi, flac):
+            run('timidity %s -OF -o %s' % (midi, flac))
 
 def imagemagick():
     files = filter(lambda f: f.endswith('.pdf'), os.listdir(OUT))
@@ -63,7 +65,7 @@ def imagemagick():
         pdf = out_file(pdf)
         png = out_file(pdf, 'png')
         if is_newer(pdf, png):
-            run('convert -thumbnail x300 -background white -alpha remove '
+            run('convert -density 400 -background white -alpha remove '
                 '%s[0] %s' % (pdf, png))
 
 
