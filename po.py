@@ -289,13 +289,14 @@ def intro():
 
     chords.append(repeat(lambda: r(4), 4))
 
+    # TODO this should be another variation for chords_verse
     chords.append([
         rel_c(1, dur=4),
         gn('c4'),
         rel_c(1, inv=1, dur=4),
         gn('d4'),
-        c(['a4', 'd5', 'f5'], dur=4),
-        c(['f4', 'a4', 'd5'], dur=4),
+        rel_c(6, inv=2, dur=4).transpose(-12),
+        rel_c(6, inv=1, dur=4).transpose(-12),
     ])
 
     chords.append(chain(
@@ -319,17 +320,18 @@ def verse():
         chords_verse(2),
     ))
 
+    # TODO this should be another variation for chords_verse
     chords.append([
         rel_c(1, dur=1),
-        c(['c4', 'e4', 'g4'], dur=2),
-        c(['c4', 'e4', 'g4'], dur=1),
+        rel_c(5, dur=2).transpose(-12),
+        rel_c(5, dur=1).transpose(-12),
         gn('f5'),
         rel_c(1, dur=4),
-        c(['a4', 'd5', 'f5'], dur=1),
-        c(['f4', 'bes4', 'd5'], dur=2),
-        c(['f4', 'bes4', 'd5'], dur=1),
+        rel_c(6, inv=2, dur=1).transpose(-12),
+        rel_c(4, inv=2, dur=2).transpose(-12),
+        rel_c(4, inv=2, dur=1).transpose(-12),
         gn('d4'),
-        c(['f4', 'a4', 'd5'], dur=4),
+        rel_c(6, inv=1, dur=4).transpose(-12),
     ])
 
     chords.append(chain(
