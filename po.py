@@ -114,6 +114,36 @@ def bassline():
         yield bn(6)
 
 
+def bassline_bridge():
+    global gl_scale
+
+    def bn(n, o=None, dur=1):
+        return rel(n, o=o, dur=dur).transpose(-12 * 2)
+
+    gl_scale = c_minor()
+    yield c_minor()
+    yield bn(5, dur=2)
+    yield bn(1, o=5, dur=2)
+    yield bn(5)
+    yield bn(1, o=5)
+    yield bn(5)
+    yield bn(1, o=5)
+
+    gl_scale = g_minor()
+    yield g_minor()
+    yield bn(5, dur=2)
+    yield bn(1, dur=2)
+    yield bn(1)
+    yield bn(5)
+    yield bn(1)
+    yield bn(5)
+
+    gl_scale = f_major()
+    yield f_major()
+    yield bn(5, dur=2)
+    yield bn(1, o=5, dur=2)
+
+
 def bassline_outro():
     for _ in range(2):
         yield from bassline()
@@ -382,16 +412,7 @@ def chorus():
 
 
 def bridge():
-    bass.append(mel([
-        c_minor(),
-        ('g2', 2), ('c3', 2),
-        'g2', 'c3', 'g2', 'c3',
-        g_minor(),
-        ('d3', 2), ('g2', 2),
-        'g2', 'd3', 'g2', 'd3',
-        f_major(),
-        ('c3', 2), ('f3', 2),
-    ]))
+    bass.append(list(bassline_bridge()))
 
     chords.append(list(chords_bridge()))
 
