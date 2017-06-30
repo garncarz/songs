@@ -460,3 +460,7 @@ verse()
 chorus()
 
 outro()
+
+
+s.write('xml', 'po.xml')
+# s.show('midi')
