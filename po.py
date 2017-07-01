@@ -261,4 +261,4 @@ def song():
 
 if __name__ == '__main__':
     song()
-    mid.save('po_midi.mid')
+    mid.save('po.midi')
