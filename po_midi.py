@@ -127,11 +127,9 @@ class Track(MidiTrack):
 
 def bassline():
     for _ in range(4):
-        bass.play(0)
-        bass.play(4)
+        bass.sequence([(0,), (4,)])
     for _ in range(4):
-        bass.play(-2)
-        bass.play(5)
+        bass.sequence([(-2,), (5,)])
 
 
 def bassline_bridge():
@@ -166,34 +164,46 @@ def chords_verse(variation):
     assert -1 <= variation <= 3
 
     if variation == -1:
-        chords.play([0, 2, 4], 4)
-        chords.grace(-3)
-        chords.play([2, 4, 7], 4)
-        chords.grace(-2)
+        chords.sequence([
+            ([0, 2, 4], 4),
+            (-3, 'grace'),
+            ([2, 4, 7], 4),
+            (-2, 'grace'),
+        ])
     elif variation in [0, 1, 2]:
-        chords.play([0, 2, 4], 1)
-        chords.play([-3, -1, 1], 3)
-        chords.play([0, 2, 4], 4)
+        chords.sequence([
+            ([0, 2, 4], 1),
+            ([-3, -1, 1], 3),
+            ([0, 2, 4], 4),
+        ])
     elif variation == 3:
-        chords.play([0, 2, 4], 1)
-        chords.play([-3, -1, 1], 2)
-        chords.play([-3, -1, 1], 1)
-        chords.grace(7)
-        chords.play([0, 2, 4], 4)
+        chords.sequence([
+            ([0, 2, 4], 1),
+            ([-3, -1, 1], 2),
+            ([-3, -1, 1], 1),
+            (7, 'grace'),
+            ([0, 2, 4], 4),
+        ])
 
     if variation in [-1, 0]:
         chords.play([2, 5, 7], 4)
     elif variation == 1:
-        chords.play([2, 5, 7], 1)
-        chords.play([0, 3, 5], 3)
+        chords.sequence([
+            ([2, 5, 7], 1),
+            ([0, 3, 5], 3),
+        ])
     elif variation == 2:
-        chords.play([2, 5, 7], 1)
-        chords.play([3, 5, 7], 3)
+        chords.sequence([
+            ([2, 5, 7], 1),
+            ([3, 5, 7], 3),
+        ])
     elif variation == 3:
-        chords.play([2, 5, 7], 1)
-        chords.play([0, 3, 5], 2)
-        chords.play([0, 3, 5], 1)
-        chords.grace(-2)
+        chords.sequence([
+            ([2, 5, 7], 1),
+            ([0, 3, 5], 2),
+            ([0, 3, 5], 1),
+            (-2, 'grace'),
+        ])
 
     chords.play([0, 2, 5], 4)
 
@@ -201,9 +211,11 @@ def chords_verse(variation):
 def chords_chorus(variation):
     assert 0 <= variation <= 2
 
-    chords.play([0, 2, 4], 1)
-    chords.grace(3)
-    chords.play([-1, 1, 4], 3)
+    chords.sequence([
+        ([0, 2, 4], 1),
+        (3, 'grace'),
+        ([-1, 1, 4], 3),
+    ])
 
     if variation == 2:
         chords.sequence([
@@ -211,9 +223,11 @@ def chords_chorus(variation):
             (2, 'grace'),
             (4, 'grace'),
         ])
-    chords.play([0, 2, 4], 4)
+    chords.sequence([
+        ([0, 2, 4], 4),
+        ([2, 5, 7], 1),
+    ])
 
-    chords.play([2, 5, 7], 1)
     if variation in [0, 2]:
         chords.play([0, 3, 5], 3)
     elif variation == 1:
