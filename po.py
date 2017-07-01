@@ -200,7 +200,7 @@ def intro():
 
     chords.rest(4 * 4)
     for v in [-1, 0, 1]:
-       chords_verse(v)
+        chords_verse(v)
 
     violin.rest(4 * 16)
 
