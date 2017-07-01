@@ -96,13 +96,14 @@ def chords_verse(variation):
     chords.play([0, 2, 5], 4)
 
 
-def chords_chorus(variation):
+# not sure if that shift was purpose or just error :-)
+def chords_chorus(variation, midi_extra_shift=+1):
     assert 0 <= variation <= 2
 
     chords.sequence([
         ([0, 2, 4], 1),
         (3, 'grace'),
-        ([-1, 1, 4], 3),
+        ([(-1, midi_extra_shift), 1, 4], 3),
     ])
 
     if variation == 2:
@@ -133,9 +134,9 @@ def chords_chorus(variation):
 def chords_bridge():
     chords.sequence([
         (c_minor,),
-        ([4, 6, 8], 2),
+        ([6, 8, 11], 2),
         ([4, 7, 9], 2),
-        ([4, 6, 8], 1),
+        ([6, 8, 11], 1),
         ([4, 7, 9], 3),
 
         (g_minor,),
@@ -149,7 +150,7 @@ def chords_bridge():
         (f_major,),
         ([-1, 1, 4], 2),
         ([0, 2, 4],),
-        ([1, 4, 6],),
+        ([0, 3, 5],),
     ])
 
 
@@ -158,10 +159,10 @@ def chords_outro():
         chords_chorus(v)
 
     chords.shift_in_scale = -1
-    chords_chorus(1)
+    chords_chorus(1, 0)
 
     chords.shift_in_scale = -2
-    chords_chorus(1)
+    chords_chorus(1, 0)
 
     chords.shift_in_scale = 0  # cleaning
 
