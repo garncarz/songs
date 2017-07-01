@@ -1,0 +1,9 @@
+language: python
+python:
+    - 3.6
+install:
+    - pip install mido deepdiff
+script:
+    - py.test
+    - python po.py
+    - python midi_diff.py
