@@ -53,7 +53,12 @@ class Track(MidiTrack):
         if not isinstance(tones, list):
             tones = [tones]
 
-        note = lambda tone: self.scale[tone + self.shift_in_scale] + 12 * self.shift
+        def note(tone):
+            if isinstance(tone, tuple):
+                tone, midi_shift = tone
+            else:
+                midi_shift = 0
+            return self.scale[tone + self.shift_in_scale] + 12 * self.shift + midi_shift
         time = lambda beats: int(beats * self.parent.ticks_per_beat)
 
         note_on = lambda tone, beats: self.append(
