@@ -40,6 +40,10 @@ class Track(MidiTrack):
         self._scale = None
 
     def play(self, tones, beats=1, grace=False):
+        if isinstance(tones, Scale):
+            self.scale = tones
+            return
+
         if tones in [None, 'r', 'R']:
             return self.rest(beats)
 
@@ -131,16 +135,18 @@ def bassline():
 
 
 def bassline_bridge():
-    bass.scale = c_minor
-    bass.sequence([(4, 2), (7, 2),
-                   (4,), (7,), (4,), (7,)])
+    bass.sequence([
+        (c_minor,),
+        (4, 2), (7, 2),
+        (4,), (7,), (4,), (7,),
 
-    bass.scale = g_minor
-    bass.sequence([(4, 2), (0, 2),
-                   (0,), (4,), (0,), (4,)])
+        (g_minor,),
+        (4, 2), (0, 2),
+        (0,), (4,), (0,), (4,),
 
-    bass.scale = f_major
-    bass.sequence([(4, 2), (7, 2)])
+        (f_major,),
+        (4, 2), (7, 2),
+    ])
 
 
 def bassline_outro():
@@ -223,26 +229,22 @@ def chords_chorus(variation):
 
 
 def chords_bridge():
-    chords.scale = c_minor
     chords.sequence([
+        (c_minor,),
         ([4, 6, 8], 2),
         ([4, 7, 9], 2),
         ([4, 6, 8], 1),
         ([4, 7, 9], 3),
-    ])
 
-    chords.scale = g_minor
-    chords.sequence([
+        (g_minor,),
         ([-1, 1, 4], 2),
         (3, 'grace'),
         ([0, 2, 4], 2),
         ([-1, 1, 4], 1),
         (3, 'grace'),
         ([0, 2, 4], 3),
-    ])
 
-    chords.scale = f_major
-    chords.sequence([
+        (f_major,),
         ([-1, 1, 4], 2),
         ([0, 2, 4],),
         ([1, 4, 6],),
@@ -318,15 +320,11 @@ def verse():
 
 
 def chorus():
-    bass.play(4, 2)
-    bass.scale = f_minor
-    bass.play(-2, 2)
+    bass.sequence([(4, 2), (f_minor,), (-2, 2)])
     for _ in range(6):
         bassline()
 
-    chords.play([1, 4, 6], 2)
-    chords.scale = f_minor
-    chords.play([0, 2, 7], 2)
+    chords.sequence([([1, 4, 6], 2), (f_minor,), ([0, 2, 7], 2)])
     for v in [0, 1, 0, 0, 1, 0]:
         chords_chorus(v)
 
