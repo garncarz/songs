@@ -3,3 +3,7 @@ out
 *.log
 *.mid*
 *.pdf
+*.wav
+*.xml
+
+.idea

@@ -1,386 +1,264 @@
-from music21 import *
-
-GRACE_LEN = 0.125
+from midi_lib import *
 
 
-#######################################################################
-# helpers
+mid = MidiFile()
 
-dur_stolen = 0  # global for grace notes
+bass = Track(mid)
+chords = Track(mid)
+violin = Track(mid)
 
-def n(name, dur=1, **kwargs):
-    """note"""
-    global dur_stolen
-    if not isinstance(name, str):  # e.g. key
-        return name
-    if name == 'r':
-        return r(dur)
-    n = note.Note(name, quarterLength=dur-dur_stolen, **kwargs)
-    dur_stolen = 0
-    return n
+bass.shift = -2
+bass.bpm = 180
 
-def gn(name, dur=GRACE_LEN):
-    """grace note"""
-    global dur_stolen
-    dur_stolen += dur
-    return note.Note(name, quarterLength=dur)
-
-def r(dur=1):
-    """rest"""
-    return note.Rest(quarterLength=dur)
-
-def c(notes, dur=1, **kwargs):
-    """chord"""
-    global dur_stolen
-    c = chord.Chord(notes, quarterLength=dur-dur_stolen, **kwargs)
-    dur_stolen = 0
-    return c
-
-def mel(notes):
-    """melody"""
-    melody = []
-    for note in notes:
-        melody.append(
-            n(note[0], note[1]) if isinstance(note, tuple)
-            else n(note)
-        )
-    return melody
+violin.instrument = 41
 
 
-#######################################################################
-# keys
-
-f_major = lambda: key.Key('F')
-f_minor = lambda: key.Key('f')
-c_minor = lambda: key.Key('c')
-g_minor = lambda: key.Key('g')
+def bassline():
+    for _ in range(4):
+        bass.sequence([(0,), (4,)])
+    for _ in range(4):
+        bass.sequence([(-2,), (5,)])
 
 
-#######################################################################
-# basic melody/chord structures
+def bassline_bridge():
+    bass.sequence([
+        (c_minor,),
+        (4, 2), (7, 2),
+        (4,), (7,), (4,), (7,),
 
-def bass_fc():
-    bass.append(n('f2'))
-    bass.append(n('c3'))
-def bass_dd():
-    bass.append(n('d2'))
-    bass.append(n('d3'))
+        (g_minor,),
+        (4, 2), (0, 2),
+        (0,), (4,), (0,), (4,),
 
-def bass_desdes():
-    bass.append(n('des2'))
-    bass.append(n('des3'))
-
-def bass_esbes():
-    bass.append(n('ees2'))
-    bass.append(n('bes2'))
-def bass_cc():
-    bass.append(n('c2'))
-    bass.append(n('c3'))
-def bass_desas():
-    bass.append(n('des2'))
-    bass.append(n('aes2'))
-def bass_besbes():
-    bass.append(n('bes1'))
-    bass.append(n('bes2'))
+        (f_major,),
+        (4, 2), (7, 2),
+    ])
 
 
-def chords_fac(dur=1):
-    chords.append(c(['f4', 'a4', 'c5'], dur))
-def chords_acf(dur=1):
-    chords.append(c(['a4', 'c5', 'f5'], dur))
-def chords_adf(dur=1):
-    chords.append(c(['a4', 'd5', 'f5'], dur))
-def chords_fad(dur=1):
-    chords.append(c(['f4', 'a4', 'd5'], dur))
-def chords_ceg(dur=1):
-    chords.append(c(['c4', 'e4', 'g4'], dur))
-def chords_fbesd(dur=1):
-    chords.append(c(['f4', 'bes4', 'd5'], dur))
-def chords_besdf(dur=1):
-    chords.append(c(['bes4', 'd5', 'f5'], dur))
+def bassline_outro():
+    for _ in range(2):
+        bassline()
 
-def chords_fasc(dur=1):
-    chords.append(c(['f4', 'aes4', 'c5'], dur))
-def chords_egc(dur=1):
-    chords.append(c(['e4', 'g4', 'c5'], dur))
-def chords_asdesf(dur=1):
-    chords.append(c(['aes4', 'des5', 'f5'], dur))
-def chords_fbesdes(dur=1):
-    chords.append(c(['f4', 'bes4', 'des5'], dur))
-def chords_fasdes(dur=1):
-    chords.append(c(['f4', 'aes4', 'des5'], dur))
-def chords_besdesf(dur=1):
-    chords.append(c(['bes4', 'des5', 'f5'], dur))
+    bass.shift_in_scale = -1
+    bassline()
 
-def chords_besdg(dur=1):
-    chords.append(c(['bes4', 'd5', 'g5'], dur))
-def chords_gces(dur=1):
-    chords.append(c(['g4', 'c5', 'ees5'], dur))
-def chords_gbesd(dur=1):
-    chords.append(c(['g4', 'bes4', 'd5'], dur))
+    bass.shift_in_scale = -2
+    bassline()
 
-def chords_esgbes(dur=1):
-    chords.append(c(['ees4', 'g4', 'bes4'], dur))
-def chords_desfbes(dur=1):
-    chords.append(c(['des4', 'f4', 'bes4'], dur))
-def chords_asces(dur=1):
-    chords.append(c(['aes4', 'c5', 'ees5'], dur))
-def chords_esgc(dur=1):
-    chords.append(c(['ees4', 'g4', 'c5'], dur))
-def chords_desfas(dur=1):
-    chords.append(c(['des4', 'f4', 'aes4'], dur))
-def chords_cesas(dur=1):
-    chords.append(c(['c4', 'ees4', 'aes4'], dur))
-def chords_gbesdes(dur=1):
-    chords.append(c(['g4', 'bes4', 'des5'], dur))
+    bass.shift_in_scale = 0  # cleaning
 
 
-#######################################################################
-# parts' structures
+def chords_verse(variation):
+    assert -1 <= variation <= 3
 
-def chords_verse(fbesd=False, besdf=False):
-    chords_fac()
-    chords_ceg(3)
-    chords_fac(4)
-    if fbesd:
-        chords_adf()
-        chords_fbesd(3)
-    elif besdf:
-        chords_adf()
-        chords_besdf(3)
-    else:
-        chords_adf(4)
-    chords_fad(4)
+    if variation == -1:
+        chords.sequence([
+            ([0, 2, 4], 4),
+            (-3, 'grace'),
+            ([2, 4, 7], 4),
+            (-2, 'grace'),
+        ])
+    elif variation in [0, 1, 2]:
+        chords.sequence([
+            ([0, 2, 4], 1),
+            ([-3, -1, 1], 3),
+            ([0, 2, 4], 4),
+        ])
+    elif variation == 3:
+        chords.sequence([
+            ([0, 2, 4], 1),
+            ([-3, -1, 1], 2),
+            ([-3, -1, 1], 1),
+            (7, 'grace'),
+            ([0, 2, 4], 4),
+        ])
 
-def chords_chorus(fbesdes=False, besdesf=False, graces=False):
-    chords_fasc()
-    chords.append(gn('bes4'))
-    chords_egc(3)
-    if graces:
-        chords.append([gn('f4'), gn('aes4'), gn('c5')])
-    chords_fasc(4)
-    chords_asdesf()
-    if fbesdes:
-        chords_fbesdes(3)
-    else:
-        assert besdesf
-        chords_besdesf(3)
-    if graces:
-        chords.append([gn('des5'), gn('aes4'), gn('f4')])
-    chords_fasdes(4)
+    if variation in [-1, 0]:
+        chords.play([2, 5, 7], 4)
+    elif variation == 1:
+        chords.sequence([
+            ([2, 5, 7], 1),
+            ([0, 3, 5], 3),
+        ])
+    elif variation == 2:
+        chords.sequence([
+            ([2, 5, 7], 1),
+            ([3, 5, 7], 3),
+        ])
+    elif variation == 3:
+        chords.sequence([
+            ([2, 5, 7], 1),
+            ([0, 3, 5], 2),
+            ([0, 3, 5], 1),
+            (-2, 'grace'),
+        ])
+
+    chords.play([0, 2, 5], 4)
+
+
+def chords_chorus(variation):
+    assert 0 <= variation <= 2
+
+    chords.sequence([
+        ([0, 2, 4], 1),
+        (3, 'grace'),
+        ([-1, 1, 4], 3),
+    ])
+
+    if variation == 2:
+        chords.sequence([
+            (0, 'grace'),
+            (2, 'grace'),
+            (4, 'grace'),
+        ])
+    chords.sequence([
+        ([0, 2, 4], 4),
+        ([2, 5, 7], 1),
+    ])
+
+    if variation in [0, 2]:
+        chords.play([0, 3, 5], 3)
+    elif variation == 1:
+        chords.play([3, 5, 7], 3)
+
+    if variation == 2:
+        chords.sequence([
+            (5, 'grace'),
+            (2, 'grace'),
+            (0, 'grace'),
+        ])
+    chords.play([0, 2, 5], 4)
+
+
+def chords_bridge():
+    chords.sequence([
+        (c_minor,),
+        ([4, 6, 8], 2),
+        ([4, 7, 9], 2),
+        ([4, 6, 8], 1),
+        ([4, 7, 9], 3),
+
+        (g_minor,),
+        ([-1, 1, 4], 2),
+        (3, 'grace'),
+        ([0, 2, 4], 2),
+        ([-1, 1, 4], 1),
+        (3, 'grace'),
+        ([0, 2, 4], 3),
+
+        (f_major,),
+        ([-1, 1, 4], 2),
+        ([0, 2, 4],),
+        ([1, 4, 6],),
+    ])
+
+
+def chords_outro():
+    for v in [2, 1]:
+        chords_chorus(v)
+
+    chords.shift_in_scale = -1
+    chords_chorus(1)
+
+    chords.shift_in_scale = -2
+    chords_chorus(1)
+
+    chords.shift_in_scale = 0  # cleaning
 
 
 def violin_verse():
     for _ in range(2):
-        violin.append(mel([
-            'f4', 'g4', 'c5', 'g4',
-            'f4', 'a4', 'c5', 'a4',
-            ('d4', 2), ('bes4', 2),
-            'f4', 'd4', ('a4', 2),
-        ]))
+        violin.sequence([
+            (0,), (1,), (4,), (1,), (0,), (2,), (4,), (2,),
+            (-2, 2), (3, 2),
+            (0,), (-2,), (2, 2),
+        ])
 
-    violin.append(mel([
-        ('c4', 2), ('e4', 2),
-        ('f4', 2), 'c5', 'c5',
-        ('d5', 2), 'bes4', 'bes4',
-        'f4', 'g4', 'c5', 'g4',
-    ]))
+    violin.sequence([
+        (-3, 2), (-1, 2), (0, 2),
+        (4,), (4,), (5, 2),
+        (3,), (3,), (0,), (1,), (4,), (1,),
+    ])
 
 
-#######################################################################
-# parts
+def violin_chorus():
+    violin.sequence([
+        (4, 4), (None, 4),
+        (2,), (5,), (7, 2), (None, 4),
+        (4, 4), (0, 4), (2, 2),
+        (3,), (0,), (5, 4),
+    ])
+
 
 def intro():
-    bass.append(f_major())
-    chords.append(f_major())
-    violin.append(f_major())
+    bass.scale = f_major
+    chords.scale = f_major
+    violin.scale = f_major
 
     for _ in range(4):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_dd()
+        bassline()
 
-    chords.append(r(4*4))
+    chords.rest(4 * 4)
+    for v in [-1, 0, 1]:
+       chords_verse(v)
 
-    chords_fac(4)
-    chords.append(gn('c4'))
-    chords_acf(4)
-    chords.append(gn('d4'))
-    chords_adf(4)
-    chords_fad(4)
-
-    chords_verse()
-    chords_verse(fbesd=True)
-
-    violin.append(r(16*4))
+    violin.rest(4 * 16)
 
 
 def verse():
+    bass.scale = f_major
+    chords.scale = f_major
+    violin.scale = f_major
+
     for _ in range(8):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_dd()
+        bassline()
 
-    chords_verse(besdf=True)
-    chords_verse(fbesd=True)
-    chords_verse(fbesd=True)
-    chords_verse(besdf=True)
-
-    chords_fac()
-    chords_ceg(2)
-    chords_ceg()
-    chords.append(gn('f5'))
-    chords_fac(4)
-    chords_adf()
-    chords_fbesd(2)
-    chords_fbesd()
-    chords.append(gn('d4'))
-    chords_fad(4)
-
-    chords_verse(fbesd=True)
-    chords_verse(fbesd=True)
-    chords_verse(besdf=True)
+    for v in [2, 1, 1, 2, 3, 1, 1, 2]:
+        chords_verse(v)
 
     for _ in range(2):
-        violin.append(r(4*4))
-        violin.append(f_major())  # 2nd repetition
+        violin.rest(4 * 4)
         violin_verse()
 
 
 def chorus():
-    bass.append(f_minor())  # should be changed in the middle of a bar
-    bass.append(n('c3', 2))
-    bass.append(n('des2', 2))
-
+    bass.sequence([(4, 2), (f_minor,), (-2, 2)])
     for _ in range(6):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_desdes()
+        bassline()
 
-    chords.append(f_minor())  # should be changed in the middle of a bar
-    chords.append(c(['g4', 'c5', 'e5'], 2))
-    chords.append(c(['f4', 'aes4', 'f5'], 2))
+    chords.sequence([([1, 4, 6], 2), (f_minor,), ([0, 2, 7], 2)])
+    for v in [0, 1, 0, 0, 1, 0]:
+        chords_chorus(v)
 
-    chords_chorus(fbesdes=True)
-    chords_chorus(besdesf=True)
-    chords_chorus(fbesdes=True)
-    chords_chorus(fbesdes=True)
-    chords_chorus(besdesf=True)
-    chords_chorus(fbesdes=True)
-
-    violin.append(r(5*4))
-
-    violin.append(f_minor())
+    violin.scale = f_minor
+    violin.rest(4 * 5)
     for _ in range(2):
-        violin.append(mel([
-           ('c5', 4), ('r', 4), 'aes4', 'des5', ('f5', 2), ('r', 4),
-           ('c5', 4), ('f4', 4), ('aes4', 2), 'bes4', 'f4', ('des5', 4),
-        ]))
-
-    violin.append(r(4*4))
+        violin_chorus()
+    violin.rest(4 * 4)
 
 
 def bridge():
-    bass.append(mel([
-        c_minor(),
-        ('g2', 2), ('c3', 2),
-        'g2', 'c3', 'g2', 'c3',
-        g_minor(),
-        ('d3', 2), ('g2', 2),
-        'g2', 'd3', 'g2', 'd3',
-        f_major(),
-        ('c3', 2), ('f3', 2),
-    ]))
-
-    chords.append(c_minor())
-    chords_besdg(2)
-    chords_gces(2)
-    chords_besdg()
-    chords_gces(3)
-
-    chords.append(g_minor())
-    chords_fad(2)
-    chords.append(gn('c5'))
-    chords_gbesd(2)
-    chords_fad()
-    chords.append(gn('c5'))
-    chords_gbesd(3)
-
-    chords.append(f_major())
-    chords_egc(2)
-    chords_fac()
-    chords_fbesd()
-
-    violin.append(r(5*4))
+    bassline_bridge()
+    chords_bridge()
+    violin.rest(4 * 5)
 
 
 def outro():
-    for _ in range(2):
-        for _ in range(4):
-            bass_fc()
-        for _ in range(4):
-            bass_desdes()
-
-    for _ in range(4):
-        bass_esbes()
-    for _ in range(4):
-        bass_cc()
-
-    for _ in range(4):
-        bass_desas()
-    for _ in range(4):
-        bass_besbes()
-
-    chords_chorus(fbesdes=True, graces=True)
-    chords_chorus(besdesf=True)
-
-    chords_esgbes()
-    chords.append(gn('aes4'))
-    chords_desfbes(3)
-    chords_esgbes(4)
-    chords_gces()
-    chords_asces(3)
-    chords_esgc(4)
-
-    chords_desfas()
-    chords.append(gn('g4'))
-    chords_cesas(3)
-    chords_desfas(4)
-    chords_fbesdes()
-    chords_gbesdes(3)
-    chords_desfbes(4)
-
-    violin.append(r(16*4))
+    bassline_outro()
+    chords_outro()
+    violin.rest(4 * 16)
 
 
-#######################################################################
-# song
-
-s = stream.Stream()
-
-bass = stream.Part(id='bass')
-s.insert(bass)
-bass.insert(tempo.MetronomeMark(number=180))
-
-chords = stream.Part(id='chords')
-s.insert(chords)
-
-violin = stream.Part(id='violin')
-s.insert(violin)
-violin.insert(instrument.Violin())
+def song():
+    intro()
+    verse()
+    chorus()
+    bridge()
+    verse()
+    chorus()
+    outro()
 
 
-intro()
-
-verse()
-chorus()
-
-bridge()
-
-verse()
-chorus()
-
-outro()
+if __name__ == '__main__':
+    song()
+    mid.save('po.midi')
