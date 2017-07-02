@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import os
+
 import deepdiff
 import mido
 
@@ -15,8 +17,26 @@ def extract_notes(filename):
     return notes
 
 
-orig = extract_notes('midi/04-prokrastinacni_orgie.midi')
-generated = extract_notes('po.midi')
+def diff(filename1, filename2):
+    notes1 = extract_notes(filename1)
+    notes2 = extract_notes(filename2)
+    return deepdiff.DeepDiff(notes1, notes2, ignore_order=True, significant_digits=0)
 
-ddiff = deepdiff.DeepDiff(orig, generated, ignore_order=True, significant_digits=0)
-assert not ddiff
+
+def main():
+    error = False
+
+    for filename in filter(lambda f: f.endswith('.midi'), os.listdir('midi')):
+        if os.path.exists(filename):
+            filename_orig = os.path.join('midi', filename)
+            print('Comparing %s to %s...' % (filename, filename_orig))
+            d = diff(filename_orig, filename)
+            print(d)
+            if d:
+                error = True
+    if error:
+        raise Exception('MIDI mismatch!')
+
+
+if __name__ == '__main__':
+    main()
