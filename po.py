@@ -262,4 +262,4 @@ def song():
 
 if __name__ == '__main__':
     song()
-    mid.save('po.midi')
+    mid.save('04-prokrastinacni_orgie.midi')
