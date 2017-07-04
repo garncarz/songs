@@ -23,6 +23,7 @@ f_minor = Scale(65, 'minor', 'Fm')
 c_major = Scale(60, 'major', 'C')
 c_minor = Scale(60, 'minor', 'Cm')
 g_minor = Scale(67, 'minor', 'Gm')
+b_minor = Scale(71, 'minor', 'Bm')
 
 
 class Track(MidiTrack):
@@ -34,7 +35,9 @@ class Track(MidiTrack):
         self._beats_to_rest = 0
         self._beats_stolen = 0
         self._scale = None
+        self._time_signature = None
         self.grace_portion = 8
+        self.default_beats = 1
 
     def _note(self, tone):
         if isinstance(tone, tuple):
@@ -52,7 +55,7 @@ class Track(MidiTrack):
     def _note_off(self, tone, beats=0):
         self.append(Message('note_off', note=self._note(tone), time=self._time(beats)))
 
-    def play(self, tones, beats=1, grace=False):
+    def play(self, tones, beats=None, grace=False):
         if isinstance(tones, Scale):
             self.scale = tones
             return
@@ -62,6 +65,8 @@ class Track(MidiTrack):
 
         if beats == 'grace':
             return self.grace(tones)
+        elif not beats:
+            beats = self.default_beats
 
         if not isinstance(tones, list):
             tones = [tones]
@@ -115,6 +120,17 @@ class Track(MidiTrack):
         if scale != self._scale:
             self._scale = scale
             self.append(MetaMessage('key_signature', key=scale.signature))
+
+    @property
+    def time_signature(self):
+        return self._time_signature
+
+    @time_signature.setter
+    def time_signature(self, time_signature):
+        if time_signature != self._time_signature:
+            self._time_signature = time_signature
+            up, down = time_signature
+            self.append(MetaMessage('time_signature', numerator=up, denominator=down))
 
     @property
     def bpm(self):

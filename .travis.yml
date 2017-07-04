@@ -7,4 +7,5 @@ script:
     - py.test
     - python po.py
     - python 08-sesit1_c-dur.py
+    - python 02-zpev_h-moll.py
     - python midi_diff.py

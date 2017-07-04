@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+from pprint import pprint
 
 import deepdiff
 import mido
@@ -31,7 +32,7 @@ def main():
             filename_orig = os.path.join('midi', filename)
             print('Comparing %s to %s...' % (filename, filename_orig))
             d = diff(filename_orig, filename)
-            print(d)
+            pprint(d)
             if d:
                 error = True
     if error:
