@@ -5,7 +5,6 @@ install:
     - pip install mido deepdiff
 script:
     - py.test
-    - python po.py
-    - python 08-sesit1_c-dur.py
-    - python 02-zpev_h-moll.py
+    - export PYTHONPATH=.
+    - for f in src.py/*; do python $f; done
     - python midi_diff.py
