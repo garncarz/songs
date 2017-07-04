@@ -28,13 +28,16 @@ def main():
     error = False
 
     for filename in filter(lambda f: f.endswith('.midi'), os.listdir('midi')):
-        if os.path.exists(filename):
-            filename_orig = os.path.join('midi', filename)
-            print('Comparing %s to %s...' % (filename, filename_orig))
-            d = diff(filename_orig, filename)
-            pprint(d)
-            if d:
-                error = True
+        filename_orig = os.path.join('midi', filename)
+        if not os.path.exists(filename):
+            filename = os.path.join('out', filename)
+            if not os.path.exists(filename):
+                continue
+        print('Comparing %s to %s...' % (filename, filename_orig))
+        d = diff(filename_orig, filename)
+        pprint(d)
+        if d:
+            error = True
     if error:
         raise Exception('MIDI mismatch!')
 

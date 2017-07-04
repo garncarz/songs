@@ -173,9 +173,15 @@ def song(version='European'):
     soprano_line()
 
 
-if __name__ == '__main__':
+def make():
+    global mids, mid
+
+    mids = {}
+
     song('European')
-    mid.save('02-zpev_h-moll-evropska_verze.midi')
+    mids['evropska_verze'] = mid
 
     song('Asian')
-    mid.save('02-zpev_h-moll-asijska_verze.midi')
+    mids['asijska_verze'] = mid
+
+    del mid
