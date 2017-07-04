@@ -2,9 +2,8 @@ language: python
 python:
     - 3.6
 install:
-    - pip install mido deepdiff
+    - pip install -r requirements.txt
 script:
     - py.test
-    - export PYTHONPATH=.
-    - for f in src.py/*; do python $f; done
+    - mkdir out && python -c 'import make; make.python()'
     - python midi_diff.py

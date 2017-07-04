@@ -1,13 +1,7 @@
 from midi_lib import *
 
 
-mid = MidiFile()
-
-piano = Track(mid)
-piano.bpm = 60
-
-
-def line():
+def song():
     piano.scale = c_major
     piano.grace_portion = 16
 
@@ -74,6 +68,12 @@ def line():
     ])
 
 
-if __name__ == '__main__':
-    line()
-    mid.save('08-sesit1_c-dur.midi')
+def make():
+    global mid, piano
+
+    mid = MidiFile()
+
+    piano = Track(mid)
+    piano.bpm = 60
+
+    song()

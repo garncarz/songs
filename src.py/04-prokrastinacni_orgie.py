@@ -1,18 +1,6 @@
 from midi_lib import *
 
 
-mid = MidiFile()
-
-bass = Track(mid)
-chords = Track(mid)
-violin = Track(mid)
-
-bass.shift = -2
-bass.bpm = 180
-
-violin.instrument = 41
-
-
 def bassline():
     for _ in range(4):
         bass.sequence([(0,), (4,)])
@@ -260,6 +248,18 @@ def song():
     outro()
 
 
-if __name__ == '__main__':
+def make():
+    global mid, bass, chords, violin
+
+    mid = MidiFile()
+
+    bass = Track(mid)
+    chords = Track(mid)
+    violin = Track(mid)
+
+    bass.shift = -2
+    bass.bpm = 180
+
+    violin.instrument = 41
+
     song()
-    mid.save('04-prokrastinacni_orgie.midi')
