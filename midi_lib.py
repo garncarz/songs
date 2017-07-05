@@ -102,6 +102,11 @@ class Track(MidiTrack):
 
     def sequence(self, sequence):
         for play_args in sequence:
+            # it should be a tuple to fully use `play`
+            if isinstance(play_args, int):  # single tone
+                play_args = [play_args]
+            elif isinstance(play_args, list):  # chord
+                play_args = [play_args]
             self.play(*play_args)
 
     def grace(self, tones, portion=None):
@@ -113,6 +118,8 @@ class Track(MidiTrack):
 
     @property
     def scale(self):
+        if not self._scale:
+            self._scale = c_major
         return self._scale
 
     @scale.setter
