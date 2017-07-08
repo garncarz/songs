@@ -55,7 +55,7 @@ class Track(MidiTrack):
     def _note_off(self, tone, beats=0):
         self.append(Message('note_off', note=self._note(tone), time=self._time(beats)))
 
-    def play(self, tones, beats=None, grace=False):
+    def play(self, tones, beats=None, grace=False, staccato=False):
         if isinstance(tones, Scale):
             self.scale = tones
             return
@@ -80,10 +80,16 @@ class Track(MidiTrack):
             self._note_off(tones[0], beats)
             self._beats_stolen += beats
         else:
-            self._note_off(tones[0], beats - self._beats_stolen)
+            beats -= self._beats_stolen
             self._beats_stolen = 0
+            if staccato:
+                beats /= 2
+            self._note_off(tones[0], beats)
         for tone in tones[1:]:
             self._note_off(tone)
+
+        if staccato:
+            self.rest(beats)
 
     @contextmanager
     def shadow_play(self, tones):
@@ -102,12 +108,16 @@ class Track(MidiTrack):
 
     def sequence(self, sequence):
         for play_args in sequence:
-            # it should be a tuple to fully use `play`
+            # it should be a tuple/dict to fully use `play`
             if isinstance(play_args, int):  # single tone
                 play_args = [play_args]
             elif isinstance(play_args, list):  # chord
                 play_args = [play_args]
-            self.play(*play_args)
+
+            if isinstance(play_args, dict):
+                self.play(**play_args)
+            else:
+                self.play(*play_args)
 
     def grace(self, tones, portion=None):
         portion = portion or self.grace_portion
