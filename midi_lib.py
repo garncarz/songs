@@ -36,8 +36,9 @@ class Track(MidiTrack):
         self._beats_stolen = 0
         self._scale = None
         self._time_signature = None
-        self.grace_portion = 8
+        self.grace_portion = 8  # TODO change to grace_beats
         self.default_beats = 1
+        self.arpeggio_delay_beats = 1/8
 
     def _note(self, tone):
         if isinstance(tone, tuple):
@@ -55,7 +56,7 @@ class Track(MidiTrack):
     def _note_off(self, tone, beats=0):
         self.append(Message('note_off', note=self._note(tone), time=self._time(beats)))
 
-    def play(self, tones, beats=None, grace=False, staccato=False):
+    def play(self, tones, beats=None, grace=False, staccato=False, arpeggio=False):
         if isinstance(tones, Scale):
             self.scale = tones
             return
@@ -74,7 +75,11 @@ class Track(MidiTrack):
         self._note_on(tones[0], self._beats_to_rest)
         self._beats_to_rest = 0
         for tone in tones[1:]:
-            self._note_on(tone)
+            if arpeggio:
+                self._note_on(tone, self.arpeggio_delay_beats)
+                beats -= self.arpeggio_delay_beats
+            else:
+                self._note_on(tone)
 
         if grace:
             self._note_off(tones[0], beats)
