@@ -5,6 +5,10 @@ def line(*tones, beats):
     return list(map(lambda t: (t, beats), tones))
 
 
+def staccato(*tones, beats=None):
+    return {'tones': list(tones), 'beats': beats, 'staccato': True}
+
+
 def bassline():
     bass.default_beats = 2
     bass.sequence([
@@ -55,10 +59,8 @@ def chords():
         [6, 8, 11], [4, 6, 8],
         ([4, 7, 9], 2),
 
-        [5, 7, 10],  # TODO staccato
-        [5, 7, 10],
-        [3, 5, 7],  # TODO staccato
-        [3, 5, 7],
+        staccato(5, 7, 10), [5, 7, 10],
+        staccato(3, 5, 7), [3, 5, 7],
         [4, 6, 8], [1, 4, 6],
         ([2, 4, 7], 2),  # TODO arpeggio
 
@@ -67,12 +69,9 @@ def chords():
         *line(4, 6, 1, beats=.5), ([1, 4, 6], .5/2), ([3, 5], .5/2),
         ([2, 4, 7], 1-.5), ([3, 5], .5), [2, 4, 7],
 
-        [2, 4, 6],  # TODO staccato
-        [2, 4, 6],
-        [2, 5, 7],  # TODO staccato
-        [2, 5, 7],
-        [1, 3, 6],  # TODO staccato
-        [1, 3, 6],
+        staccato(2, 4, 6), [2, 4, 6],
+        staccato(2, 5, 7), [2, 5, 7],
+        staccato(1, 3, 6), [1, 3, 6],
         ([0, 4, 7], 2-.5), ([1, 6], .5),
 
         ([0, 3, 5], 2-.5), ([3, 5], .5),
@@ -91,10 +90,9 @@ def chords():
         ([5, 7, 9], 2),
 
         [5, 7, 10],  # TODO arpeggio
-        [5, 7, 10],  # TODO staccato
+        staccato(5, 7, 10),
         [3, 5, 7],  # TODO arpeggio
-        ([3, 5, 7], 1-.5),  # TODO staccato
-        ([7, 9], .5),
+        staccato(3, 5, 7, beats=1-.5), ([7, 9], .5),
         ([4, 6, 8], 2),
         ([7, 9, 11], 2),
 
