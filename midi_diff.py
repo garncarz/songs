@@ -17,14 +17,18 @@ def extract_notes(filename):
         for msg in track:
             try:
                 time += msg.time / mid.ticks_per_beat
+                if msg.is_meta:
+                    continue
+                if msg.channel == 9:  # percussion
+                    continue
                 if msg.type == 'note_on' and msg.velocity:
-                    notes.append({'time': time, 'note': msg.note})
+                    notes.append({'time': time, 'note': msg.note, 'channel': msg.channel})
             except Exception as e:
                 print(e)
     return notes
 
 
-def normalize_times(notes1, notes2):
+def _normalize_times(notes1, notes2):
     def find(cmp_func, notes):
         return cmp_func(map(lambda n: n['time'], notes))
 
@@ -50,11 +54,12 @@ def notes_diff(notes1, notes2):
     return notes1_extra
 
 
-def diff(filename1, filename2):
+def diff(filename1, filename2, normalize_times=True):
     notes1 = extract_notes(filename1)
     notes2 = extract_notes(filename2)
 
-    normalize_times(notes1, notes2)
+    if normalize_times:
+        _normalize_times(notes1, notes2)
 
     notes1_extra = notes_diff(notes1, notes2)
     notes2_extra = notes_diff(notes2, notes1)

@@ -5,12 +5,26 @@ from mido import Message, MetaMessage, MidiTrack, MidiFile, bpm2tempo
 
 class Scale:
 
-    def __init__(self, midi_root_tone, intervals, signature):
-        if intervals == 'major':
-            intervals = [0, 2, 4, 5, 7, 9, 11]
-        elif intervals == 'minor':
-            intervals = [0, 2, 3, 5, 7, 8, 10]
+    midi_root_tones = ['c', 'cis', 'd', 'dis', 'e', 'f', 'fis', 'g', 'gis', 'a', 'ais', 'b']
+
+    intervals = {
+        'major': [0, 2, 4, 5, 7, 9, 11],
+        'minor': [0, 2, 3, 5, 7, 8, 10],
+    }
+
+    def __init__(self, midi_root_tone, intervals, signature=None):
+        if isinstance(midi_root_tone, str):
+            midi_root_tone = self.midi_root_tones.index(midi_root_tone.lower()) + 60
+
+        if isinstance(intervals, str):
+            intervals = self.intervals[intervals]
+
         self.midi_tones = list(map(lambda i: midi_root_tone + i, intervals))
+
+        if signature is None:
+            signature = self.midi_root_tones[midi_root_tone - 60].capitalize()
+            if intervals == self.intervals['minor']:
+                signature += 'm'
 
         self.signature = signature
 
@@ -28,8 +42,11 @@ b_minor = Scale(71, 'minor', 'Bm')
 
 class Track(MidiTrack):
 
-    def __init__(self, midi_file=None):
+    # TODO override MidiFile and provide channels dynamically
+    def __init__(self, midi_file=None, channel=0):
         self.parent = midi_file
+        self.channel = channel
+
         self.shift = 0
         self.shift_in_scale = 0
         self._beats_to_rest = 0
@@ -51,23 +68,25 @@ class Track(MidiTrack):
         return int(beats * self.parent.ticks_per_beat)
 
     def _note_on(self, tone, beats=0):
-        self.append(Message('note_on', note=self._note(tone), velocity=100, time=self._time(beats)))
+        self.append(Message('note_on', note=self._note(tone), velocity=100, time=self._time(beats),
+                            channel=self.channel))
 
     def _note_off(self, tone, beats=0):
-        self.append(Message('note_off', note=self._note(tone), time=self._time(beats)))
+        self.append(Message('note_off', note=self._note(tone), time=self._time(beats),
+                            channel=self.channel))
 
     def play(self, tones, beats=None, grace=False, staccato=False, arpeggio=False):
         if isinstance(tones, Scale):
             self.scale = tones
             return
 
-        if tones in [None, 'r', 'R']:
-            return self.rest(beats)
-
         if beats == 'grace':
             return self.grace(tones)
         elif not beats:
             beats = self.default_beats
+
+        if tones in [None, 'r', 'R']:
+            return self.rest(beats)
 
         if not isinstance(tones, list):
             tones = [tones]
@@ -179,4 +198,14 @@ class Track(MidiTrack):
     @instrument.setter
     def instrument(self, instrument):
         self._instrument = instrument
-        self.append(Message('program_change', program=instrument))
+        self.append(Message('program_change',
+                            program=instrument - 1,  # is it just Mido that counts from 0?
+                            channel=self.channel))
+
+
+instruments = {
+    'bright acoustic piano': 2,
+    'electric guitar (clean)': 28,
+    'acoustic bass': 33,
+    'baritone sax': 68,
+}
