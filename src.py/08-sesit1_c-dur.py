@@ -1,8 +1,7 @@
 from midi_lib import *
 
 
-def song():
-    piano.scale = c_major
+def line():
     piano.grace_portion = 16
 
     piano.sequence([
@@ -69,11 +68,12 @@ def song():
 
 
 def make():
-    global mid, piano
+    global song, piano
 
-    mid = MidiFile()
+    song = Song()
+    song.scale = c_major
+    song.bpm = 60
 
-    piano = Track(mid)
-    piano.bpm = 60
+    piano = song.new_track()
 
-    song()
+    line()

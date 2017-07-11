@@ -238,7 +238,20 @@ def outro():
     violin.rest(4 * 16)
 
 
-def song():
+def make():
+    global song, bass, chords, violin
+
+    song = Song()
+    song.bpm = 180
+
+    bass = song.new_track()
+    chords = song.new_track()
+    violin = song.new_track()
+
+    bass.octave_shift = -2
+
+    violin.instrument = instruments['violin']
+
     intro()
     verse()
     chorus()
@@ -246,20 +259,3 @@ def song():
     verse()
     chorus()
     outro()
-
-
-def make():
-    global mid, bass, chords, violin
-
-    mid = MidiFile()
-
-    bass = Track(mid)
-    chords = Track(mid)
-    violin = Track(mid)
-
-    bass.shift = -2
-    bass.bpm = 180
-
-    violin.instrument = 41
-
-    song()

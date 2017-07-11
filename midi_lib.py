@@ -42,17 +42,18 @@ b_minor = Scale(71, 'minor', 'Bm')
 
 class Track(MidiTrack):
 
-    # TODO override MidiFile and provide channels dynamically
     def __init__(self, midi_file=None, channel=0):
         self.parent = midi_file
         self.channel = channel
 
-        self.shift = 0
+        self.octave_shift = 0
         self.shift_in_scale = 0
         self._beats_to_rest = 0
         self._beats_stolen = 0
         self._scale = None
         self._time_signature = None
+        self._instrument = None
+        self._bpm = None
         self.grace_portion = 8  # TODO change to grace_beats
         self.default_beats = 1
         self.arpeggio_delay_beats = 1/8
@@ -65,7 +66,7 @@ class Track(MidiTrack):
             tone, midi_shift = tone
         else:
             midi_shift = 0
-        return self.scale[tone + self.shift_in_scale] + 12 * self.shift + midi_shift
+        return self.scale[tone + self.shift_in_scale] + 12 * self.octave_shift + midi_shift
 
     def _time(self, beats):
         return int(beats * self.parent.ticks_per_beat)
@@ -200,17 +201,68 @@ class Track(MidiTrack):
 
     @instrument.setter
     def instrument(self, instrument):
+        if isinstance(instrument, dict):
+            self.octave_shift = instrument.get('octave_shift', 0)
+            instrument = instrument['midi_number']
         self._instrument = instrument
         self.append(Message('program_change',
                             program=instrument - 1,  # is it just Mido that counts from 0?
                             channel=self.channel))
 
 
+class Song(MidiFile):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.scale = None
+        self.time_signature = None
+        self.bpm = None
+        self.default_beats = None
+        self._new_channel = 0
+
+    def new_track(self, channel=None):
+        if not channel:
+            channel = self._new_channel
+            self._new_channel += 1
+
+        track = Track(self, channel)
+
+        if self.scale and channel != 9:
+            track.scale = self.scale
+        if self.time_signature:
+            track.time_signature = self.time_signature
+        if self.bpm:
+            track.bpm = self.bpm
+        if self.default_beats:
+            track.default_beats = self.default_beats
+
+        return track
+
+    def new_drumming_track(self):
+        return self.new_track(9)
+
+
 instruments = {
     'bright acoustic piano': 2,
+    'harpsichord': 7,
+    'church organ': 20,
     'electric guitar (clean)': 28,
-    'acoustic bass': 33,
-    'baritone sax': 68,
+    'acoustic bass': {
+        'midi_number': 33,
+        'octave_shift': -2,
+    },
+    'violin': 41,
+    'cello': 43,
+    'baritone sax': {
+        'midi_number': 68,
+        'octave_shift': -1,
+    },
+    'piccolo': 73,
+    'sitar': 105,
+    'banjo': 106,
+    'shamisen': 107,
+    'koto': 108,
 }
 
 

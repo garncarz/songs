@@ -136,36 +136,34 @@ def soprano_line():
     ])
 
 
-def song(version='European'):
-    global mid, bass, tenor, alto, soprano
+def _make(version='European'):
+    global song, bass, tenor, alto, soprano
 
-    mid = MidiFile()
+    song = Song()
+    song.scale = b_minor
+    song.time_signature = TIME_SIGNATURE
+    song.bpm = 60
+    song.default_beats = DEFAULT_BEATS
 
-    bass = Track(mid)
-    tenor = Track(mid)
-    alto = Track(mid)
-    soprano = Track(mid)
-
-    bass.bpm = 60
-    bass.shift = -2
+    bass = song.new_track()
+    tenor = song.new_track()
+    alto = song.new_track()
+    soprano = song.new_track()
 
     if version == 'European':
-        bass.instrument = 20
-        tenor.instrument = 43
-        alto.instrument = 41
-        soprano.instrument = 73
+        bass.instrument = instruments['church organ']
+        tenor.instrument = instruments['cello']
+        alto.instrument = instruments['violin']
+        soprano.instrument = instruments['piccolo']
     elif version == 'Asian':
-        bass.instrument = 108
-        tenor.instrument = 107
-        alto.instrument = 106
-        soprano.instrument = 105
+        bass.instrument = instruments['koto']
+        tenor.instrument = instruments['shamisen']
+        alto.instrument = instruments['banjo']
+        soprano.instrument = instruments['sitar']
     else:
         raise Exception('Unknown version!')
 
-    for track in mid.tracks:
-        track.default_beats = DEFAULT_BEATS
-        track.scale = b_minor
-        track.time_signature = TIME_SIGNATURE
+    bass.octave_shift = -2
 
     bass_line()
     tenor_line()
@@ -174,14 +172,14 @@ def song(version='European'):
 
 
 def make():
-    global mids, mid
+    global songs, song
 
-    mids = {}
+    songs = {}
 
-    song('European')
-    mids['evropska_verze'] = mid
+    _make('European')
+    songs['evropska_verze'] = song
 
-    song('Asian')
-    mids['asijska_verze'] = mid
+    _make('Asian')
+    songs['asijska_verze'] = song
 
-    del mid
+    del song

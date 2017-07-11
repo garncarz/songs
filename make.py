@@ -80,12 +80,12 @@ def python():
         spec.loader.exec_module(song_module)
         song_module.make()
 
-        if hasattr(song_module, 'mids'):
+        if hasattr(song_module, 'songs'):
             midi = os.path.splitext(midi)[0] + '-%s.midi'
-            for name, mid in song_module.mids.items():
-                mid.save(midi % name)
+            for name, song in song_module.songs.items():
+                song.save(midi % name)
         else:
-            song_module.mid.save(midi)
+            song_module.song.save(midi)
 
 
 def timidity():
