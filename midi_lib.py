@@ -58,6 +58,9 @@ class Track(MidiTrack):
         self.arpeggio_delay_beats = 1/8
 
     def _note(self, tone):
+        if self.channel == 9:  # percussion
+            return tone
+
         if isinstance(tone, tuple):
             tone, midi_shift = tone
         else:
@@ -209,3 +212,11 @@ instruments = {
     'acoustic bass': 33,
     'baritone sax': 68,
 }
+
+
+# drumming:
+bda = 35
+ssl = 37
+mar = 70
+hh = 42
+ridecymbal = 51
