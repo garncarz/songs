@@ -207,13 +207,3 @@ def make():
     bass_line()
     guitar_line()
     drumset_line()
-
-
-if __name__ == '__main__':
-    make()
-    song.save('../out/03-pop_g-dur.midi')
-
-    from pprint import pprint
-    from midi_diff import diff
-    d = diff('../midi/03-pop_g-dur.midi', '../out/03-pop_g-dur.midi', normalize_times=False)
-    pprint(d)
