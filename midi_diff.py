@@ -19,8 +19,6 @@ def extract_notes(filename):
                 time += msg.time / mid.ticks_per_beat
                 if msg.is_meta:
                     continue
-                if msg.channel == 9:  # percussion
-                    continue
                 if msg.type == 'note_on' and msg.velocity:
                     notes.append({'time': time, 'note': msg.note, 'channel': msg.channel})
             except Exception as e:
@@ -46,8 +44,11 @@ def notes_diff(notes1, notes2):
     notes1_extra = []
     for n1 in notes1:
         for n2 in notes2:
-            if n1['note'] == n2['note'] and \
-                    abs(n1['time'] - n2['time']) < TIME_EPSILON:
+            if (n1['note'] == n2['note']
+                    and (n1['channel'] == n2['channel']
+                         or (n1['channel'] != 9 and n2['channel'] != 9))
+                        # non-percussion channels compared loosely
+                    and abs(n1['time'] - n2['time']) < TIME_EPSILON):
                 break
         else:
             notes1_extra.append(n1)

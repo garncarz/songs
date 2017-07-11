@@ -1,4 +1,4 @@
-from itertools import cycle
+from itertools import cycle, chain
 
 from midi_lib import *
 
@@ -16,6 +16,10 @@ def chopped_line(*chords, times, beats=2):
     for chord in chords:
         for _ in range(times):
             yield (chord, beats/times)
+
+
+def repeat(pattern, times):
+    return chain(pattern * times)
 
 
 def piano_line():
@@ -143,15 +147,52 @@ def guitar_line():
     ])
 
 
+def drumset_line():
+    drumset.default_beats = .5
+
+    pat1 = [[bda, hh], hh, hh, hh]
+    pat2 = [[bda, ssl, hh], hh, [ssl, hh], [ssl, hh]]
+    pat3 = [[bda, hh], hh, [ssl, hh], [ssl, hh]]
+    pat4 = [[bda, hh], hh, [mar, hh], [mar, hh]]
+    pat5 = [[bda, ridecymbal], ridecymbal, ('r', 1)]
+    pat6 = [[bda, ridecymbal], ridecymbal, ssl, ssl]
+    pat7 = [[bda, ridecymbal], ridecymbal, mar, mar]
+
+    drumset.sequence([
+        *repeat(pat1, 4),
+        *repeat(pat2, 4),
+        ('r', 2*2),
+
+        *repeat(pat3, 15),
+        *repeat(pat4, 7),
+        *pat3,
+        ('r', 2),
+
+        *repeat(pat3, 15),
+        ('r', 2),
+        *repeat(pat5, 7),
+        *pat6,
+        ('r', 2),
+
+        *repeat(pat6, 15),
+        *repeat(pat7, 7),
+        *pat6,
+        ('r', 2),
+
+        *repeat(pat2, 15),
+    ])
+
+
 def song():
     piano_line()
     sax_line()
     bass_line()
     guitar_line()
+    drumset_line()
 
 
 def make():
-    global mid, piano, sax, guitar, bass
+    global mid, piano, sax, guitar, bass, drumset
 
     mid = MidiFile()
 
@@ -164,6 +205,9 @@ def make():
     sax.instrument = instruments['baritone sax']
     guitar.instrument = instruments['electric guitar (clean)']
     bass.instrument = instruments['acoustic bass']
+
+    drumset = Track(mid, 9)
+    drumset.time_signature = 2, 4
 
     piano.bpm = 160
     sax.shift = -1
