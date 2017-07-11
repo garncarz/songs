@@ -115,24 +115,19 @@ def chords():
         ])
 
 
-def song():
-    bassline()
-    chords()
-
-
 def make():
-    global mid, bass, up
+    global song, bass, up
 
-    mid = MidiFile()
+    song = Song()
+    song.time_signature = 2, 4
 
-    up = Track(mid)
-    up.instrument = 7
-    up.time_signature = 2, 4
+    up = song.new_track()
+    up.instrument = instruments['harpsichord']
     up.grace_portion = 8
 
-    bass = Track(mid)
-    bass.shift = -1
-    bass.instrument = 7
-    bass.time_signature = 2, 4
+    bass = Track(song)
+    bass.instrument = instruments['harpsichord']
+    bass.octave_shift = -1
 
-    song()
+    bassline()
+    chords()

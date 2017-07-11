@@ -183,7 +183,25 @@ def drumset_line():
     ])
 
 
-def song():
+def make():
+    global song, piano, sax, guitar, bass, drumset
+
+    song = Song()
+    song.scale = g_major
+    song.time_signature = 2, 4
+    song.bpm = 160
+
+    piano = song.new_track()
+    sax = song.new_track()
+    guitar = song.new_track()
+    bass = song.new_track()
+    drumset = song.new_drumming_track()
+
+    piano.instrument = instruments['bright acoustic piano']
+    sax.instrument = instruments['baritone sax']
+    guitar.instrument = instruments['electric guitar (clean)']
+    bass.instrument = instruments['acoustic bass']
+
     piano_line()
     sax_line()
     bass_line()
@@ -191,34 +209,9 @@ def song():
     drumset_line()
 
 
-def make():
-    global mid, piano, sax, guitar, bass, drumset
-
-    mid = MidiFile()
-
-    for channel, track_name in enumerate(['piano', 'sax', 'guitar', 'bass']):
-        track = globals()[track_name] = Track(mid, channel)
-        track.scale = g_major
-        track.time_signature = 2, 4
-
-    piano.instrument = instruments['bright acoustic piano']
-    sax.instrument = instruments['baritone sax']
-    guitar.instrument = instruments['electric guitar (clean)']
-    bass.instrument = instruments['acoustic bass']
-
-    drumset = Track(mid, 9)
-    drumset.time_signature = 2, 4
-
-    piano.bpm = 160
-    sax.shift = -1
-    bass.shift = -2
-
-    song()
-
-
 if __name__ == '__main__':
     make()
-    mid.save('../out/03-pop_g-dur.midi')
+    song.save('../out/03-pop_g-dur.midi')
 
     from pprint import pprint
     from midi_diff import diff
