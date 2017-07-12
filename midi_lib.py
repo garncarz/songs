@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+import itertools
 
 from mido import Message, MetaMessage, MidiTrack, MidiFile, bpm2tempo
 
@@ -246,6 +247,7 @@ class Song(MidiFile):
 instruments = {
     'bright acoustic piano': 2,
     'harpsichord': 7,
+    'celesta': 9,
     'church organ': 20,
     'electric guitar (clean)': 28,
     'acoustic bass': {
@@ -254,6 +256,11 @@ instruments = {
     },
     'violin': 41,
     'cello': 43,
+    'contrabass': {
+        'midi_number': 44,
+        'octave_shift': -2,
+    },
+    'trumpet': 57,
     'baritone sax': {
         'midi_number': 68,
         'octave_shift': -1,
@@ -272,3 +279,11 @@ ssl = 37
 mar = 70
 hh = 42
 ridecymbal = 51
+
+
+# helpers:
+
+def line(*tones, beats):
+    if isinstance(beats, list):
+        return list(zip(tones, itertools.cycle(beats)))
+    return list(map(lambda t: (t, beats), tones))

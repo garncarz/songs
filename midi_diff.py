@@ -6,14 +6,14 @@ from pprint import pprint
 import mido
 
 
-TIME_EPSILON = 5
+TIME_EPSILON = 3
 
 
 def extract_notes(filename):
     mid = mido.MidiFile(filename)
     notes = []
-    time = 0
     for track in mid.tracks:
+        time = 0
         for msg in track:
             try:
                 time += msg.time / mid.ticks_per_beat
