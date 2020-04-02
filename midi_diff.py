@@ -20,7 +20,7 @@ def extract_notes(filename):
                 if msg.is_meta:
                     continue
                 if msg.type == 'note_on' and msg.velocity:
-                    notes.append({'time': time, 'note': msg.note, 'channel': msg.channel})
+                    notes.append({'time': time, 'note': msg.note, 'channel': msg.channel, 'velocity': msg.velocity})
             except Exception as e:
                 print(e)
     return notes
@@ -45,6 +45,7 @@ def notes_diff(notes1, notes2):
     for n1 in notes1:
         for n2 in notes2:
             if (n1['note'] == n2['note']
+                    and n1['velocity'] == n2['velocity']
                     and (n1['channel'] == n2['channel']
                          or (n1['channel'] != 9 and n2['channel'] != 9))
                         # non-percussion channels compared loosely

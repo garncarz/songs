@@ -12,11 +12,15 @@ def trill(tones, beats=1, trill_length=1/8):
         yield (tones, trill_length)
 
 
+def vol_up(tones, beats, vol):
+    return {'tones': tones, 'beats': beats, 'volume': vol}
+
+
 mel = [
     0, (3, .5), (2, .5),
     'r', 1, (4, .5), 5, (4, .5),
     *line(2, -1, 0, beats=1 / 4), (-2, 1 / 8), (-1, 1 / 8), 0, ('r', 1 - 1 / 8), (-1, 1 / 8), 0,
-    *line(2, -1, 0, -2, 3, 0, 1, -1, beats=1 / 4), 0, -1, -1, (0, 2), ('r', 3),
+    *line(2, -1, 0, -2, 3, 0, 1, -1, beats=1 / 4), 0, -1, vol_up(-1, 1, 4), vol_up(0, 2, 8), ('r', 3),
 ]
 
 mel_bass = [
@@ -36,9 +40,10 @@ def melody_line():
         *mel,
     ])
     melody.octave_shift = +1
+    melody.volume = 85
     melody.sequence([
         *mel[:-4],
-        (-1, 1 - 1/4), (0, 1/4), -1, (0, 3),
+        (-1, 1 - 1/4), vol_up(0, 1/4, 3), vol_up(-1, 1, 5), vol_up(0, 3, 9),
     ])
 
 
@@ -147,6 +152,7 @@ def make():
     song = Song()
     song.scale = a_major
     song.bpm = 60
+    song.volume = 91
 
     melody = song.new_track()
     harmony = song.new_track()
@@ -157,6 +163,9 @@ def make():
     harmony.instrument = instruments['bright acoustic piano']
     bass.instrument = instruments['contrabass']
     trumpets.instrument = instruments['trumpet']
+
+    melody.volume = 80
+    trumpets.volume = 104
 
     melody_line()
     harmony_line()
@@ -172,3 +181,4 @@ if __name__ == '__main__':
     from midi_diff import diff
     d = diff('../midi/09-melodie_v_a-dur.midi', '../out/09-melodie_v_a-dur.midi', normalize_times=False)
     pprint(d)
+    pprint({'len1': len(d['notes1_extra']), 'len2': len(d['notes2_extra'])})

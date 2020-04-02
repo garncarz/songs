@@ -58,6 +58,7 @@ class Track(MidiTrack):
         self.grace_portion = 8  # TODO change to grace_beats
         self.default_beats = 1
         self.arpeggio_delay_beats = 1/8
+        self.volume = 100
 
     def _note(self, tone):
         if self.channel == 9:  # percussion
@@ -72,15 +73,28 @@ class Track(MidiTrack):
     def _time(self, beats):
         return int(beats * self.parent.ticks_per_beat)
 
-    def _note_on(self, tone, beats=0):
-        self.append(Message('note_on', note=self._note(tone), velocity=100, time=self._time(beats),
-                            channel=self.channel))
+    def _apply_volume(self, volume):
+        if not volume:
+            return self.volume
+        if isinstance(volume, int):
+            return self.volume + volume
+        raise ValueError(f'Unknown volume/velocity: {volume}')
+
+    def _note_on(self, tone, beats=0, volume=None):
+        self.append(Message(
+            'note_on',
+            note=self._note(tone),
+            velocity=self._apply_volume(volume),
+            time=self._time(beats),
+            channel=self.channel,
+        ))
 
     def _note_off(self, tone, beats=0):
         self.append(Message('note_off', note=self._note(tone), time=self._time(beats),
                             channel=self.channel))
 
-    def play(self, tones, beats=None, grace=False, staccato=False, arpeggio=False):
+    def play(self, tones, beats=None, grace=False, staccato=False, arpeggio=False,
+             volume=None):
         if isinstance(tones, Scale):
             self.scale = tones
             return
@@ -96,14 +110,14 @@ class Track(MidiTrack):
         if not isinstance(tones, list):
             tones = [tones]
 
-        self._note_on(tones[0], self._beats_to_rest)
+        self._note_on(tones[0], self._beats_to_rest, volume=volume)
         self._beats_to_rest = 0
         for tone in tones[1:]:
             if arpeggio:
-                self._note_on(tone, self.arpeggio_delay_beats)
+                self._note_on(tone, self.arpeggio_delay_beats, volume=volume)
                 beats -= self.arpeggio_delay_beats
             else:
-                self._note_on(tone)
+                self._note_on(tone, volume=volume)
 
         if grace:
             self._note_off(tones[0], beats)
@@ -220,6 +234,7 @@ class Song(MidiFile):
         self.time_signature = None
         self.bpm = None
         self.default_beats = None
+        self.volume = 100
         self._new_channel = 0
 
     def new_track(self, channel=None):
@@ -237,6 +252,8 @@ class Song(MidiFile):
             track.bpm = self.bpm
         if self.default_beats:
             track.default_beats = self.default_beats
+        if self.volume:
+            track.volume = self.volume
 
         return track
 
