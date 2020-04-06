@@ -1,3 +1,4 @@
+from copy import deepcopy
 from itertools import cycle, chain
 
 from midi_lib import *
@@ -37,13 +38,25 @@ def piano_line():
         beats=[3/4, 1/4],
     ) + ending
 
+    # TODO make nicer, a lot nicer... abstract as much as possible
+    verse_2_vol_up = deepcopy(verse_2)
+    vol_going_up = [0, 5, 7, 13, 15, 21, 23]
+    for i in range(16, 23):
+        tones, beats = verse_2_vol_up[i]
+        verse_2_vol_up[i] = {
+            'tones': tones,
+            'beats': beats,
+            'volume': vol_going_up[i - 16],
+        }
+    verse_2_vol_up.insert(23, {'tones': 'volume', 'volume': 118})
+
     piano.sequence([
         *line([-3, 0, 2], [0, 2, 4], [-1, 1, 4], [-3, -1, 1], [-2, 0, 2],
               [0, 2, 5], [-1, 1, 4], [-3, -1, 1], 'r', beats=2),
 
         *verse_1,
         *verse_2,
-        *verse_2,
+        *verse_2_vol_up,
         *verse_1,
         *verse_2,
 
@@ -117,11 +130,16 @@ def bass_line():
 
 
 def guitar_line():
+    mezzopiano = {'tones': 'volume', 'volume': 77}  # TODO nicer
+    forte = {'tones': 'volume', 'volume': 95}  # TODO nicer
+
     chords = [[-3, 0, 2,], [0, 2, 4], [-1, 1, 4],
               [-3, -1, 1], [-2, 0, 2], [0, 2, 5]]
 
     verse = [
+        mezzopiano,
         *chopped_line(*chords, times=4),
+        forte,
         ([-1, 1, 4], .5), ([-1, 1, 4], 1.5),
         ([-3, -1, 1], 2),
     ]
@@ -130,19 +148,31 @@ def guitar_line():
         for chord in chords:
             yield from [(chord, beats), (chord[0], beats), (chord, beats), (chord[0], beats)]
 
+    def vol_up_and_down(*chords):
+        # TODO more abstract
+        vol_diffs = [0, 4, 8, 12, 16, 20, 24, 29]
+        for chord, vol in zip(chords, vol_diffs + list(reversed(vol_diffs))):
+            tones, beats = chord
+            yield {'tones': tones, 'beats': beats, 'volume': vol}
+
     guitar.sequence([
         ('r', 50*2),
 
+        mezzopiano,
         *chopped_line(*chords, [-1, 1, 4], [-3, -1, 1], times=2),
 
         *verse,
         *verse,
 
-        *intermezzo([-3, 0, 2], [0, 2, 4], [-1, 1, 4], [-3, -1, 1],
-                    [2, 0, -2], [5, 2, 0], [4, 1, -1], [1, -1, -3]),
+        mezzopiano,
+        *intermezzo(
+            [-3, 0, 2], [0, 2, 4], [-1, 1, 4], [-3, -1, 1]),
+        *vol_up_and_down(*intermezzo(
+            [2, 0, -2], [5, 2, 0], [4, 1, -1], [1, -1, -3])),
 
         *verse,
         *verse,
+        mezzopiano,
         [-3, 0, 2], [-3, 0, 2],
     ])
 
@@ -190,6 +220,7 @@ def make():
     song.scale = g_major
     song.time_signature = 2, 4
     song.bpm = 160
+    song.volume = 90
 
     piano = song.new_track()
     sax = song.new_track()

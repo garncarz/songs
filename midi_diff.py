@@ -81,6 +81,7 @@ def main():
 
         print('Comparing %s to %s...' % (filename, filename_orig))
         d = diff(filename_orig, filename)
+        pprint({'len1': len(d['notes1_extra']), 'len2': len(d['notes2_extra'])})
         pprint(d)
 
         if any(d.values()):

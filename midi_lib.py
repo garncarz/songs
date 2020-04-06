@@ -99,6 +99,10 @@ class Track(MidiTrack):
             self.scale = tones
             return
 
+        if tones == 'volume':  # TODO make nicer
+            self.volume = volume
+            return
+
         if beats == 'grace':
             return self.grace(tones)
         elif not beats:
