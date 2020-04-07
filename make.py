@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# TODO use pathlib
+# TODO use f'' string formatting
+
 import importlib.util
 import os
 
