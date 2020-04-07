@@ -77,8 +77,13 @@ def mscore():
 
 
 @cli.command(help='Compiles Python sources to MIDI.')
-def python():
-    files = filter(lambda f: f.endswith('.py'), os.listdir(SRC_PY_DIR))
+@click.argument('filename', required=False)
+def python(filename=None):
+    if filename:
+        files = [filename]
+    else:
+        files = filter(lambda f: f.endswith('.py'), os.listdir(SRC_PY_DIR))
+
     for py in files:
         info_file(py)
         midi = out_file(py, 'midi')
