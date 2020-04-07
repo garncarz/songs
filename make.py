@@ -3,12 +3,18 @@
 import importlib.util
 import os
 
+import click
 import colorama
 
 
 SRC_DIR = 'src'
 SRC_PY_DIR = 'src.py'
 OUT_DIR = 'out'
+
+
+@click.group()
+def cli():
+    pass
 
 
 def info(msg):
@@ -43,6 +49,7 @@ def is_newer(file1, file2):
            os.path.getmtime(file1) > os.path.getmtime(file2)
 
 
+@cli.command(help='Compiles LilyPond sources to MIDI & PDF.')
 def lilypond():
     files = filter(lambda f: f.endswith('.ly'), os.listdir(SRC_DIR))
     for ly in files:
@@ -54,6 +61,7 @@ def lilypond():
             run('cd %s && lilypond %s' % (OUT_DIR, os.path.abspath(ly)))
 
 
+@cli.command(help='Compiles MuseScore sources to MIDI & PDF.')
 def mscore():
     files = filter(lambda f: f.endswith('.mscz') or f.endswith('.mscx'),
                    os.listdir(SRC_DIR))
@@ -68,6 +76,7 @@ def mscore():
             run('mscore %s -o %s' % (ms, pdf))
 
 
+@cli.command(help='Compiles Python sources to MIDI.')
 def python():
     files = filter(lambda f: f.endswith('.py'), os.listdir(SRC_PY_DIR))
     for py in files:
@@ -88,6 +97,8 @@ def python():
             song_module.song.save(midi)
 
 
+@cli.command(help='Renders MIDI files to OGG/FLAC.')
+# TODO option for OGG/FLAC
 def timidity():
     files = filter(lambda f: f.endswith('.midi') or f.endswith('.mid'),
                    os.listdir(OUT_DIR))
@@ -100,6 +111,7 @@ def timidity():
             run('timidity %s -OF -o %s' % (midi, flac))
 
 
+@cli.command(help='Creates PNG thumbnails for PDFs.')
 def imagemagick():
     files = filter(lambda f: f.endswith('.pdf'), os.listdir(OUT_DIR))
     for pdf in files:
@@ -111,13 +123,6 @@ def imagemagick():
                 '%s[0] %s' % (pdf, png))
 
 
-def main():
-    lilypond()
-    mscore()
-    timidity()
-    imagemagick()
-
-
 if __name__ == '__main__':
     os.makedirs(OUT_DIR, exist_ok=True)
-    main()
+    cli()
