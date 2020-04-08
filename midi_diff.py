@@ -7,6 +7,7 @@ import mido
 
 
 TIME_EPSILON = 3
+VOLUME_EPSILON = 2
 
 
 def extract_notes(filename):
@@ -45,7 +46,7 @@ def notes_diff(notes1, notes2):
     for n1 in notes1:
         for n2 in notes2:
             if (n1['note'] == n2['note']
-                    and n1['velocity'] == n2['velocity']
+                    and abs(n1['velocity'] - n2['velocity']) < VOLUME_EPSILON
                     and (n1['channel'] == n2['channel']
                          or (n1['channel'] != 9 and n2['channel'] != 9))
                         # non-percussion channels compared loosely

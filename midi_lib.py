@@ -76,7 +76,7 @@ class Track(MidiTrack):
     def _apply_volume(self, volume):
         if not volume:
             return self.volume
-        if isinstance(volume, int):
+        if isinstance(volume, int) or isinstance(volume, float):
             return self.volume + volume
         raise ValueError(f'Unknown volume/velocity: {volume}')
 
@@ -84,7 +84,7 @@ class Track(MidiTrack):
         self.append(Message(
             'note_on',
             note=self._note(tone),
-            velocity=self._apply_volume(volume),
+            velocity=int(self._apply_volume(volume)),
             time=self._time(beats),
             channel=self.channel,
         ))
