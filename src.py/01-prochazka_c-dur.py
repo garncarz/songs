@@ -120,12 +120,13 @@ def make():
 
     song = Song()
     song.time_signature = 2, 4
+    song.volume = 60
 
     up = song.new_track()
     up.instrument = instruments['harpsichord']
     up.grace_portion = 8
 
-    bass = Track(song)
+    bass = song.new_track()
     bass.instrument = instruments['harpsichord']
     bass.octave_shift = -1
 

@@ -41,13 +41,14 @@ def _normalize_times(notes1, notes2):
         note['time'] += shift2to1
 
 
-def notes_diff(notes1, notes2):
+def notes_diff(notes1, notes2, ignore_channels=False):
     notes1_extra = []
     for n1 in notes1:
         for n2 in notes2:
             if (n1['note'] == n2['note']
                     and abs(n1['velocity'] - n2['velocity']) < VOLUME_EPSILON
                     and (n1['channel'] == n2['channel']
+                         or ignore_channels
                          or (n1['channel'] != 9 and n2['channel'] != 9))
                         # non-percussion channels compared loosely
                     and abs(n1['time'] - n2['time']) < TIME_EPSILON):
@@ -57,15 +58,15 @@ def notes_diff(notes1, notes2):
     return notes1_extra
 
 
-def diff(filename1, filename2, normalize_times=True):
+def diff(filename1, filename2, normalize_times=True, ignore_channels=False):
     notes1 = extract_notes(filename1)
     notes2 = extract_notes(filename2)
 
     if normalize_times:
         _normalize_times(notes1, notes2)
 
-    notes1_extra = notes_diff(notes1, notes2)
-    notes2_extra = notes_diff(notes2, notes1)
+    notes1_extra = notes_diff(notes1, notes2, ignore_channels)
+    notes2_extra = notes_diff(notes2, notes1, ignore_channels)
 
     return {'notes1_extra': notes1_extra, 'notes2_extra': notes2_extra}
 
@@ -81,7 +82,8 @@ def main():
                 continue
 
         print('Comparing %s to %s...' % (filename, filename_orig))
-        d = diff(filename_orig, filename)
+        ignore_channels = 'prochazka' in filename  # MuseScore exported it as a 1 channel song
+        d = diff(filename_orig, filename, ignore_channels)
         pprint({'len1': len(d['notes1_extra']), 'len2': len(d['notes2_extra'])})
         pprint(d)
 
