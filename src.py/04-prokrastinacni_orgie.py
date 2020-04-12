@@ -1,6 +1,25 @@
 from midi_lib import *
 
 
+GRACE_DURATION = 1.0 / 8
+
+def ungrace(line):
+    # grace notes here are meant to be played before,
+    # trimming previous tones/chords
+    # TODO do not assume everything in line is a tuple of max. size 2
+
+    line = list(line)
+
+    for ix, obj in filter(lambda x: len(x[1]) > 1 and x[1][1] == 'grace',
+                          reversed(list(enumerate(line)))):
+        pix, prev = next(filter(lambda x: len(x[1]) > 1 and x[1][1] != 'grace',
+                                reversed(list(enumerate(line[:ix])))))
+        line[pix] = (prev[0], prev[1] - GRACE_DURATION)
+        line[ix] = (obj[0], GRACE_DURATION)
+
+    return line
+
+
 def bassline():
     for _ in range(4):
         yield from ([(0,), (4,)])
@@ -46,48 +65,48 @@ def chords_verse(variation):
     assert -1 <= variation <= 3
 
     if variation == -1:
-        chords.sequence([
+        yield from [
             ([0, 2, 4], 4),
             (-3, 'grace'),
             ([2, 4, 7], 4),
             (-2, 'grace'),
-        ])
+        ]
     elif variation in [0, 1, 2]:
-        chords.sequence([
+        yield from [
             ([0, 2, 4], 1),
             ([-3, -1, 1], 3),
             ([0, 2, 4], 4),
-        ])
+        ]
     elif variation == 3:
-        chords.sequence([
+        yield from [
             ([0, 2, 4], 1),
             ([-3, -1, 1], 2),
             ([-3, -1, 1], 1),
             (7, 'grace'),
             ([0, 2, 4], 4),
-        ])
+        ]
 
     if variation in [-1, 0]:
-        chords.play([2, 5, 7], 4)
+        yield ([2, 5, 7], 4)
     elif variation == 1:
-        chords.sequence([
+        yield from [
             ([2, 5, 7], 1),
             ([0, 3, 5], 3),
-        ])
+        ]
     elif variation == 2:
-        chords.sequence([
+        yield from [
             ([2, 5, 7], 1),
             ([3, 5, 7], 3),
-        ])
+        ]
     elif variation == 3:
-        chords.sequence([
+        yield from [
             ([2, 5, 7], 1),
             ([0, 3, 5], 2),
             ([0, 3, 5], 1),
             (-2, 'grace'),
-        ])
+        ]
 
-    chords.play([0, 2, 5], 4)
+    yield ([0, 2, 5], 4)
 
 
 # not sure if that shift was purpose or just error :-)
@@ -126,7 +145,7 @@ def chords_chorus(variation, midi_extra_shift=+1):
 
 
 def chords_bridge():
-    chords.sequence([
+    yield from [
         (c_minor,),
         ([6, 8, 11], 2),
         ([4, 7, 9], 2),
@@ -145,19 +164,19 @@ def chords_bridge():
         ([-1, 1, 4], 2),
         ([0, 2, 4],),
         ([0, 3, 5],),
-    ])
+    ]
 
 
 def chords_outro():
     for v in [2, 1]:
-        chords.sequence(chords_chorus(v))
+        chords.sequence(ungrace(chords_chorus(v)))
 
     chords.shift_in_scale = -1
-    chords.sequence(chords_chorus(1, 0))
+    chords.sequence(ungrace(chords_chorus(1, 0)))
 
     chords.shift_in_scale = -2
     # TODO nicer fade out
-    line = list(chords_chorus(1, 0))
+    line = list(ungrace(chords_chorus(1, 0)))
     fade_out_vol = [0, -4, -15]
     for i in range(len(line) - 3, len(line)):
         line[i] = {
@@ -204,7 +223,7 @@ def intro():
 
     chords.rest(4 * 4)
     for v in [-1, 0, 1]:
-        chords_verse(v)
+        chords.sequence(ungrace(chords_verse(v)))
 
     violin.rest(4 * 16)
 
@@ -218,7 +237,7 @@ def verse():
         bass.sequence(bassline())
 
     for v in [2, 1, 1, 2, 3, 1, 1, 2]:
-        chords_verse(v)
+        chords.sequence(ungrace(chords_verse(v)))
 
     for _ in range(2):
         violin.rest(4 * 4)
@@ -232,7 +251,7 @@ def chorus():
 
     chords.sequence([([1, 4, 6], 2), (f_minor,), ([0, 2, 7], 2)])
     for v in [0, 1, 0, 0, 1, 0]:
-        chords.sequence(chords_chorus(v))
+        chords.sequence(ungrace(chords_chorus(v)))
 
     violin.scale = f_minor
     violin.rest(4 * 5)
@@ -243,7 +262,7 @@ def chorus():
 
 def bridge():
     bassline_bridge()
-    chords_bridge()
+    chords.sequence(ungrace(chords_bridge()))
     violin.rest(4 * 5)
 
 
