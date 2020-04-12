@@ -64,7 +64,7 @@ def notes_diff(notes1, notes2, ignore_channels=False):
                          or (n1['channel'] != 9 and n2['channel'] != 9))
                         # non-percussion channels compared loosely
                     and abs(n1['time'] - n2['time']) < TIME_EPSILON
-                    and (abs(n1.get('duration', 0) - n2.get('duration', 0)) == 0
+                    and (abs(n1.get('duration', 0) - n2.get('duration', 0)) < TIME_EPSILON / 8
                          or n1['channel'] == n2['channel'] == 9)
                 ):
                 break
