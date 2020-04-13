@@ -5,6 +5,17 @@ from midi_lib import *
 a_major = Scale('a', 'major')
 
 
+# staccato
+def st(tones, beats):
+    return {'tones': tones, 'beats': beats, 'staccato': True}
+
+# staccatissimo
+def sti(tones, beats):
+    return {'tones': tones, 'beats': beats, 'staccato': 2}
+
+def grace(tones):
+    return (tones, 'grace')
+
 def trill(tones, beats=1, trill_length=1/8):
     tones_up = list(map(lambda t: t + 1, tones))
     for _ in range(int(beats / trill_length / 2)):
@@ -17,16 +28,16 @@ def vol_up(tones, beats, vol):
 
 
 mel = [
-    0, (3, .5), (2, .5),
-    'r', 1, (4, .5), 5, (4, .5),
-    *line(2, -1, 0, beats=1 / 4), (-2, 1 / 8), (-1, 1 / 8), 0, ('r', 1 - 1 / 8), (-1, 1 / 8), 0,
+    0, st(3, .5), (2, .5),
+    'r', 1, sti(4, .5), 5, (4, .5),
+    *line(2, -1, 0, -2, beats=1/4), (-1, 'grace'), 0, 'r', (-1, 'grace'), 0,
     *line(2, -1, 0, -2, 3, 0, 1, -1, beats=1 / 4), 0, -1, vol_up(-1, 1, 4), vol_up(0, 2, 8), ('r', 3),
 ]
 
 mel_bass = [
     0, (3, .5), (2, .5),
     'r', 1, (4, .5), 5, (4, .5),
-    *line(2, -1, 0, beats=1 / 4), (-2, 1 / 8), (-1, 1 / 8), 0, ('r', 1 - 1 / 8), (-1, 1 / 8), 0,
+    *line(2, -1, 0, -2, beats=1 / 4), (-1, 'grace'), 0, 'r', (-1, 'grace'), 0,
     *line(2, -1, 0, -2, 3, 0, 1, -1, beats=1 / 4), 0, (-1, 2), (0, 2), ('r', 3),
 ]
 
@@ -57,23 +68,23 @@ def bass_line():
     ])
     bass.octave_shift = -3
     bass_low = [
-        0, (7, 1 - 1 / 8), (10, 1 / 8), 7, 0,
+        0, 7, (10, 'grace'), 7, 0,
         0, (1, .5), (3, .5), 7, (4, .5), (1, .5),
-        0, (7, 1 - 1 / 8), (5, 1 / 8), 7, 0,
+        0, 7, (5, 'grace'), 7, 0,
         (0, 1 - 1 / 4), (7, 1 / 4), (8, .5), (3, .5), 7, (4, .5), (1, .5),
     ]
     bass.sequence([
         *bass_low,
         (4, .5), (1, .5), (0, 2), *line(2, 4, 7, beats=1/3),
         *bass_low,
-        (4, .5), (1, .5), (0, 2.5),
+        (4, .5), (1, .5), (0, 3),
     ])
 
 
 def harmony_line():
     hrm1 = [
-        ([-3, 0, 2], 2 - 1/8), ([-2, 0, 3], 1/8), ([-3, 0, 2], 2),
-        [0, 2, 4], ([-2, 1, 3], 1 - 1 / 8), ([-2, 0, 2], 1 / 8), [-3, 0, 2], [-3, -1, 1],
+        ([-3, 0, 2], 2), ([-2, 0, 3], 'grace'), ([-3, 0, 2], 2),
+        [0, 2, 4], [-2, 1, 3], ([-2, 0, 2], 'grace'), [-3, 0, 2], [-3, -1, 1],
     ]
     hrm2 = [[-1, 1, 4], ([0, 2, 4], 2), ('r', 1)]
 
@@ -113,8 +124,8 @@ def trumpets_line():
     ]
     trump2 = [
         *line([0, 2], [0, 2], [0, 3], [2, 4], [2, 4], [1, 4],
-              [0, 3], [0, 2], [0, 2], [0, 3],
               beats=[.5, .25, .25]),
+        sti([0, 3], .5), ([0, 2], .25), ([0, 2], .25), ([0, 3], .5),
         ([0, 2], .5),
     ]
     trump3 = [
@@ -153,6 +164,7 @@ def make():
     song.scale = a_major
     song.bpm = 60
     song.volume = 91
+    song.shorten_tones = True
 
     melody = song.new_track()
     harmony = song.new_track()

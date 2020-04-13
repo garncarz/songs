@@ -6,7 +6,8 @@ from pprint import pprint
 import mido
 
 
-TIME_EPSILON = 3
+TIME_EPSILON = .5
+DURATION_EPSILON = .2
 VOLUME_EPSILON = 2
 
 
@@ -63,8 +64,8 @@ def notes_diff(notes1, notes2, ignore_channels=False):
                          or ignore_channels
                          or (n1['channel'] != 9 and n2['channel'] != 9))
                         # non-percussion channels compared loosely
-                    and abs(n1['time'] - n2['time']) < TIME_EPSILON
-                    and (abs(n1.get('duration', 0) - n2.get('duration', 0)) < TIME_EPSILON / 8
+                    and abs(n1['time'] - n2['time']) <= TIME_EPSILON
+                    and (abs(n1.get('duration', 0) - n2.get('duration', 0)) <= DURATION_EPSILON
                          or n1['channel'] == n2['channel'] == 9)
                 ):
                 break

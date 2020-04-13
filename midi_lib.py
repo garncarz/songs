@@ -4,6 +4,9 @@ import itertools
 from mido import Message, MetaMessage, MidiTrack, MidiFile, bpm2tempo
 
 
+GRACE_DURATION = 1.0 / 8
+
+
 class Scale:
 
     midi_root_tones = ['c', 'cis', 'd', 'dis', 'e', 'f', 'fis', 'g', 'gis', 'a', 'ais', 'b']
@@ -59,6 +62,7 @@ class Track(MidiTrack):
         self.default_beats = 1
         self.arpeggio_delay_beats = 1/8
         self.volume = 100
+        self.shorten_tones = False
 
     def _note(self, tone):
         if self.channel == 9:  # percussion
@@ -123,6 +127,8 @@ class Track(MidiTrack):
             else:
                 self._note_on(tone, volume=volume)
 
+        beats_to_rest = 0
+
         if grace:
             self._note_off(tones[0], beats)
             self._beats_stolen += beats
@@ -130,13 +136,17 @@ class Track(MidiTrack):
             beats -= self._beats_stolen
             self._beats_stolen = 0
             if staccato:
-                beats /= 2
+                beats_to_rest = beats - beats / int(staccato) / 2
+                beats /= int(staccato) * 2
+            elif self.shorten_tones:
+                beats_to_rest = beats * .125
+                beats *= .875
             self._note_off(tones[0], beats)
         for tone in tones[1:]:
             self._note_off(tone)
 
-        if staccato:
-            self.rest(beats)
+        if beats_to_rest:
+            self.rest(beats_to_rest)
 
     @contextmanager
     def shadow_play(self, tones):
@@ -154,6 +164,8 @@ class Track(MidiTrack):
             self._note_off(tone)
 
     def sequence(self, sequence):
+        sequence = ungrace(sequence)
+
         for play_args in sequence:
             # it should be a tuple/dict to fully use `play`
             if isinstance(play_args, int):  # single tone
@@ -239,6 +251,7 @@ class Song(MidiFile):
         self.bpm = None
         self.default_beats = None
         self.volume = 100
+        self.shorten_tones = False
         self._new_channel = 0
 
     def new_track(self, channel=None):
@@ -258,6 +271,7 @@ class Song(MidiFile):
             track.default_beats = self.default_beats
         if self.volume:
             track.volume = self.volume
+        track.shorten_tones = self.shorten_tones
 
         return track
 
@@ -308,3 +322,26 @@ def line(*tones, beats):
     if isinstance(beats, list):
         return list(zip(tones, itertools.cycle(beats)))
     return list(map(lambda t: (t, beats), tones))
+
+
+def ungrace(line):
+    # grace notes here are meant to be played before,
+    # trimming previous tones/chords
+    # TODO do not assume everything in line is a tuple of max. size 2
+
+    line = map(lambda x: {'tones': x} if isinstance(x, int) or isinstance(x, str) or isinstance(x, list)
+                         else {'tones': x[0], 'beats': x[1]} if isinstance(x, tuple) and len(x) > 1
+                         else x,
+               line)
+    line = list(line)
+
+    for ix, obj in filter(lambda x: isinstance(x[1], dict)
+                                    and (x[1].get('beats') == 'grace' or x[1].get('grace')),
+                          reversed(list(enumerate(line)))):
+        pix, prev = next(filter(lambda x: isinstance(x[1], dict)
+                                          and not(x[1].get('beats') == 'grace' or x[1].get('grace')),
+                                reversed(list(enumerate(line[:ix])))))
+        line[pix] = {'tones': prev.get('tones'), 'beats': prev.get('beats', 1) - GRACE_DURATION}
+        line[ix] = {'tones': obj.get('tones'), 'beats': GRACE_DURATION}
+
+    return line
