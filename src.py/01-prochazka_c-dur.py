@@ -47,8 +47,8 @@ def chords():
         ([0, 2, 4], 2),
 
         arpeggio(3, 5, 7, beats=2),
-        arpeggio(0, 3, 5, beats=1.5), ([5, 7], .5),
-        ([1, 4, 6], 1.5), ([3, 5], .5),
+        arpeggio(0, 3, 5, beats=2), ([5, 7], 'grace'),
+        ([1, 4, 6], 2), ([3, 5], 'grace'),
         ([2, 4, 7], 2),
 
         [4, 7, 11], [0, 4, 7],
@@ -66,17 +66,18 @@ def chords():
         [4, 6, 8], [1, 4, 6],
         arpeggio(2, 4, 7, beats=2),
 
+
         *line(2, 4, 0, [0, 2, 4], beats=.5),
         *line(3, 5, 0, [0, 3, 5], beats=.5),
-        *line(4, 6, 1, beats=.5), ([1, 4, 6], .5/2), ([3, 5], .5/2),
-        ([2, 4, 7], .5), ([3, 5], .5), [2, 4, 7],
+        *line(4, 6, 1, [1, 4, 6], beats=.5), ([3, 5], 'grace'),
+        [2, 4, 7], ([3, 5], 'grace'), [2, 4, 7],
 
         staccato(2, 4, 6), [2, 4, 6],
         staccato(2, 5, 7), [2, 5, 7],
         staccato(1, 3, 6), [1, 3, 6],
-        ([0, 4, 7], 1.5), ([1, 6], .5),
+        ([0, 4, 7], 2), ([1, 6], 'grace'),
 
-        ([0, 3, 5], 1.5), ([3, 5], .5),
+        ([0, 3, 5], 2), ([3, 5], 'grace'),
         ([3, 5, 8], 2),
         [1, 4, 6], [1, 4, 4],
         ([2, 4, 7], 2),
@@ -92,17 +93,17 @@ def chords():
         ([5, 7, 9], 2),
 
         arpeggio(5, 7, 10), staccato(5, 7, 10),
-        arpeggio(3, 5, 7), staccato(3, 5, 7, beats=.5), ([7, 9], .5),
+        arpeggio(3, 5, 7), staccato(3, 5, 7, beats=1), ([7, 9], 'grace'),
         ([4, 6, 8], 2),
         ([7, 9, 11], 2),
 
         *line(9, 7, 4, [4, 7, 9], beats=.5),
         *line(8, 6, 4, [8, 6, 4], beats=.5),
-        *line(7, 4, 2, beats=.5), ([7, 4, 2], .5/2), ([5, 7], .5/2),
-        ([2, 4, 6], .5), ([5, 7], .5), ([2, 4, 6], .5), ([1, 6], .5),
+        *line(7, 4, 2, [7, 4, 2], beats=.5), ([5, 7], 'grace'),
+        [2, 4, 6], ([5, 7], 'grace'), [2, 4, 6], ([1, 6], 'grace'),
 
-        ([0, 3, 5], .5), ([1, 6], .5), ([0, 3, 5], .5), ([3, 5], .5),
-        ([0, 2, 4], .5), ([3, 5], .5), [2, 4, 7],
+        [0, 3, 5], ([1, 6], 'grace'), [0, 3, 5], ([3, 5], 'grace'),
+        [0, 2, 4], ([3, 5], 'grace'), [2, 4, 7],
         arpeggio(1, 3, 5, beats=2),
         [1, 3, 6], [3, 6, 8],
         [1, 4, 6], [4, 6, 8],
@@ -120,12 +121,14 @@ def make():
 
     song = Song()
     song.time_signature = 2, 4
+    song.volume = 60
+    song.shorten_tones = True
 
     up = song.new_track()
     up.instrument = instruments['harpsichord']
     up.grace_portion = 8
 
-    bass = Track(song)
+    bass = song.new_track()
     bass.instrument = instruments['harpsichord']
     bass.octave_shift = -1
 

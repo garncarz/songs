@@ -73,6 +73,7 @@ def make():
     song = Song()
     song.scale = c_major
     song.bpm = 60
+    song.volume = 90
 
     piano = song.new_track()
 
