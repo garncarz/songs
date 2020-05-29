@@ -164,7 +164,7 @@ class Track(MidiTrack):
             self._note_off(tone)
 
     def sequence(self, sequence):
-        sequence = ungrace(sequence)
+        sequence = ungrace(sequence, self.default_beats)
 
         for play_args in sequence:
             # it should be a tuple/dict to fully use `play`
@@ -324,7 +324,7 @@ def line(*tones, beats):
     return list(map(lambda t: (t, beats), tones))
 
 
-def ungrace(line):
+def ungrace(line, default_beats=1):
     # grace notes here are meant to be played before,
     # trimming previous tones/chords
     # TODO do not assume everything in line is a tuple of max. size 2
@@ -334,6 +334,9 @@ def ungrace(line):
                          else x,
                line)
     line = list(line)
+    for x in line:
+        if isinstance(x, dict):
+            x['beats'] = x.get('beats', default_beats)
 
     for ix, obj in filter(lambda x: isinstance(x[1], dict)
                                     and (x[1].get('beats') == 'grace' or x[1].get('grace')),
@@ -341,7 +344,7 @@ def ungrace(line):
         pix, prev = next(filter(lambda x: isinstance(x[1], dict)
                                           and not(x[1].get('beats') == 'grace' or x[1].get('grace')),
                                 reversed(list(enumerate(line[:ix])))))
-        line[pix] = {'tones': prev.get('tones'), 'beats': prev.get('beats', 1) - GRACE_DURATION}
-        line[ix] = {'tones': obj.get('tones'), 'beats': GRACE_DURATION}
+        line[pix]['beats'] -= GRACE_DURATION
+        line[ix]['beats'] = GRACE_DURATION
 
     return line
