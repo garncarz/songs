@@ -144,6 +144,7 @@ def _make(version='European'):
     song.time_signature = TIME_SIGNATURE
     song.bpm = 60
     song.default_beats = DEFAULT_BEATS
+    song.volume = 90
 
     bass = song.new_track()
     tenor = song.new_track()
@@ -153,7 +154,9 @@ def _make(version='European'):
     if version == 'European':
         bass.instrument = instruments['church organ']
         tenor.instrument = instruments['cello']
+        tenor.volume = 79
         alto.instrument = instruments['violin']
+        alto.volume = 97
         soprano.instrument = instruments['piccolo']
     elif version == 'Asian':
         bass.instrument = instruments['koto']
