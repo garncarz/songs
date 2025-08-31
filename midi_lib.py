@@ -3,6 +3,86 @@ from contextlib import contextmanager
 from mido import Message, MetaMessage, MidiTrack, MidiFile, bpm2tempo
 
 
+# Note names for MIDI conversion - using same convention as Scale.midi_root_tones
+_NOTE_NAMES = ['c', 'cis', 'd', 'dis', 'e', 'f', 'fis', 'g', 'gis', 'a', 'ais', 'b']
+
+
+def midi_to_note_name(midi_number):
+    """
+    Convert MIDI note number to note name with octave.
+    
+    Args:
+        midi_number (int): MIDI note number (0-127)
+        
+    Returns:
+        str: Note name with octave (e.g., 'C4', 'Cis4')
+        
+    Examples:
+        midi_to_note_name(60) -> 'C4'  # Middle C
+        midi_to_note_name(61) -> 'Cis4'
+        midi_to_note_name(72) -> 'C5'
+    """
+    if not 0 <= midi_number <= 127:
+        raise ValueError(f"MIDI number must be between 0 and 127, got {midi_number}")
+    
+    octave = (midi_number // 12) - 1  # MIDI octave numbering: C4 = 60
+    note_index = midi_number % 12
+    note_name = _NOTE_NAMES[note_index]
+    
+    return f"{note_name.capitalize()}{octave}"
+
+
+def note_name_to_midi(note_name):
+    """
+    Convert note name with octave to MIDI note number.
+    
+    Args:
+        note_name (str): Note name with octave (e.g., 'C4', 'cis4', 'Dis5')
+        
+    Returns:
+        int: MIDI note number (0-127)
+        
+    Examples:
+        note_name_to_midi('C4') -> 60  # Middle C
+        note_name_to_midi('cis4') -> 61
+        note_name_to_midi('C5') -> 72
+    """
+    if not isinstance(note_name, str) or len(note_name) < 2:
+        raise ValueError(f"Invalid note name format: {note_name}")
+    
+    # Extract octave number (last digit(s))
+    octave_str = ''
+    note_part = ''
+    for i in range(len(note_name) - 1, -1, -1):
+        if note_name[i].isdigit() or note_name[i] == '-':
+            octave_str = note_name[i] + octave_str
+        else:
+            note_part = note_name[:i+1]
+            break
+    
+    if not octave_str:
+        raise ValueError(f"No octave number found in note name: {note_name}")
+    
+    try:
+        octave = int(octave_str)
+    except ValueError:
+        raise ValueError(f"Invalid octave number: {octave_str}")
+    
+    note_part = note_part.lower()
+    
+    try:
+        note_index = _NOTE_NAMES.index(note_part)
+    except ValueError:
+        raise ValueError(f"Unknown note name: {note_part}")
+    
+    midi_number = (octave + 1) * 12 + note_index
+    
+    if not 0 <= midi_number <= 127:
+        raise ValueError(f"Resulting MIDI number {midi_number} is out of range (0-127)")
+    
+    return midi_number
+
+
 class Scale:
 
     midi_root_tones = ['c', 'cis', 'd', 'dis', 'e', 'f', 'fis', 'g', 'gis', 'a', 'ais', 'b']
