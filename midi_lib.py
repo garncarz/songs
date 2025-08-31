@@ -69,7 +69,7 @@ class Track(MidiTrack):
         return self.scale[tone + self.shift_in_scale] + 12 * self.octave_shift + midi_shift
 
     def _time(self, beats):
-        return int(beats * self.parent.ticks_per_beat)
+        return round(beats * self.parent.ticks_per_beat)
 
     def _note_on(self, tone, beats=0):
         self.append(Message('note_on', note=self._note(tone), velocity=100, time=self._time(beats),

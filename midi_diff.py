@@ -6,7 +6,7 @@ from pprint import pprint
 import mido
 
 
-TIME_EPSILON = 5
+TIME_EPSILON = 2
 
 
 def extract_notes(filename):
