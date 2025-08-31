@@ -31,6 +31,27 @@ Procession of songs is automated by the script `make.py` which is capable of pro
 - FLAC/OGG files with rendered MIDI files
 - PNG previews of PDFs
 
+## Microtonal Audio Generation
+
+This project now includes support for microtonal audio generation with smooth tuning transitions:
+
+- **Equal Temperament**: Standard 12-tone equal temperament tuning
+- **Pythagorean Tuning**: Perfect fifth-based tuning with pure 3:2 ratios
+- **Smooth Transitions**: Real-time morphing between tuning systems during playback
+- **Direct Audio Output**: Generates WAV files without MIDI limitations
+
+Example usage:
+```python
+from audio_lib import AudioGenerator
+
+generator = AudioGenerator()
+# Generate a perfect fifth that morphs from ET to Pythagorean tuning
+audio = generator.generate_morphing_tone(67, duration=3.0, start_tuning=0.0, end_tuning=1.0)
+generator.save_wav(audio, "morphing_fifth.wav")
+```
+
+See `src.py/09-tuning_transitions.py` for a complete musical demonstration.
+
 
 ## Needed
 
@@ -40,6 +61,10 @@ Procession of songs is automated by the script `make.py` which is capable of pro
 - [TiMidity++](http://timidity.sourceforge.net) (`.midi` → `.ogg`/`.flac`/direct play)
 - some SoundFont for TiMidity++, e.g. [Fluid R3 GM](http://www.musescore.org/download/fluid-soundfont.tar.gz)
 - [ImageMagick](https://www.imagemagick.org) (`.pdf` → `.png`)
+
+For microtonal audio generation:
+- NumPy (audio array processing)
+- SciPy (WAV file output)
 
 
 ## Usage
