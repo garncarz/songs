@@ -37,11 +37,38 @@ def piano_line():
         beats=[3/4, 1/4],
     ) + ending
 
+    # Start with soft dynamics (piano)
+    piano.velocity = 65  # Piano dynamic
+    
+    # Intro section (18 beats) + first part of verse_1 (14 beats to reach beat 32)
+    intro_section = line([-3, 0, 2], [0, 2, 4], [-1, 1, 4], [-3, -1, 1], [-2, 0, 2],
+                        [0, 2, 5], [-1, 1, 4], [-3, -1, 1], 'r', beats=2)
+    
+    # Split verse_1 at beat 32 (after 14 beats of verse_1, which is after 18 intro beats)
+    # verse_1 has 24 notes with alternating 3/4, 1/4 beats, so 14 beats = 28 notes
+    verse_1_first_part = line(
+        0, 2, 0, -3, [0, 2], 3, [2, 4], 3, [1, 4], 0,
+        [-1, 1], 0, [-3, -1], 0, [-1, 1], 0,
+        [0, 2], -1, [-2, 0], -1,  # Stop here at beat 32 (after 20 elements = 10 beats)
+        beats=[3/4, 1/4],
+    )
+    
     piano.sequence([
-        *line([-3, 0, 2], [0, 2, 4], [-1, 1, 4], [-3, -1, 1], [-2, 0, 2],
-              [0, 2, 5], [-1, 1, 4], [-3, -1, 1], 'r', beats=2),
-
-        *verse_1,
+        *intro_section,
+        *verse_1_first_part,
+    ])
+    
+    # At beat 32, set dynamics back to normal (forte)
+    piano.velocity = 100  # Normal/forte dynamic
+    
+    # Continue with rest of verse_1 and remaining sections
+    verse_1_second_part = line(
+        [0, 2], 4, [2, 5], 4,  # Remaining 4 elements from verse_1
+        beats=[3/4, 1/4],
+    ) + ending
+    
+    piano.sequence([
+        *verse_1_second_part,
         *verse_2,
         *verse_2,
         *verse_1,
