@@ -201,6 +201,12 @@ class Track(MidiTrack):
 
     @instrument.setter
     def instrument(self, instrument):
+        if isinstance(instrument, str):
+            # Look up instrument by name
+            if instrument not in instruments:
+                raise KeyError(f"Unknown instrument: '{instrument}'. Available instruments: {list(instruments.keys())}")
+            instrument = instruments[instrument]
+        
         if isinstance(instrument, dict):
             self.octave_shift = instrument.get('octave_shift', 0)
             instrument = instrument['midi_number']
@@ -264,6 +270,45 @@ instruments = {
     'shamisen': 107,
     'koto': 108,
 }
+
+
+def instrument_name_to_midi_number(name):
+    """Convert instrument name to MIDI number.
+    
+    Args:
+        name (str): Instrument name as defined in instruments dictionary
+        
+    Returns:
+        int: MIDI program number (1-128)
+        
+    Raises:
+        KeyError: If instrument name is not found
+    """
+    if name not in instruments:
+        raise KeyError(f"Unknown instrument: '{name}'. Available instruments: {list(instruments.keys())}")
+    
+    instrument = instruments[name]
+    if isinstance(instrument, dict):
+        return instrument['midi_number']
+    return instrument
+
+
+def midi_number_to_instrument_name(midi_number):
+    """Convert MIDI number to instrument name.
+    
+    Args:
+        midi_number (int): MIDI program number (1-128)
+        
+    Returns:
+        str: Instrument name if found, None otherwise
+    """
+    for name, instrument in instruments.items():
+        if isinstance(instrument, dict):
+            if instrument['midi_number'] == midi_number:
+                return name
+        elif instrument == midi_number:
+            return name
+    return None
 
 
 # drumming:
