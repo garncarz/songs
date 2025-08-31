@@ -10,6 +10,8 @@ class Scale:
     intervals = {
         'major': [0, 2, 4, 5, 7, 9, 11],
         'minor': [0, 2, 3, 5, 7, 8, 10],
+        'octatonic_hw': [0, 1, 3, 4, 6, 7, 9, 10],  # Half-Whole octatonic
+        'octatonic_wh': [0, 2, 3, 5, 6, 8, 9, 11],  # Whole-Half octatonic
     }
 
     def __init__(self, midi_root_tone, intervals, signature=None):
@@ -38,6 +40,8 @@ c_major = Scale(60, 'major', 'C')
 c_minor = Scale(60, 'minor', 'Cm')
 g_minor = Scale(67, 'minor', 'Gm')
 b_minor = Scale(71, 'minor', 'Bm')
+c_octatonic_hw = Scale(60, 'octatonic_hw', 'C')
+c_octatonic_wh = Scale(60, 'octatonic_wh', 'C')
 
 
 class Track(MidiTrack):
@@ -246,6 +250,9 @@ class Song(MidiFile):
 instruments = {
     'bright acoustic piano': 2,
     'harpsichord': 7,
+    'celesta': 9,
+    'music box': 11,
+    'tubular bells': 15,
     'church organ': 20,
     'electric guitar (clean)': 28,
     'acoustic bass': {
@@ -263,6 +270,8 @@ instruments = {
     'banjo': 106,
     'shamisen': 107,
     'koto': 108,
+    'glockenspiel': 112,
+    'tinkle bell': 113,
 }
 
 
