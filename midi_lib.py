@@ -57,6 +57,7 @@ class Track(MidiTrack):
         self.grace_portion = 8  # TODO change to grace_beats
         self.default_beats = 1
         self.arpeggio_delay_beats = 1/8
+        self.velocity = 100  # Default MIDI velocity
 
     def _note(self, tone):
         if self.channel == 9:  # percussion
@@ -72,7 +73,7 @@ class Track(MidiTrack):
         return int(beats * self.parent.ticks_per_beat)
 
     def _note_on(self, tone, beats=0):
-        self.append(Message('note_on', note=self._note(tone), velocity=100, time=self._time(beats),
+        self.append(Message('note_on', note=self._note(tone), velocity=self.velocity, time=self._time(beats),
                             channel=self.channel))
 
     def _note_off(self, tone, beats=0):
