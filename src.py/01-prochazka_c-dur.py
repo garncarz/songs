@@ -15,6 +15,7 @@ def arpeggio(*tones, beats=None):
 
 def bassline():
     bass.default_beats = 2
+    bass.rest(2)  # Add initial 2-beat rest to match reference MIDI
     bass.sequence([
         0, -4, -3, 0,
         1, -3, -2, 0,
@@ -35,6 +36,7 @@ def bassline():
 
 
 def chords():
+    up.rest(2)  # Add initial 2-beat rest to match reference MIDI  
     up.sequence([
         [0, 2, 4], [2, 4, 7],
         [3, 6, 8], [3, 5, 7],
