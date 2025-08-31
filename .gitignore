@@ -7,3 +7,5 @@ out
 *.xml
 
 .idea
+__pycache__/
+*.pyc
