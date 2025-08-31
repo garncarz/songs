@@ -2,6 +2,7 @@
 
 import importlib.util
 import os
+import sys
 
 import colorama
 
@@ -68,8 +69,13 @@ def mscore():
             run('mscore %s -o %s' % (ms, pdf))
 
 
-def python():
+def python(song_filter=None):
     files = filter(lambda f: f.endswith('.py'), os.listdir(SRC_PY_DIR))
+    
+    # If a song filter is provided, filter files that start with the pattern
+    if song_filter:
+        files = filter(lambda f: f.startswith(song_filter + '-'), files)
+    
     for py in files:
         info_file(py)
         midi = out_file(py, 'midi')
@@ -111,13 +117,64 @@ def imagemagick():
                 '%s[0] %s' % (pdf, png))
 
 
-def main():
-    lilypond()
-    mscore()
-    timidity()
-    imagemagick()
+def main(processor=None, song_filter=None):
+    if processor == 'python':
+        python(song_filter)
+    elif processor == 'lilypond':
+        lilypond()
+    elif processor == 'mscore':
+        mscore()
+    elif processor == 'timidity':
+        timidity()
+    elif processor == 'imagemagick':
+        imagemagick()
+    elif processor is None:
+        # Default behavior - run all processors
+        lilypond()
+        mscore()
+        python()
+        timidity()
+        imagemagick()
+    else:
+        print(f"Unknown processor: {processor}")
+        print("Available processors: python, lilypond, mscore, timidity, imagemagick")
+        sys.exit(1)
+
+
+def show_help():
+    print("Usage: ./make.py [processor] [song_filter]")
+    print("")
+    print("Processors:")
+    print("  python      Process Python songs (.py files)")
+    print("  lilypond    Process LilyPond files (.ly files)")
+    print("  mscore      Process MuseScore files (.mscz/.mscx files)")
+    print("  timidity    Convert MIDI to audio files")
+    print("  imagemagick Convert PDF to images")
+    print("")
+    print("Examples:")
+    print("  ./make.py                 # Process all song types")
+    print("  ./make.py python          # Process only Python songs")
+    print("  ./make.py python 02       # Process only song 02-zpev_h-moll.py")
+    print("  ./make.py lilypond        # Process only LilyPond files")
 
 
 if __name__ == '__main__':
     os.makedirs(OUT_DIR, exist_ok=True)
-    main()
+    
+    # Parse command line arguments
+    processor = None
+    song_filter = None
+    
+    if len(sys.argv) > 1:
+        processor = sys.argv[1]
+        
+        # Check for help option
+        if processor in ['-h', '--help', 'help']:
+            show_help()
+            sys.exit(0)
+        
+        # If additional argument provided for song filtering
+        if len(sys.argv) > 2:
+            song_filter = sys.argv[2]
+    
+    main(processor, song_filter)
